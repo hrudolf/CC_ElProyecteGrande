@@ -8,7 +8,7 @@ public interface IRepository<T>
     
     T GetItemById(int id);
 
-    void UpdateItemById(int id);
+    T UpdateItemById(T item);
 
     void DeleteItemById(int id);
 

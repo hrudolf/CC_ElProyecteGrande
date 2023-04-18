@@ -2,14 +2,9 @@
 
 public interface IRepository<T>
 {
-    void AddNewItem();
-    
-    HashSet<T> GetAllItems();
-    
-    T GetItemById(int id);
-
-    T UpdateItemById(T item);
-
-    void DeleteItemById(int id);
-
+    T Create(T item);
+    IEnumerable<T> GetAll();
+    T GetById(int id);
+    T Update(T item);
+    T DeleteById(int id);
 }

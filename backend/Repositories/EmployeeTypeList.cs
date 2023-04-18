@@ -37,21 +37,20 @@ public class EmployeeTypeList : IRepository<EmployeeType>
 
     public EmployeeType GetById(int id)
     {
-        return _employeeTypes.First(employee => employee.Id == id);
+        return _employeeTypes.First(employeeType => employeeType.Id == id);
     }
 
     public EmployeeType Update(EmployeeType item)
     {
-        EmployeeType employeeInDb = _employeeTypes.First(employee => employee.Id == item.Id);
+        EmployeeType employeeInDb = _employeeTypes.First(employeeType => employeeType.Id == item.Id);
         employeeInDb.Type = item.Type;
-        employeeInDb.IsDeleted = item.IsDeleted;
         return employeeInDb;
     }
 
     public EmployeeType DeleteById(int id)
     {
-        EmployeeType employeeInDb = _employeeTypes.First(employee => employee.Id == id);
-        employeeInDb.IsDeleted = true;
+        EmployeeType employeeInDb = _employeeTypes.First(employeeType => employeeType.Id == id);
+        if (employeeInDb.IsActive) employeeInDb.ChangeIsDeleted();
         return employeeInDb;
     }
 }

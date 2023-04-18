@@ -39,9 +39,9 @@ public class EmployeeTypeController : ControllerBase
         return Ok(_service.DeleteEmployeeType(id));
     }
     
-    [HttpPut]
-    public IActionResult UpdateEmployeeType([FromBody] EmployeeType employeeType)
+    [HttpPut("{id:int}")]
+    public IActionResult UpdateEmployeeType(int id, [FromBody] string type)
     {
-        return Ok(_service.UpdateEmployeeType(employeeType));
+        return Ok(_service.UpdateEmployeeType(id, type));
     }
 }

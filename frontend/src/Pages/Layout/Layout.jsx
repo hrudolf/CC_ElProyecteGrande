@@ -11,7 +11,7 @@ const Layout = () => (
           <Link to="/" className="nav-link active" aria-current="page">Home</Link>
         </li>
         <li className="nav-item">
-          <Link to="/employeetypes" className="nav-link active" aria-current="page">Employee Types</Link>
+          <Link to="/employeetypes" className="nav-link active" aria-current="page">Employee Roles</Link>
         </li>
         <li className="nav-item">
           <Link to="/login" className="nav-link active" aria-current="page">Login</Link>

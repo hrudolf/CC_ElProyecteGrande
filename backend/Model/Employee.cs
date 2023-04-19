@@ -2,6 +2,7 @@
 
 public class Employee
 {
+    private static int _employeeIdCounter;
     public int EmployeeId { get; }
     public string FirstName { get; }
     public string LastName { get; }
@@ -13,19 +14,18 @@ public class Employee
     public int WorkingDays { get; }
     public int TotalVacationDays { get; }
     
-    // TODO after EmployeeType Model is created
-    // public EmployeeType EmployeeType { get; }
+    public EmployeeType EmployeeType { get; }
     
     // access right -> TODO: authentication
 
     public bool EmploymentStatus { get; }
     public int MonthlyGrossSalary { get; }
-    public bool IsDeleted { get; set; }
+    public bool _isActive = true;
 
     public Employee(int employeeId, string firstName, string lastName, DateOnly dateOfBirth, int workingDays, 
-        int totalVacationDays, bool employmentStatus, int monthlyGrossSalary, bool isDeleted)
+        int totalVacationDays, bool employmentStatus, int monthlyGrossSalary, bool isDeleted, EmployeeType employeeType)
     {
-        EmployeeId = employeeId;
+        EmployeeId = _employeeIdCounter++;
         FirstName = firstName;
         LastName = lastName;
         DateOfBirth = dateOfBirth;
@@ -33,6 +33,17 @@ public class Employee
         TotalVacationDays = totalVacationDays;
         EmploymentStatus = employmentStatus;
         MonthlyGrossSalary = monthlyGrossSalary;
-        IsDeleted = isDeleted;
+        _isActive = isDeleted;
+        EmployeeType = employeeType;
+    }
+    
+    public bool GetIsActive()
+    {
+        return _isActive;
+    }
+    
+    public void ChangeIsActive()
+    {
+        _isActive = !_isActive;
     }
 }

@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace backend.Model;
 
@@ -10,6 +10,11 @@ public class Shift
     public int NursesRequiredForShift { get; set; }
     public double BonusRate { get; set; }
     public bool _isActive = true;
+
+    public Shift()
+    {
+        
+    }
 
     public Shift(string timeOfShift, int nursesRequiredForShift, double bonusRate)
     {

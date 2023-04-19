@@ -6,6 +6,11 @@ public class ShiftRepo : IRepository<Shift>
 {
     private readonly List<Shift> _listOfShifts;
 
+    public ShiftRepo()
+    {
+        _listOfShifts = PopulateShiftList();
+    }
+
     private List<Shift> PopulateShiftList()
     {
         return new List<Shift>()

@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace backend.Model;
 
 public class VacationRequest
@@ -12,6 +14,14 @@ public class VacationRequest
     public VacationRequest(int employeeId, DateOnly startDate, DateOnly endDate)
     {
         RequestId = Counter++;
+        EmployeeId = employeeId;
+        StartDate = startDate;
+        EndDate = endDate;
+    }
+    [JsonConstructor]
+    public VacationRequest(int requestId, int employeeId, DateOnly startDate, DateOnly endDate)
+    {
+        RequestId = requestId;
         EmployeeId = employeeId;
         StartDate = startDate;
         EndDate = endDate;

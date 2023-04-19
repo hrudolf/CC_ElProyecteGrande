@@ -4,6 +4,7 @@ import HomePage from "./Pages/HomePage";
 import EmployeeTypes from "./Pages/EmployeeTypes/EmployeeTypes";
 import { Routes, Route } from "react-router-dom";
 import CreateEmployeeType from "./Pages/EmployeeTypes/CreateEmployeeType";
+import ModifyEmployeeType from "./Pages/EmployeeTypes/ModifyEmployeeType";
 
 function App() {
   return (
@@ -11,12 +12,15 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<HomePage />}></Route>
-          <Route path="/employeetypes" element={<EmployeeTypes />}></Route>
-          <Route path="/employeetypes/create" element={<CreateEmployeeType />}></Route>
+          <Route path="/employeetypes">
+            <Route path="" element={<EmployeeTypes />} />
+            <Route path="create" element={<CreateEmployeeType />}></Route>
+            <Route path="edit/:id" element={<ModifyEmployeeType />}></Route>
+          </Route>
         </Route>
         <Route path="*" element={<NotFoundPage />}></Route>
       </Routes>
-    </div>
+    </div >
   );
 }
 

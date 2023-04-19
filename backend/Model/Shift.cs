@@ -11,11 +11,7 @@ public class Shift
     public double BonusRate { get; set; }
     public bool _isActive = true;
 
-    public Shift()
-    {
-        
-    }
-
+    
     public Shift(string timeOfShift, int nursesRequiredForShift, double bonusRate)
     {
         ShiftId = _shiftIdCounter++;

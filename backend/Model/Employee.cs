@@ -1,5 +1,5 @@
 ﻿using backend.Helper;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace backend.Model;
 
@@ -26,10 +26,6 @@ public class Employee
     public int MonthlyGrossSalary { get; set; }
     public bool _isActive = true;
 
-    public Employee()
-    {
-        
-    }
     
     public Employee(string firstName, string lastName , string dateOfBirth, int workingDays, 
         int totalVacationDays, int monthlyGrossSalary, int employeeType)

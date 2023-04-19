@@ -16,9 +16,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IRepository<EmployeeType>, EmployeeTypeRepo>();
 builder.Services.AddSingleton<IRepository<Employee>, EmployeeRepo>();
 builder.Services.AddSingleton<IRepository<Shift>, ShiftRepo>();
+builder.Services.AddSingleton<IRepository<Roster>, RosterRepo>();
 builder.Services.AddTransient<IEmployeeTypeService, EmployeeTypeService>();
 builder.Services.AddTransient<IEmployeeService, EmployeeService>();
 builder.Services.AddTransient<IShiftService, ShiftService>();
+builder.Services.AddTransient<IRosterService, RosterService>();
 
 builder.Services.AddCors();
 builder.Services.AddSingleton<IRepository<VacationRequest>, VacationRequestRepo>();

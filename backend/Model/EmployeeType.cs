@@ -5,7 +5,7 @@ namespace backend.Model;
 public class EmployeeType
 {
     private static int Counter;
-    public int Id { get; }
+    public int Id { get; set; }
     public string Type { get; set; }
     private bool _isActive = true;
 

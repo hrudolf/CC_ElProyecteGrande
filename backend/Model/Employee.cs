@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using backend.Helper;
+using Newtonsoft.Json;
 
 namespace backend.Model;
 
@@ -8,7 +9,9 @@ public class Employee
     public int EmployeeId { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
-    //public DateOnly DateOfBirth { get; set; }
+    
+    
+    public string DateOfBirth { get; set; }
 
     // TODO after Shift Model is created
     // public List<Shift> PreferredShift { get; }
@@ -29,13 +32,13 @@ public class Employee
         
     }
     
-    public Employee(string firstName, string lastName /*, DateOnly dateOfBirth*/, int workingDays, 
+    public Employee(string firstName, string lastName , string dateOfBirth, int workingDays, 
         int totalVacationDays, int monthlyGrossSalary/*, EmployeeType employeeType*/)
     {
         EmployeeId = _employeeIdCounter++;
         FirstName = firstName;
         LastName = lastName;
-        //DateOfBirth = dateOfBirth;
+        DateOfBirth = dateOfBirth;
         WorkingDays = workingDays;
         TotalVacationDays = totalVacationDays;
         MonthlyGrossSalary = monthlyGrossSalary;
@@ -43,13 +46,13 @@ public class Employee
     }
     
     [JsonConstructor]
-    public Employee(int employeeId, string firstName, string lastName /*, DateOnly dateOfBirth*/, int workingDays, 
+    public Employee(int employeeId, string firstName, string lastName, string dateOfBirth, int workingDays, 
         int totalVacationDays, int monthlyGrossSalary/* EmployeeType employeeType#1#*/)
     {
         EmployeeId = employeeId;
         FirstName = firstName;
         LastName = lastName;
-        //DateOfBirth = dateOfBirth;
+        DateOfBirth = dateOfBirth;
         WorkingDays = workingDays;
         TotalVacationDays = totalVacationDays;
         MonthlyGrossSalary = monthlyGrossSalary;

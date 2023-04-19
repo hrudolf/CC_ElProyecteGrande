@@ -11,7 +11,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IRepository<EmployeeType>, EmployeeTypeRepo>();
+builder.Services.AddSingleton<IRepository<Employee>, EmployeeRepo>();
 builder.Services.AddTransient<IEmployeeTypeService, EmployeeTypeService>();
+builder.Services.AddTransient<IEmployeeService, EmployeeService>();
 
 var app = builder.Build();
 

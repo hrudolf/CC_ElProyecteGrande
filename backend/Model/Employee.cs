@@ -1,12 +1,14 @@
-﻿namespace backend.Model;
+﻿using Newtonsoft.Json;
+
+namespace backend.Model;
 
 public class Employee
 {
     private static int _employeeIdCounter;
-    public int EmployeeId { get; }
+    public int EmployeeId { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
-    public DateOnly DateOfBirth { get; set; }
+    //public DateOnly DateOfBirth { get; set; }
 
     // TODO after Shift Model is created
     // public List<Shift> PreferredShift { get; }
@@ -14,7 +16,7 @@ public class Employee
     public int WorkingDays { get; set; }
     public int TotalVacationDays { get; set; }
 
-    public EmployeeType EmployeeType { get; set; }
+    //public EmployeeType EmployeeType { get; set; }
     
     // access right -> TODO: authentication
 
@@ -22,19 +24,33 @@ public class Employee
     public int MonthlyGrossSalary { get; set; }
     public bool _isActive = true;
 
-    public Employee(int employeeId, string firstName, string lastName, DateOnly dateOfBirth, int workingDays, 
-        int totalVacationDays, bool employmentStatus, int monthlyGrossSalary, bool isActive, EmployeeType employeeType)
+    public Employee(string firstName, string lastName /*, DateOnly dateOfBirth*/, int workingDays, 
+        int totalVacationDays, bool employmentStatus, int monthlyGrossSalary/*, EmployeeType employeeType*/)
     {
         EmployeeId = _employeeIdCounter++;
         FirstName = firstName;
         LastName = lastName;
-        DateOfBirth = dateOfBirth;
+        //DateOfBirth = dateOfBirth;
         WorkingDays = workingDays;
         TotalVacationDays = totalVacationDays;
         EmploymentStatus = employmentStatus;
         MonthlyGrossSalary = monthlyGrossSalary;
-        _isActive = isActive;
-        EmployeeType = employeeType;
+        //EmployeeType = employeeType;
+    }
+    
+    [JsonConstructor]
+    public Employee(int employeeId, string firstName, string lastName /*, DateOnly dateOfBirth*/, int workingDays, 
+        int totalVacationDays, bool employmentStatus, int monthlyGrossSalary/* EmployeeType employeeType*/)
+    {
+        EmployeeId = employeeId;
+        FirstName = firstName;
+        LastName = lastName;
+        //DateOfBirth = dateOfBirth;
+        WorkingDays = workingDays;
+        TotalVacationDays = totalVacationDays;
+        EmploymentStatus = employmentStatus;
+        MonthlyGrossSalary = monthlyGrossSalary;
+        //EmployeeType = employeeType;
     }
     
     public bool GetIsActive()

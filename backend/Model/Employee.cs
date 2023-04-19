@@ -23,7 +23,7 @@ public class Employee
     public bool _isActive = true;
 
     public Employee(int employeeId, string firstName, string lastName, DateOnly dateOfBirth, int workingDays, 
-        int totalVacationDays, bool employmentStatus, int monthlyGrossSalary, bool isDeleted, EmployeeType employeeType)
+        int totalVacationDays, bool employmentStatus, int monthlyGrossSalary, bool isActive, EmployeeType employeeType)
     {
         EmployeeId = _employeeIdCounter++;
         FirstName = firstName;
@@ -33,7 +33,7 @@ public class Employee
         TotalVacationDays = totalVacationDays;
         EmploymentStatus = employmentStatus;
         MonthlyGrossSalary = monthlyGrossSalary;
-        _isActive = isDeleted;
+        _isActive = isActive;
         EmployeeType = employeeType;
     }
     

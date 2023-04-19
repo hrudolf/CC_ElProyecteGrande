@@ -7,13 +7,12 @@ public class EmployeeType
     private static int Counter;
     public int Id { get; }
     public string Type { get; set; }
-    private bool IsDeleted { get; set; }
+    private bool _isActive = true;
 
     public EmployeeType(string type)
     {
         Id = Counter++;
         Type = type;
-        IsDeleted = false;
     }
 
     [JsonConstructor]
@@ -21,13 +20,15 @@ public class EmployeeType
     {
         Id = id;
         Type = type;
-        IsDeleted = false;
     }
 
-    public void ChangeIsDeleted()
+    public bool GetIsActive()
     {
-        IsDeleted = !IsDeleted;
+        return _isActive;
     }
-
-    public bool IsActive => !IsDeleted;
+    
+    public void ChangeIsActive()
+    {
+        _isActive = !_isActive;
+    }
 }

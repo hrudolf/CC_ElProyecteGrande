@@ -50,7 +50,7 @@ public class EmployeeTypeList : IRepository<EmployeeType>
     public EmployeeType DeleteById(int id)
     {
         EmployeeType employeeInDb = _employeeTypes.First(employeeType => employeeType.Id == id);
-        if (employeeInDb.IsActive) employeeInDb.ChangeIsDeleted();
+        if (employeeInDb.GetIsActive()) employeeInDb.ChangeIsActive();
         return employeeInDb;
     }
 }

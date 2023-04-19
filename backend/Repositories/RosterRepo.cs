@@ -6,7 +6,7 @@ public class RosterRepo : IRepository<Roster>
 {
     private HashSet<Roster> _listOfRosters;
 
-    public RosterRepo(HashSet<Roster> listOfRosters)
+    public RosterRepo()
     {
         _listOfRosters = PopulateRosterList();
     }

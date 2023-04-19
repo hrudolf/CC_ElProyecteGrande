@@ -3,11 +3,11 @@ using backend.Model;
 
 namespace backend.Repositories;
 
-public class EmployeeTypeList : IRepository<EmployeeType>
+public class EmployeeTypeRepo : IRepository<EmployeeType>
 {
     private readonly List<EmployeeType> _employeeTypes;
 
-    public EmployeeTypeList()
+    public EmployeeTypeRepo()
     {
         _employeeTypes = CreateBasicTypes();
     }
@@ -35,22 +35,26 @@ public class EmployeeTypeList : IRepository<EmployeeType>
         return _employeeTypes;
     }
 
-    public EmployeeType GetById(int id)
+    public EmployeeType? GetById(int id)
     {
-        return _employeeTypes.First(employeeType => employeeType.Id == id);
+        return _employeeTypes.FirstOrDefault(employeeType => employeeType.Id == id);
     }
 
-    public EmployeeType Update(EmployeeType item)
+    public EmployeeType? Update(EmployeeType updatedData)
     {
-        EmployeeType employeeInDb = _employeeTypes.First(employeeType => employeeType.Id == item.Id);
-        employeeInDb.Type = item.Type;
+        EmployeeType? employeeInDb = _employeeTypes.FirstOrDefault(employeeType => employeeType.Id == updatedData.Id);
+        if (employeeInDb != null)
+        {
+            employeeInDb.Type = updatedData.Type;
+        }
+
         return employeeInDb;
     }
 
-    public EmployeeType DeleteById(int id)
+    public EmployeeType? Delete(int id)
     {
-        EmployeeType employeeInDb = _employeeTypes.First(employeeType => employeeType.Id == id);
-        if (employeeInDb.GetIsActive()) employeeInDb.ChangeIsActive();
+        EmployeeType? employeeInDb = _employeeTypes.FirstOrDefault(employeeType => employeeType.Id == id);
+        if (employeeInDb != null && employeeInDb.GetIsActive()) employeeInDb.ChangeIsActive();
         return employeeInDb;
     }
 }

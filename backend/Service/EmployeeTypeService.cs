@@ -12,9 +12,13 @@ public class EmployeeTypeService : IEmployeeTypeService
         _repository = repository;
     }
 
-    public IEnumerable<EmployeeType> GetAllEmployeeTypes() => _repository.GetAll().Where(employeeType => employeeType.GetIsActive());
-    public EmployeeType GetById(int id) => _repository.GetById(id);
-    public EmployeeType CreateEmployeeType(EmployeeType employee) => _repository.Create(employee);
-    public EmployeeType DeleteEmployeeType(int id) => _repository.DeleteById(id);
-    public EmployeeType UpdateEmployeeType(int id, string type) => _repository.Update(new EmployeeType(id, type));
+    public EmployeeType Create(EmployeeType employeeType) => _repository.Create(employeeType);
+    public IEnumerable<EmployeeType> GetAll() => _repository.GetAll().Where(employeeType => employeeType.GetIsActive());
+    public EmployeeType? GetById(int id) => _repository.GetById(id);
+    public EmployeeType? Delete(int id) => _repository.Delete(id);
+
+    public EmployeeType? Update(EmployeeType employeeType)
+    {
+        return _repository.Update(employeeType);
+    }
 }

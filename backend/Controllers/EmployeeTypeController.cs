@@ -18,30 +18,53 @@ public class EmployeeTypeController : ControllerBase
     [HttpGet]
     public IActionResult GetAllEmployeeTypes()
     {
-        return Ok(_service.GetAllEmployeeTypes());
+        return Ok(_service.GetAll());
     }
     
     [HttpGet("{id:int}")]
     public IActionResult GetEmployeeTypeById(int id)
     {
-        return Ok(_service.GetById(id));
+        EmployeeType? employeeType = _service.GetById(id);
+        if (employeeType != null)
+        {
+            return Ok(employeeType);
+        }
+
+        return NotFound();
     }
     
     [HttpPost]
     public IActionResult CreateEmployeeType([FromBody] EmployeeType employeeType)
     {
-        return Ok(_service.CreateEmployeeType(employeeType));
+        return Ok(_service.Create(employeeType));
     }
     
     [HttpDelete("{id:int}")]
     public IActionResult DeleteEmployeeTypeById(int id)
     {
-        return Ok(_service.DeleteEmployeeType(id));
+        EmployeeType? employeeType = _service.Delete(id);
+        if (employeeType != null)
+        {
+            return Ok(employeeType);
+        }
+
+        return NotFound();
     }
     
     [HttpPut("{id:int}")]
-    public IActionResult UpdateEmployeeType(int id, [FromBody] string type)
+    public IActionResult UpdateEmployeeType(int id, [FromBody] EmployeeType updatedEmployeeType)
     {
-        return Ok(_service.UpdateEmployeeType(id, type));
+        if (updatedEmployeeType.Id == id)
+        {
+            EmployeeType? employeeType = _service.Update(updatedEmployeeType);
+            if (employeeType != null)
+            {
+                return Ok(employeeType);
+            }
+
+            return NotFound();
+        }
+
+        return BadRequest("IDs do not match.");
     }
 }

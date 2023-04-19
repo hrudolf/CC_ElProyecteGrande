@@ -1,6 +1,6 @@
-﻿namespace backend.Repositories;
+﻿namespace backend.Service;
 
-public interface IRepository<T>
+public interface IService<T>
 {
     T Create(T item);
     IEnumerable<T> GetAll();

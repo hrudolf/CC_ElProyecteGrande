@@ -1,6 +1,9 @@
+using backend.Helper;
 using backend.Model;
 using backend.Repositories;
 using backend.Service;
+using Microsoft.AspNetCore.Http.Json;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,10 +14,22 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IRepository<EmployeeType>, EmployeeTypeRepo>();
+builder.Services.AddSingleton<IRepository<Employee>, EmployeeRepo>();
 builder.Services.AddTransient<IEmployeeTypeService, EmployeeTypeService>();
+builder.Services.AddTransient<IEmployeeService, EmployeeService>();
+
 builder.Services.AddCors();
 builder.Services.AddSingleton<IRepository<VacationRequest>, VacationRequestRepo>();
 builder.Services.AddTransient<IVacationRequestService, VacationRequestService>();
+
+
+/*
+// custom DateOnly Json Converter
+builder.Services.Configure<JsonOptions>(options =>
+{
+    options.SerializerOptions.Converters.Add(new DateOnlyJsonConverter());
+});
+*/
 
 var app = builder.Build();
 

@@ -1,29 +1,52 @@
-﻿namespace backend.Model;
+﻿using backend.Helper;
+using Newtonsoft.Json;
+
+namespace backend.Model;
 
 public class Employee
 {
-    public int EmployeeId { get; }
-    public string FirstName { get; }
-    public string LastName { get; }
-    public DateOnly DateOfBirth { get; }
+    private static int _employeeIdCounter;
+    public int EmployeeId { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    
+    public string DateOfBirth { get; set; }
 
     // TODO after Shift Model is created
     // public List<Shift> PreferredShift { get; }
 
-    public int WorkingDays { get; }
-    public int TotalVacationDays { get; }
+    public int WorkingDays { get; set; }
+    public int TotalVacationDays { get; set; }
     
-    // TODO after EmployeeType Model is created
-    // public EmployeeType EmployeeType { get; }
+    public int EmployeeType { get; set; }
     
     // access right -> TODO: authentication
 
-    public bool EmploymentStatus { get; }
-    public int MonthlyGrossSalary { get; }
-    public bool IsDeleted { get; set; }
+    public bool EmploymentStatus = true;
+    public int MonthlyGrossSalary { get; set; }
+    public bool _isActive = true;
 
-    public Employee(int employeeId, string firstName, string lastName, DateOnly dateOfBirth, int workingDays, 
-        int totalVacationDays, bool employmentStatus, int monthlyGrossSalary, bool isDeleted)
+    public Employee()
+    {
+        
+    }
+    
+    public Employee(string firstName, string lastName , string dateOfBirth, int workingDays, 
+        int totalVacationDays, int monthlyGrossSalary, int employeeType)
+    {
+        EmployeeId = _employeeIdCounter++;
+        FirstName = firstName;
+        LastName = lastName;
+        DateOfBirth = dateOfBirth;
+        WorkingDays = workingDays;
+        TotalVacationDays = totalVacationDays;
+        MonthlyGrossSalary = monthlyGrossSalary;
+        EmployeeType = employeeType;
+    }
+    
+    [JsonConstructor]
+    public Employee(int employeeId, string firstName, string lastName, string dateOfBirth, int workingDays, 
+        int totalVacationDays, int monthlyGrossSalary, int employeeType)
     {
         EmployeeId = employeeId;
         FirstName = firstName;
@@ -31,8 +54,17 @@ public class Employee
         DateOfBirth = dateOfBirth;
         WorkingDays = workingDays;
         TotalVacationDays = totalVacationDays;
-        EmploymentStatus = employmentStatus;
         MonthlyGrossSalary = monthlyGrossSalary;
-        IsDeleted = isDeleted;
+        EmployeeType = employeeType;
+    }
+    
+    public bool GetIsActive()
+    {
+        return _isActive;
+    }
+    
+    public void ChangeIsActive()
+    {
+        _isActive = !_isActive;
     }
 }

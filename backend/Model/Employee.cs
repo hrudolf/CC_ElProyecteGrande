@@ -17,8 +17,8 @@ public class Employee
 
     public int WorkingDays { get; set; }
     public int TotalVacationDays { get; set; }
-    //TODO to int
-    public EmployeeType EmployeeType { get; set; }
+    
+    public int EmployeeType { get; set; }
     
     // access right -> TODO: authentication
 
@@ -32,7 +32,7 @@ public class Employee
     }
     
     public Employee(string firstName, string lastName , string dateOfBirth, int workingDays, 
-        int totalVacationDays, int monthlyGrossSalary, EmployeeType employeeType)
+        int totalVacationDays, int monthlyGrossSalary, int employeeType)
     {
         EmployeeId = _employeeIdCounter++;
         FirstName = firstName;
@@ -46,7 +46,7 @@ public class Employee
     
     [JsonConstructor]
     public Employee(int employeeId, string firstName, string lastName, string dateOfBirth, int workingDays, 
-        int totalVacationDays, int monthlyGrossSalary, EmployeeType employeeType)
+        int totalVacationDays, int monthlyGrossSalary, int employeeType)
     {
         EmployeeId = employeeId;
         FirstName = firstName;

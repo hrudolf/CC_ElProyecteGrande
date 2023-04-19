@@ -12,6 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IRepository<EmployeeType>, EmployeeTypeRepo>();
 builder.Services.AddTransient<IEmployeeTypeService, EmployeeTypeService>();
+builder.Services.AddCors();
 
 var app = builder.Build();
 

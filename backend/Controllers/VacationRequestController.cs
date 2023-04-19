@@ -36,7 +36,7 @@ public class VacationRequestController : ControllerBase
     [HttpPost]
     public IActionResult CreateVacationRequest([FromBody] VacationRequest vacationRequest)
     {
-        return Ok(_service.Create(vacationRequest));
+        return Ok(_service.Create(new VacationRequest(vacationRequest.EmployeeId, vacationRequest.StartDate, vacationRequest.EndDate)));
     }
     
     [HttpDelete("{id:int}")]
@@ -54,20 +54,13 @@ public class VacationRequestController : ControllerBase
     [HttpPatch("{id:int}")]
     public IActionResult ApproveVacationRequest(int id)
     {
-        /*
-        if (updatedVacationRequest.RequestId == id)
-        {
-            */
-            VacationRequest? vacationRequest = _service.Approve(id);
+        VacationRequest? vacationRequest = _service.Approve(id);
             if (vacationRequest != null)
             {
                 return Ok(vacationRequest);
             }
 
             return NotFound();
-        /*}
-
-        return BadRequest("IDs do not match.");*/
     }
     [HttpPut("{id:int}")]
     public IActionResult UpDateVacationRequest(int id, [FromBody] VacationRequest updatedVacationRequest)

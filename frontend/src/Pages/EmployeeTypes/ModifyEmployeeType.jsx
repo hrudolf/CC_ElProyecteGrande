@@ -26,7 +26,7 @@ const ModifyEmployeeType = () => {
             setEmployeeType(json.type);
         })
         .catch(err => setError(err))
-}, [])
+}, [id])
 
   const updateEmployeeType = async (e) => {
     e.preventDefault();

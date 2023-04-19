@@ -4,9 +4,9 @@ namespace backend.Repositories;
 
 public class EmployeeRepo : IRepository<Employee>
 {
-    private HashSet<EmployeeType> _listOfEmployees;
+    private HashSet<Employee> _listOfEmployees;
 
-    public EmployeeRepo(HashSet<EmployeeType> listOfEmployees)
+    public EmployeeRepo(HashSet<Employee> listOfEmployees)
     {
         _listOfEmployees = listOfEmployees;
     }
@@ -41,26 +41,44 @@ public class EmployeeRepo : IRepository<Employee>
 
     public Employee Create(Employee item)
     {
-        throw new NotImplementedException();
+        _listOfEmployees.Add(item);
+        return item;
     }
 
     public IEnumerable<Employee> GetAll()
     {
-        throw new NotImplementedException();
+        return _listOfEmployees;
     }
 
     public Employee? GetById(int id)
     {
-        throw new NotImplementedException();
+        return _listOfEmployees.FirstOrDefault(employee => employee.EmployeeId == id);
     }
 
     public Employee? Delete(int id)
     {
-        throw new NotImplementedException();
+        Employee? employeeInDb = _listOfEmployees.FirstOrDefault(employee => employee.EmployeeId == id);
+        if (employeeInDb != null && employeeInDb.GetIsActive()) employeeInDb.ChangeIsActive();
+        return employeeInDb;
     }
 
     public Employee? Update(Employee updatedData)
     {
-        throw new NotImplementedException();
+        Employee? employeeInDb = _listOfEmployees.FirstOrDefault(employee => employee.EmployeeId == updatedData.EmployeeId);
+        if (employeeInDb != null)
+        {
+            employeeInDb.FirstName = updatedData.FirstName;
+            employeeInDb.LastName = updatedData.LastName;
+            employeeInDb.DateOfBirth = updatedData.DateOfBirth;
+            employeeInDb.WorkingDays = updatedData.WorkingDays;
+            employeeInDb.TotalVacationDays = updatedData.TotalVacationDays;
+            employeeInDb.EmploymentStatus = updatedData.EmploymentStatus;
+            employeeInDb.MonthlyGrossSalary = updatedData.MonthlyGrossSalary;
+            employeeInDb._isActive = updatedData._isActive;
+            employeeInDb.EmployeeType.Id = updatedData.EmployeeType.Id;
+            employeeInDb.EmployeeType.Type = updatedData.EmployeeType.Type;
+        }
+
+        return employeeInDb;
     }
 }

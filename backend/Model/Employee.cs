@@ -10,7 +10,6 @@ public class Employee
     public string FirstName { get; set; }
     public string LastName { get; set; }
     
-    
     public string DateOfBirth { get; set; }
 
     // TODO after Shift Model is created
@@ -18,8 +17,8 @@ public class Employee
 
     public int WorkingDays { get; set; }
     public int TotalVacationDays { get; set; }
-
-    //public EmployeeType EmployeeType { get; set; }
+    //TODO to int
+    public EmployeeType EmployeeType { get; set; }
     
     // access right -> TODO: authentication
 
@@ -33,7 +32,7 @@ public class Employee
     }
     
     public Employee(string firstName, string lastName , string dateOfBirth, int workingDays, 
-        int totalVacationDays, int monthlyGrossSalary/*, EmployeeType employeeType*/)
+        int totalVacationDays, int monthlyGrossSalary, EmployeeType employeeType)
     {
         EmployeeId = _employeeIdCounter++;
         FirstName = firstName;
@@ -42,12 +41,12 @@ public class Employee
         WorkingDays = workingDays;
         TotalVacationDays = totalVacationDays;
         MonthlyGrossSalary = monthlyGrossSalary;
-        //EmployeeType = employeeType;
+        EmployeeType = employeeType;
     }
     
     [JsonConstructor]
     public Employee(int employeeId, string firstName, string lastName, string dateOfBirth, int workingDays, 
-        int totalVacationDays, int monthlyGrossSalary/* EmployeeType employeeType#1#*/)
+        int totalVacationDays, int monthlyGrossSalary, EmployeeType employeeType)
     {
         EmployeeId = employeeId;
         FirstName = firstName;
@@ -56,7 +55,7 @@ public class Employee
         WorkingDays = workingDays;
         TotalVacationDays = totalVacationDays;
         MonthlyGrossSalary = monthlyGrossSalary;
-        //EmployeeType = employeeType;
+        EmployeeType = employeeType;
     }
     
     public bool GetIsActive()

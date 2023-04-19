@@ -22,6 +22,6 @@ public class EmployeeService : IEmployeeService
 
     public Employee? Update(Employee updatedData)
     {
-        return _repository.Create(updatedData);
+        return _repository.Update(updatedData);
     }
 }

@@ -1,24 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import Layout from "./Pages/Layout";
+import NotFoundPage from "./Pages/NotFoundPage";
+import HomePage from "./Pages/HomePage";
+import EmployeeTypes from "./Pages/EmployeeTypes/EmployeeTypes";
+import { Routes, Route } from "react-router-dom";
+import CreateEmployeeType from "./Pages/EmployeeTypes/CreateEmployeeType";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p class="display-1">This is my test sentence </p>
-        <p >
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route path="/" element={<HomePage />}></Route>
+          <Route path="/employeetypes" element={<EmployeeTypes />}></Route>
+          <Route path="/employeetypes/create" element={<CreateEmployeeType />}></Route>
+        </Route>
+        <Route path="*" element={<NotFoundPage />}></Route>
+      </Routes>
     </div>
   );
 }

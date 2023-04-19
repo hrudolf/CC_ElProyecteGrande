@@ -4,17 +4,17 @@ import "./Layout.css";
 
 const Layout = () => (
   <div className="Layout">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <Link to="/" class="nav-link active" aria-current="page">Home</Link>
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+        <li className="nav-item">
+          <Link to="/" className="nav-link active" aria-current="page">Home</Link>
         </li>
-        <li class="nav-item">
-          <Link to="/employeetypes" class="nav-link active" aria-current="page">Employee Types</Link>
+        <li className="nav-item">
+          <Link to="/employeetypes" className="nav-link active" aria-current="page">Employee Types</Link>
         </li>
-        <li class="nav-item">
-          <Link to="/login" class="nav-link active" aria-current="page">Login</Link>
+        <li className="nav-item">
+          <Link to="/login" className="nav-link active" aria-current="page">Login</Link>
         </li>
       </ul>
       </div>

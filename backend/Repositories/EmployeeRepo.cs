@@ -4,35 +4,35 @@ namespace backend.Repositories;
 
 public class EmployeeRepo : IRepository<Employee>
 {
-    private HashSet<Employee> _listOfEmployees;
+    private List<Employee> _listOfEmployees;
 
     public EmployeeRepo()
     {
         _listOfEmployees = PopulateEmployeeList();
     }
 
-    private HashSet<Employee> PopulateEmployeeList()
+    private List<Employee> PopulateEmployeeList()
     {
-        return new HashSet<Employee>()
+        return new List<Employee>()
         {
-            new Employee("Susan", "Smith", /*new DateOnly(1996, 02, 15),*/ 5, 25, true, 35000 
+            new Employee("Susan", "Smith", /*new DateOnly(1996, 02, 15),*/ 5, 25, 35000 
                 /*new EmployeeType("Head Nurse")*/),
-            new Employee("Angela", "McClure", /*new DateOnly(1980, 04, 20),*/ 3, 25, true, 30000 /*new EmployeeType("Nurse")*/),
-            new Employee("Sandra", "Glenn", /*new DateOnly(2000, 02, 4),*/ 5, 25, true, 25000 
+            new Employee("Angela", "McClure", /*new DateOnly(1980, 04, 20),*/ 3, 25, 30000 /*new EmployeeType("Nurse")*/),
+            new Employee("Sandra", "Glenn", /*new DateOnly(2000, 02, 4),*/ 5, 25, 25000 
                 /*new EmployeeType("Nurse")*/),
-            new Employee("Cecilia", "Coles", /*new DateOnly(2010, 12, 15),*/ 5, 20, true, 25000 
+            new Employee("Cecilia", "Coles", /*new DateOnly(2010, 12, 15),*/ 5, 20, 25000 
                 /*new EmployeeType("Nurse")*/),
-            new Employee("Angela", "Metcalfe", /*new DateOnly(2002, 05, 19),*/ 4, 20, true, 24000 
+            new Employee("Angela", "Metcalfe", /*new DateOnly(2002, 05, 19),*/ 4, 20, 24000 
                 /*new EmployeeType("Shift lead nurse")*/),
-            new Employee("Catherine", "Ross", /*new DateOnly(2005, 03, 5),*/ 4, 25, true, 20000 /*, 
+            new Employee("Catherine", "Ross", /*new DateOnly(2005, 03, 5),*/ 4, 25, 20000 /*, 
                 new EmployeeType("Nurse")*/),
-            new Employee("Janet", "Marks", /*new DateOnly(2006, 09, 1),*/ 5, 25, true, 25000 /*, 
+            new Employee("Janet", "Marks", /*new DateOnly(2006, 09, 1),*/ 5, 25, 25000 /*, 
                 new EmployeeType("Nurse")*/),
-            new Employee("Cristina", "Fowles", /*new DateOnly(2007, 02, 15),*/ 5, 20, true, 25000 /*, 
+            new Employee("Cristina", "Fowles", /*new DateOnly(2007, 02, 15),*/ 5, 20,  25000 /*, 
                 new EmployeeType("Nurse")*/),
-            new Employee("Karol", "Green", /*new DateOnly(2001, 05, 27),*/ 5, 20, true, 24000 /*, 
+            new Employee("Karol", "Green", /*new DateOnly(2001, 05, 27),*/ 5, 20,  24000 /*, 
                 new EmployeeType("Nurse")*/),
-            new Employee("John", "Garcia", /*new DateOnly(1996, 02, 15),*/ 5, 25, true, 35000 /*, 
+            new Employee("John", "Garcia", /*new DateOnly(1996, 02, 15),*/ 5, 25,  35000 /*, 
                 new EmployeeType("Accountant")*/)
         };
     }

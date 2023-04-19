@@ -20,12 +20,17 @@ public class Employee
     
     // access right -> TODO: authentication
 
-    public bool EmploymentStatus { get; set; }
+    public bool EmploymentStatus = true;
     public int MonthlyGrossSalary { get; set; }
     public bool _isActive = true;
 
+    public Employee()
+    {
+        
+    }
+    
     public Employee(string firstName, string lastName /*, DateOnly dateOfBirth*/, int workingDays, 
-        int totalVacationDays, bool employmentStatus, int monthlyGrossSalary/*, EmployeeType employeeType*/)
+        int totalVacationDays, int monthlyGrossSalary/*, EmployeeType employeeType*/)
     {
         EmployeeId = _employeeIdCounter++;
         FirstName = firstName;
@@ -33,14 +38,13 @@ public class Employee
         //DateOfBirth = dateOfBirth;
         WorkingDays = workingDays;
         TotalVacationDays = totalVacationDays;
-        EmploymentStatus = employmentStatus;
         MonthlyGrossSalary = monthlyGrossSalary;
         //EmployeeType = employeeType;
     }
     
     [JsonConstructor]
     public Employee(int employeeId, string firstName, string lastName /*, DateOnly dateOfBirth*/, int workingDays, 
-        int totalVacationDays, bool employmentStatus, int monthlyGrossSalary/* EmployeeType employeeType*/)
+        int totalVacationDays, int monthlyGrossSalary/* EmployeeType employeeType#1#*/)
     {
         EmployeeId = employeeId;
         FirstName = firstName;
@@ -48,7 +52,6 @@ public class Employee
         //DateOfBirth = dateOfBirth;
         WorkingDays = workingDays;
         TotalVacationDays = totalVacationDays;
-        EmploymentStatus = employmentStatus;
         MonthlyGrossSalary = monthlyGrossSalary;
         //EmployeeType = employeeType;
     }

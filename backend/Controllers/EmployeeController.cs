@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using backend.Model;
+using backend.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,36 +13,67 @@ namespace backend.Controllers
     [ApiController]
     public class EmployeeController : ControllerBase
     {
-        // GET: api/Employee
+
+        private readonly IEmployeeService _service;
+        
+        
+        public EmployeeController(IEmployeeService service)
+        {
+            _service = service;
+        }
+        
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult GetAllEmployees()
         {
-            return new string[] { "value1", "value2" };
+            return Ok(_service.GetAll());
         }
-
-        // GET: api/Employee/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        
+        [HttpGet("{id:int}")]
+        public IActionResult GetEmployeeById(int id)
         {
-            return "value";
-        }
+            Employee? employee = _service.GetById(id);
+            if (employee != null)
+            {
+                return Ok(employee);
+            }
 
-        // POST: api/Employee
+            return NotFound();
+        }
+        
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult CreateEmployee([FromBody] Employee employee)
         {
+            return Ok(_service.Create(employee));
+        }
+        
+        [HttpDelete("{id:int}")]
+        public IActionResult DeleteEmployeeById(int id)
+        {
+            Employee? employee = _service.Delete(id);
+            if (employee != null)
+            {
+                return Ok(employee);
+            }
+
+            return NotFound();
+        }
+        
+        [HttpPut("{id:int}")]
+        public IActionResult UpdateEmployee(int id, [FromBody] Employee updatedEmployee)
+        {
+            if (updatedEmployee.EmployeeId == id)
+            {
+                Employee? employee = _service.Update(updatedEmployee);
+                if (employee != null)
+                {
+                    return Ok(employee);
+                }
+
+                return NotFound();
+            }
+
+            return BadRequest("IDs do not match.");
         }
 
-        // PUT: api/Employee/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE: api/Employee/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

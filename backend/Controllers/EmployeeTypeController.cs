@@ -34,9 +34,9 @@ public class EmployeeTypeController : ControllerBase
     }
     
     [HttpPost]
-    public IActionResult CreateEmployeeType([FromBody] EmployeeType employeeType)
+    public IActionResult CreateEmployeeType([FromBody] string employeeType)
     {
-        return Ok(_service.Create(employeeType));
+        return Ok(_service.Create(new EmployeeType(employeeType)));
     }
     
     [HttpDelete("{id:int}")]

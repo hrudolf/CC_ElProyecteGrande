@@ -18,6 +18,11 @@ builder.Services.AddSingleton<IRepository<Employee>, EmployeeRepo>();
 builder.Services.AddTransient<IEmployeeTypeService, EmployeeTypeService>();
 builder.Services.AddTransient<IEmployeeService, EmployeeService>();
 
+builder.Services.AddCors();
+builder.Services.AddSingleton<IRepository<VacationRequest>, VacationRequestRepo>();
+builder.Services.AddTransient<IVacationRequestService, VacationRequestService>();
+
+
 /*
 // custom DateOnly Json Converter
 builder.Services.Configure<JsonOptions>(options =>

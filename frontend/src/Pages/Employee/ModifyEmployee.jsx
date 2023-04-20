@@ -119,9 +119,9 @@ const ModifyEmployee = () => {
   };
 
   return (
-    <div className="container bg-light w-25 p-3">
+    <div className="container bg-light w-50 p-3">
       <h1 class="text-center">Change Employee Details</h1>
-      <div className="container align-items-left">
+      <div className="container align-items-left w-75">
         {!message && (
           <form className="UserForm" onSubmit={postemployee}>
             <div class="row no-gutters w-100">
@@ -131,6 +131,7 @@ const ModifyEmployee = () => {
                 </Col>
                 <Col>
                   <input
+                    className="w-100"
                     type="text"
                     name="firstname"
                     id="firstname"
@@ -149,6 +150,7 @@ const ModifyEmployee = () => {
                 </Col>
                 <Col>
                   <input
+                    className="w-100"
                     type="text"
                     name="lastname"
                     id="lastname"
@@ -168,6 +170,7 @@ const ModifyEmployee = () => {
                 <Col>
                   <input
                     type="date"
+                    className="w-100"
                     name="birthdate"
                     id="birthdate"
                     min="1920-01-01"
@@ -186,6 +189,7 @@ const ModifyEmployee = () => {
                 </Col>
                 <Col>
                   <input
+                    className="w-100"
                     type="number"
                     name="shift"
                     id="shift"
@@ -204,6 +208,7 @@ const ModifyEmployee = () => {
                 </Col>
                 <Col>
                   <input
+                    className="w-100"
                     type="number"
                     name="workdays"
                     id="workdays"
@@ -218,10 +223,11 @@ const ModifyEmployee = () => {
             <div class="row no-gutters w-100">
               <Row>
                 <Col>
-                  <label htmlFor="vacation">Vacation days per year:</label>
+                  <label htmlFor="vacation">Vacation days:</label>
                 </Col>
                 <Col>
                   <input
+                    className="w-100"
                     type="number"
                     name="vacation"
                     id="vacation"
@@ -243,6 +249,7 @@ const ModifyEmployee = () => {
                     <Col>
                       <select
                         name="employeeType"
+                        className="w-100"
                         id="employeeType"
                         value={employee.employeeType}
                         onChange={(e) => updateProperty(e.target.value, 7)}
@@ -267,6 +274,7 @@ const ModifyEmployee = () => {
                 </Col>
                 <Col>
                   <input
+                    className="w-100"
                     type="number"
                     name="salary"
                     id="salary"

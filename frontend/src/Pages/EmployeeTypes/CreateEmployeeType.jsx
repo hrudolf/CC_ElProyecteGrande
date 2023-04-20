@@ -39,6 +39,7 @@ const CreateEmployeeType = () => {
 
   return (
     <div class="container bg-light w-25 p-3">
+      {!message && 
       <form className="UserForm" onSubmit={postEmployeeType}>
         <label htmlFor="employeeType">Add an employee role:</label>
         <input
@@ -60,8 +61,9 @@ const CreateEmployeeType = () => {
           </button>
         </div>
       </form>
-      {error && <div className={"error"}>{error ? error : ""}</div>}
-      {message && <div className={"message"}>{message ? message : ""}</div>}
+    }
+      {error && <div class="alert alert-danger" role="alert">{error ? error : ""}</div>}
+      {message && <div class="alert alert-success" role="alert">{message ? message : ""}</div>}
     </div >
   );
 };

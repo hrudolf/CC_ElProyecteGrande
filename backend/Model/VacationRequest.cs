@@ -7,8 +7,8 @@ public class VacationRequest
     private static int Counter;
     public int RequestId { get; }
     public int EmployeeId { get; }
-    public DateOnly StartDate { get; set; }
-    public DateOnly EndDate { get; set; }
+    public DateOnly StartDate { get; private set; }
+    public DateOnly EndDate { get; private set; }
     private bool _isApproved;
 
     public VacationRequest(int employeeId, DateOnly startDate, DateOnly endDate)

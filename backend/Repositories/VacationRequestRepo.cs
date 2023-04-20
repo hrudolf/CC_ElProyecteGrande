@@ -26,20 +26,17 @@ public class VacationRequestRepo : IRepository<VacationRequest>
         return _vacationRequests.FirstOrDefault(request => request.RequestId == id);
     }
 
-    public VacationRequest? Delete(int id)
+    public VacationRequest Delete(int id)
     {
-        VacationRequest? requestInDb = _vacationRequests.FirstOrDefault(request => request.RequestId == id);
-        if (requestInDb != null && requestInDb.GetIsApproved()) requestInDb.ChangeIsApproved(false);
-        return requestInDb;}
+        VacationRequest requestInDb = GetById(id)!;
+        _vacationRequests.Remove(requestInDb);
+        return requestInDb;
+    }
 
-    public VacationRequest? Update(VacationRequest updatedData)
+    public VacationRequest Update(VacationRequest updatedData)
     {
-        VacationRequest? requestInDb = _vacationRequests.FirstOrDefault(request => request.RequestId == updatedData.RequestId);
-        if (requestInDb != null)
-        {
-            requestInDb.UpDateVacationDate(updatedData);
-            requestInDb.ChangeIsApproved(false);
-        }
+        VacationRequest requestInDb = GetById(updatedData.RequestId)!;
+        requestInDb.UpDateVacationDate(updatedData);
         return requestInDb;
     }
 }

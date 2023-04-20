@@ -36,11 +36,23 @@ public class VacationRequestService : IVacationRequestService
 
     public VacationRequest? Delete(int id)
     {
-        return _repository.Delete(id);
+        VacationRequest? requestInDb = _repository.GetAll().FirstOrDefault(request => request.RequestId == id);
+        if (requestInDb != null)
+        {
+            return _repository.Delete(id);
+        }
+
+        return null;
     }
 
     public VacationRequest? Update(VacationRequest updatedData)
     {
-        return _repository.Update(updatedData);
+        VacationRequest? requestInDb = _repository.GetAll().FirstOrDefault(request => request.RequestId == updatedData.RequestId);
+        if (requestInDb != null)
+        {
+            return _repository.Update(updatedData);
+        }
+
+        return null;
     }
 }

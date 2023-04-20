@@ -170,6 +170,8 @@ const CreateEmployee = () => {
                     className="w-100"
                     type="number"
                     name="shift"
+                    min="1"
+                    max="3"
                     id="shift"
                     value={employee.preferredShift}
                     onChange={(e) => updateProperty(e.target.value, 4)}

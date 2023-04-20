@@ -36,7 +36,14 @@ namespace backend.Controllers
         [HttpPost]
         public IActionResult CreateEmployee([FromBody] Employee employee)
         {
-            return Ok(_service.Create(employee));
+            return Ok(_service.Create(new Employee(employee.FirstName,
+                employee.LastName,
+                employee.DateOfBirth,
+                employee.WorkingDays,
+                employee.TotalVacationDays,
+                employee.MonthlyGrossSalary,
+                employee.EmployeeType,
+                employee.PreferredShift)));
         }
 
         [HttpDelete("{id:int}")]

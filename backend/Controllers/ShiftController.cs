@@ -36,7 +36,7 @@ namespace backend.Controllers
         [HttpPost]
         public IActionResult CreateShift([FromBody] Shift shift)
         {
-            return Ok(_service.Create(shift));
+            return Ok(_service.Create(new Shift(shift.TimeOfShift, shift.NursesRequiredForShift, shift.BonusRate)));
         }
 
         [HttpDelete("{id:int}")]

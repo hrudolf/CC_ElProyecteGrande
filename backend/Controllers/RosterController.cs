@@ -36,7 +36,10 @@ namespace backend.Controllers
         [HttpPost]
         public IActionResult CreateRosterItem([FromBody] Roster rosterItem)
         {
-            return Ok(_service.Create(rosterItem));
+            return Ok(_service.Create(new Roster(rosterItem.Date,
+                rosterItem.ShiftId,
+                rosterItem.EmployeeId,
+                rosterItem.Attendance)));
         }
 
         [HttpDelete("{id:int}")]

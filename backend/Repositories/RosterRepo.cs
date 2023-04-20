@@ -15,14 +15,14 @@ public class RosterRepo : IRepository<Roster>
     {
         return new HashSet<Roster>()
         {
-            new Roster("2023-04-19", 1, 1, true),
-            new Roster("2023-04-19", 1, 2, true),
-            new Roster("2023-04-19", 2, 3, true),
-            new Roster("2023-04-19", 2, 4, true),
-            new Roster("2023-04-19", 3, 5, true),
-            new Roster("2023-04-19", 3, 6, true),
-            new Roster("2023-04-20", 1, 1, true),
-            new Roster("2023-04-20", 1, 2, true),
+            new Roster(new DateOnly(2023,04,19), 1, 1, true),
+            new Roster(new DateOnly(2023,04,19), 1, 2, true),
+            new Roster(new DateOnly(2023,04,19), 2, 3, true),
+            new Roster(new DateOnly(2023,04,19), 2, 4, true),
+            new Roster(new DateOnly(2023,04,19), 3, 5, true),
+            new Roster(new DateOnly(2023,04,19), 3, 6, true),
+            new Roster(new DateOnly(2023,04,20), 1, 1, true),
+            new Roster(new DateOnly(2023,04,20), 1, 2, true),
         };
     }
 

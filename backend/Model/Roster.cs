@@ -6,13 +6,13 @@ public class Roster
 {
     private static int _rosterIdCounter;
     public int RosterId { get; }
-    public string Date { get; set; }
+    public DateOnly Date { get; set; }
     public int ShiftId { get; set; }
     public int EmployeeId { get; set; }
     public bool Attendance { get; set; }
     public bool _isActive = true;
 
-    public Roster(string date, int shiftId, int employeeId, bool attendance)
+    public Roster(DateOnly date, int shiftId, int employeeId, bool attendance)
     {
         RosterId = _rosterIdCounter++;
         Date = date;
@@ -23,7 +23,7 @@ public class Roster
     
     
     [JsonConstructor]
-    public Roster(int rosterId, string date, int shiftId, int employeeId, bool attendance)
+    public Roster(int rosterId, DateOnly date, int shiftId, int employeeId, bool attendance)
     {
         RosterId = rosterId;
         Date = date;

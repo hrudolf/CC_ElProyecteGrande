@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import "./CreateEmployee.css";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 const CreateEmployee = () => {
   const [loading, setLoading] = useState(false);
@@ -24,15 +26,14 @@ const CreateEmployee = () => {
 
   useEffect(() => {
     fetch("/api/employeetype", {
-      method: "GET"
+      method: "GET",
     })
-      .then(res => res.json())
-      .then(json => {
+      .then((res) => res.json())
+      .then((json) => {
         setLoading(false);
         setEmployeeTypeList(json);
       })
-      .catch(err => setError(err))
-
+      .catch((err) => setError(err));
   }, []);
 
   const postemployee = async (e) => {
@@ -96,93 +97,172 @@ const CreateEmployee = () => {
   };
 
   return (
-    <div className="container bg-light w-25 p-2">
+    <div className="container bg-light w-50 p-2">
       <h1 class="text-center">Add Employee</h1>
-      <div className="container align-items-left">
-        {!message &&
+      <div className="container align-items-left w-75">
+        {!message && (
           <form className="UserForm" onSubmit={postemployee}>
-            <label htmlFor="firstname">First Name:</label>
-            <input
-              type="text"
-              name="firstname"
-              id="firstname"
-              value={employee.firstName}
-              onChange={(e) => updateProperty(e.target.value, 1)}
-              required
-            />
+            <div class="row no-gutters w-100">
+              <Row>
+                <Col>
+                  <label htmlFor="firstname">First Name:</label>
+                </Col>
+                <Col>
+                  <input
+                    className="w-100"
+                    type="text"
+                    name="firstname"
+                    id="firstname"
+                    value={employee.firstName}
+                    onChange={(e) => updateProperty(e.target.value, 1)}
+                    required
+                  />
+                </Col>
+              </Row>
+            </div>
 
-            <label htmlFor="lastname">Last Name:</label>
-            <input
-              type="text"
-              name="lastname"
-              id="lastname"
-              value={employee.lastName}
-              onChange={(e) => updateProperty(e.target.value, 2)}
-              required
-            />
+            <div class="row no-gutters w-100">
+              <Row>
+                <Col>
+                  <label htmlFor="lastname">Last Name:</label>
+                </Col>
+                <Col>
+                  <input
+                    className="w-100"
+                    type="text"
+                    name="lastname"
+                    id="lastname"
+                    value={employee.lastName}
+                    onChange={(e) => updateProperty(e.target.value, 2)}
+                    required
+                  />
+                </Col>
+              </Row>
+            </div>
 
-            <label htmlFor="birthdate">Date of birth:</label>
-            <input
-              type="date"
-              name="birthdate"
-              id="birthdate"
-              min="1920-01-01"
-              max="2023-04-20"
-              value={employee.dateOfBirth}
-              onChange={(e) => updateProperty(e.target.value, 3)}
-            />
+            <div class="row no-gutters w-100">
+              <Row>
+                <Col>
+                  <label htmlFor="birthdate">Date of birth:</label>
+                </Col>
+                <Col>
+                  <input
+                    className="w-100"
+                    type="date"
+                    name="birthdate"
+                    id="birthdate"
+                    min="1920-01-01"
+                    max="2023-04-20"
+                    value={employee.dateOfBirth}
+                    onChange={(e) => updateProperty(e.target.value, 3)}
+                  />
+                </Col>
+              </Row>
+            </div>
 
-            <label htmlFor="shift">Preferred Shift:</label>
-            <input
-              type="number"
-              name="shift"
-              id="shift"
-              value={employee.preferredShift}
-              onChange={(e) => updateProperty(e.target.value, 4)}
-              required
-            />
+            <div class="row no-gutters w-100">
+              <Row>
+                <Col>
+                  <label htmlFor="shift">Preferred Shift:</label>
+                </Col>
+                <Col>
+                  <input
+                    className="w-100"
+                    type="number"
+                    name="shift"
+                    id="shift"
+                    value={employee.preferredShift}
+                    onChange={(e) => updateProperty(e.target.value, 4)}
+                    required
+                  />
+                </Col>
+              </Row>
+            </div>
 
-            <label htmlFor="workdays">Workdays per week:</label>
-            <input
-              type="number"
-              name="workdays"
-              id="workdays"
-              value={employee.workingDays}
-              onChange={(e) => updateProperty(e.target.value, 5)}
-              required
-            />
+            <div class="row no-gutters w-100">
+              <Row>
+                <Col>
+                  <label htmlFor="workdays">Workdays per week:</label>
+                </Col>
+                <Col>
+                  <input
+                    className="w-100"
+                    type="number"
+                    name="workdays"
+                    id="workdays"
+                    value={employee.workingDays}
+                    onChange={(e) => updateProperty(e.target.value, 5)}
+                    required
+                  />
+                </Col>
+              </Row>
+            </div>
 
-            <label htmlFor="vacation">Vacation days per year:</label>
-            <input
-              type="number"
-              name="vacation"
-              id="vacation"
-              value={employee.totalVacationDays}
-              onChange={(e) => updateProperty(e.target.value, 6)}
-              required
-            />
+            <div class="row no-gutters w-100">
+              <Row>
+                <Col>
+                  <label htmlFor="vacation">Vacation days per year:</label>
+                </Col>
+                <Col>
+                  <input
+                    className="w-100"
+                    type="number"
+                    name="vacation"
+                    id="vacation"
+                    value={employee.totalVacationDays}
+                    onChange={(e) => updateProperty(e.target.value, 6)}
+                    required
+                  />
+                </Col>
+              </Row>
+            </div>
 
-            {employeeTypeList && <>
-              <label htmlFor="employeeType">Employee Type:</label>
-              <select
-                name="employeeType"
-                id="employeeType"
-                value={employee.employeeType}
-                onChange={(e) => updateProperty(e.target.value, 7)}
-                required>
-                {employeeTypeList.map((opt) => <option key={opt.id} value={opt.id}>{opt.type}</option>)}
-              </select>
-            </>}
+            <div class="row no-gutters w-100">
+              <Row>
+                {employeeTypeList && (
+                  <>
+                    <Col>
+                      <label htmlFor="employeeType">Employee Type:</label>
+                    </Col>
+                    <Col>
+                      <select
+                        className="w-100"
+                        name="employeeType"
+                        id="employeeType"
+                        value={employee.employeeType}
+                        onChange={(e) => updateProperty(e.target.value, 7)}
+                        required
+                      >
+                        {employeeTypeList.map((opt) => (
+                          <option key={opt.id} value={opt.id}>
+                            {opt.type}
+                          </option>
+                        ))}
+                      </select>
+                    </Col>
+                  </>
+                )}
+              </Row>
+            </div>
 
-            <label htmlFor="salary">Monthly Salary:</label>
-            <input
-              type="number"
-              name="salary"
-              id="salary"
-              value={employee.monthlyGrossSalary}
-              onChange={(e) => updateProperty(e.target.value, 8)}
-              required
-            />
+            <div class="row no-gutters w-100">
+              <Row>
+                <Col>
+                  <label htmlFor="salary">Monthly Salary:</label>
+                </Col>
+                <Col>
+                  <input
+                    className="w-100"
+                    type="number"
+                    name="salary"
+                    id="salary"
+                    value={employee.monthlyGrossSalary}
+                    onChange={(e) => updateProperty(e.target.value, 8)}
+                    required
+                  />
+                </Col>
+              </Row>
+            </div>
 
             <div className="buttons">
               <button
@@ -201,9 +281,18 @@ const CreateEmployee = () => {
                 Cancel
               </button>
             </div>
-          </form>}
-        {error && <div class="alert alert-danger" role="alert" >{error ? error : ""}</div>}
-        {message && <div class="alert alert-success" role="alert" >{message ? message : ""}</div>}
+          </form>
+        )}
+        {error && (
+          <div class="alert alert-danger" role="alert">
+            {error ? error : ""}
+          </div>
+        )}
+        {message && (
+          <div class="alert alert-success" role="alert">
+            {message ? message : ""}
+          </div>
+        )}
       </div>
     </div>
   );

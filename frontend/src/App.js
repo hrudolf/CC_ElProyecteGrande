@@ -7,6 +7,7 @@ import CreateEmployeeType from "./Pages/EmployeeTypes/CreateEmployeeType";
 import ModifyEmployeeType from "./Pages/EmployeeTypes/ModifyEmployeeType";
 import Employee from "./Pages/Employee/Employee";
 import CreateEmployee from "./Pages/Employee/CreateEmployee";
+import ModifyEmployee from "./Pages/Employee/ModifyEmployee";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/employees">
             <Route path="" element={<Employee />} />
             <Route path="create" element={<CreateEmployee />}></Route>
+            <Route path="edit/:id" element={<ModifyEmployee />}></Route>
           </Route>
           <Route path="/employeetypes">
             <Route path="" element={<EmployeeTypes />} />

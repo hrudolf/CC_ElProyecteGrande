@@ -78,7 +78,7 @@ const Employee = () => {
                         <button
                           class="btn btn-secondary"
                           onClick={() =>
-                            navigate(`/employee/edit/${employee.employeeId}`)
+                            navigate(`/employees/edit/${employee.employeeId}`)
                           }
                           disabled={loading}
                         >

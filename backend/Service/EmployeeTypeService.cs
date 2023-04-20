@@ -22,8 +22,9 @@ public class EmployeeTypeService : IEmployeeTypeService
         if (employeeInDb != null && employeeInDb.GetIsActive())
         {
             _repository.Delete(id);
-        };
-        return employeeInDb;
+        }
+
+        return null;
     }
 
     public EmployeeType? Update(EmployeeType employeeType)
@@ -33,6 +34,7 @@ public class EmployeeTypeService : IEmployeeTypeService
         {
             return _repository.Update(employeeType);
         }
-        return employeeInDb;
+
+        return null;
     }
 }

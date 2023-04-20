@@ -4,7 +4,7 @@ namespace backend.Repositories;
 
 public class RosterRepo : IRepository<Roster>
 {
-    private HashSet<Roster> _listOfRosters;
+    private readonly HashSet<Roster> _listOfRosters;
 
     public RosterRepo()
     {
@@ -15,14 +15,14 @@ public class RosterRepo : IRepository<Roster>
     {
         return new HashSet<Roster>()
         {
-            new Roster(new DateOnly(2023,04,19), 1, 1, true),
-            new Roster(new DateOnly(2023,04,19), 1, 2, true),
-            new Roster(new DateOnly(2023,04,19), 2, 3, true),
-            new Roster(new DateOnly(2023,04,19), 2, 4, true),
-            new Roster(new DateOnly(2023,04,19), 3, 5, true),
-            new Roster(new DateOnly(2023,04,19), 3, 6, true),
-            new Roster(new DateOnly(2023,04,20), 1, 1, true),
-            new Roster(new DateOnly(2023,04,20), 1, 2, true),
+            new Roster(new DateOnly(2023, 04, 19), 1, 1, true),
+            new Roster(new DateOnly(2023, 04, 19), 1, 2, true),
+            new Roster(new DateOnly(2023, 04, 19), 2, 3, true),
+            new Roster(new DateOnly(2023, 04, 19), 2, 4, true),
+            new Roster(new DateOnly(2023, 04, 19), 3, 5, true),
+            new Roster(new DateOnly(2023, 04, 19), 3, 6, true),
+            new Roster(new DateOnly(2023, 04, 20), 1, 1, true),
+            new Roster(new DateOnly(2023, 04, 20), 1, 2, true),
         };
     }
 
@@ -42,23 +42,23 @@ public class RosterRepo : IRepository<Roster>
         return _listOfRosters.FirstOrDefault(roster => roster.RosterId == id);
     }
 
-    public Roster? Delete(int id)
+    public Roster Delete(int id)
     {
-        Roster? rosterInDb = _listOfRosters.FirstOrDefault(roster => roster.RosterId == id);
-        if (rosterInDb != null && rosterInDb.GetIsActive()) rosterInDb.ChangeIsActive();
+        Roster rosterInDb = _listOfRosters.First(employeeType => employeeType.RosterId == id);
+        rosterInDb.ChangeIsActive();
         return rosterInDb;
     }
 
-    public Roster? Update(Roster updatedData)
+    public Roster Update(Roster updatedData)
     {
-        Roster? rosterInDb = _listOfRosters.FirstOrDefault(roster => roster.RosterId == updatedData.RosterId);
-        if (rosterInDb != null)
+        Roster rosterInDb = _listOfRosters.First(roster => roster.RosterId == updatedData.RosterId);
+        rosterInDb.Date = updatedData.Date;
+        rosterInDb.ShiftId = updatedData.ShiftId;
+        rosterInDb.EmployeeId = updatedData.EmployeeId;
+        rosterInDb.Attendance = updatedData.Attendance;
+        if (rosterInDb.GetIsActive() != updatedData.GetIsActive())
         {
-            rosterInDb.Date = updatedData.Date;
-            rosterInDb.ShiftId = updatedData.ShiftId;
-            rosterInDb.EmployeeId = updatedData.EmployeeId;
-            rosterInDb.Attendance = updatedData.Attendance;
-            rosterInDb._isActive = rosterInDb._isActive;
+            rosterInDb.ChangeIsActive();
         }
 
         return rosterInDb;

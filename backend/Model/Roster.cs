@@ -10,7 +10,7 @@ public class Roster
     public int ShiftId { get; set; }
     public int EmployeeId { get; set; }
     public bool Attendance { get; set; }
-    public bool _isActive = true;
+    private bool _isActive = true;
 
     public Roster(DateOnly date, int shiftId, int employeeId, bool attendance)
     {

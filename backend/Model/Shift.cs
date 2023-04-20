@@ -9,8 +9,6 @@ public class Shift
     public string TimeOfShift { get; set; }
     public int NursesRequiredForShift { get; set; }
     public double BonusRate { get; set; }
-    public bool _isActive = true;
-
     
     public Shift(string timeOfShift, int nursesRequiredForShift, double bonusRate)
     {
@@ -27,15 +25,5 @@ public class Shift
         TimeOfShift = timeOfShift;
         NursesRequiredForShift = nursesRequiredForShift;
         BonusRate = bonusRate;
-    }
-    
-    public bool GetIsActive()
-    {
-        return _isActive;
-    }
-    
-    public void ChangeIsActive()
-    {
-        _isActive = !_isActive;
     }
 }

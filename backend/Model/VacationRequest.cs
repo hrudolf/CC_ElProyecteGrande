@@ -4,7 +4,7 @@ namespace backend.Model;
 
 public class VacationRequest
 {
-    private static int Counter;
+    private static int _counter;
     public int RequestId { get; }
     public int EmployeeId { get; }
     public DateOnly StartDate { get; private set; }
@@ -13,7 +13,7 @@ public class VacationRequest
 
     public VacationRequest(int employeeId, DateOnly startDate, DateOnly endDate)
     {
-        RequestId = Counter++;
+        RequestId = _counter++;
         EmployeeId = employeeId;
         StartDate = startDate;
         EndDate = endDate;

@@ -17,7 +17,7 @@ const EmployeeTypes = () => {
             .then(res => res.json())
             .then(json => {
                 setLoading(false);
-                setEmployeeTypeList(employeeTypeList.filter(employeeType => employeeType.id != employeeTypeId));
+                setEmployeeTypeList(employeeTypeList.filter(employeeType => employeeType.id !== employeeTypeId));
             })
             .catch(err => setError(err))
     }

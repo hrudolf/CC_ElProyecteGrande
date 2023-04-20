@@ -21,7 +21,7 @@ public class EmployeeTypeService : IEmployeeTypeService
         EmployeeType? employeeInDb = GetById(id);
         if (employeeInDb != null && employeeInDb.GetIsActive())
         {
-            _repository.Delete(id);
+            return _repository.Delete(id);
         }
 
         return null;

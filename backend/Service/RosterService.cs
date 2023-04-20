@@ -23,7 +23,7 @@ public class RosterService : IRosterService
         Roster? rosterInDb = GetById(id);
         if (rosterInDb != null && rosterInDb.GetIsActive())
         {
-            _repository.Delete(id);
+            return _repository.Delete(id);
         }
 
         return null;
@@ -34,7 +34,7 @@ public class RosterService : IRosterService
         Roster? rosterInDb = GetById(updatedData.RosterId);
         if (rosterInDb != null && rosterInDb.GetIsActive())
         {
-            _repository.Update(updatedData);
+            return _repository.Update(updatedData);
         }
 
         return null;

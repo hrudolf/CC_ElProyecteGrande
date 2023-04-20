@@ -23,7 +23,7 @@ public class EmployeeService : IEmployeeService
         Employee? employeeInDb = GetById(id);
         if (employeeInDb != null && employeeInDb.GetIsActive())
         {
-            _repository.Delete(id);
+           return _repository.Delete(id);
         }
 
         return null;
@@ -34,7 +34,7 @@ public class EmployeeService : IEmployeeService
         Employee? employeeInDb = GetById(updatedData.EmployeeId);
         if (employeeInDb != null)
         {
-            _repository.Update(updatedData);
+           return _repository.Update(updatedData);
         }
 
         return null;

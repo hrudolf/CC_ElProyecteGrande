@@ -5,7 +5,7 @@ namespace backend.Model;
 public class Employee
 {
     private static int _employeeIdCounter;
-    public int EmployeeId { get; }
+    public int EmployeeId { get; set;}
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public DateOnly DateOfBirth { get; set; }
@@ -32,12 +32,10 @@ public class Employee
     }
     
     [JsonConstructor]
-
-    public Employee(int id, string firstName, string lastName , DateOnly dateOfBirth, int workingDays, 
-
+    public Employee(int employeeId, string firstName, string lastName , DateOnly dateOfBirth, int workingDays, 
         int totalVacationDays, int monthlyGrossSalary, int employeeType, int preferredShift)
     {
-        EmployeeId = id;
+        EmployeeId = employeeId;
         FirstName = firstName;
         LastName = lastName;
         DateOfBirth = dateOfBirth;

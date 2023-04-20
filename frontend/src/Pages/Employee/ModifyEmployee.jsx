@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useParams } from "react-router-dom";
-//import "./Createemployee.css";
+import "./CreateEmployee.css";
 
 const ModifyEmployee = () => {
   const [loading, setLoading] = useState(false);
@@ -10,6 +10,7 @@ const ModifyEmployee = () => {
   const { id } = useParams();
 
   const [employee, setEmployee] = useState({
+    employeeId: id,
     firstName: "",
     lastName: "",
     dateOfBirth: "",
@@ -44,7 +45,7 @@ const ModifyEmployee = () => {
     setMessage("");
     setError("");
 
-    const url = `/api/Employee/${id}`;
+    const url = `/api/Employee`;
     const fetchMethod = "PUT";
     const headers = { "Content-Type": "application/json" };
     console.log(employee);
@@ -59,7 +60,7 @@ const ModifyEmployee = () => {
       setLoading(false);
       setError(json.error);
     } else {
-      setMessage("Employee successfully added, you will be redirected.");
+      setMessage("Saved, you will be redirected.");
       setTimeout(() => navigate("/employees"), 1000);
     }
   };
@@ -102,6 +103,7 @@ const ModifyEmployee = () => {
     <div className="container align-items-center">
       <h1>Change Employee Details</h1>
       <div className="container align-items-left">
+        {!message && 
         <form className="UserForm" onSubmit={postemployee}>
           <label htmlFor="employee">First Name:</label>
           <input
@@ -198,7 +200,7 @@ const ModifyEmployee = () => {
               Cancel
             </button>
           </div>
-        </form>
+        </form>}
         {error && <div className={"error"}>{error ? error : ""}</div>}
         {message && <div className={"message"}>{message ? message : ""}</div>}
       </div>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-//import "./Createemployee.css";
+import "./CreateEmployee.css";
 
 const CreateEmployee = () => {
   const [loading, setLoading] = useState(false);
@@ -42,7 +42,7 @@ const CreateEmployee = () => {
       setLoading(false);
       setError(json.error);
     } else {
-      setMessage("Employee successfully added, you will be redirected.");
+      setMessage("Saved, you will be redirected.");
       setTimeout(() => navigate("/employees"), 1000);
     }
   };
@@ -85,6 +85,7 @@ const CreateEmployee = () => {
     <div className="container align-items-center">
       <h1>Add Employee</h1>
       <div className="container align-items-left">
+      {!message && 
         <form className="UserForm" onSubmit={postemployee}>
           <label htmlFor="employee">First Name:</label>
           <input
@@ -181,7 +182,7 @@ const CreateEmployee = () => {
               Cancel
             </button>
           </div>
-        </form>
+        </form>}
         {error && <div className={"error"}>{error ? error : ""}</div>}
         {message && <div className={"message"}>{message ? message : ""}</div>}
       </div>

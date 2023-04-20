@@ -84,7 +84,7 @@ const Employee = () => {
                       <td>{employee.preferredShift}</td>
                       <td>{employee.workingDays}</td>
                       <td>{employee.totalVacationDays}</td>
-                      <td>{employeeTypeList[employee.employeeType].type}</td>
+                      <td>{(employeeTypeList.map(el => el.id).indexOf(employee.employeeType) === -1 ? "N/A" : employeeTypeList.reduce((acc, curr) => acc = curr.id == employee.employeeType ? curr.type : acc, ''))}</td>
                       <td>{employee.monthlyGrossSalary}</td>
                       <td>
                         {" "}

@@ -34,7 +34,7 @@ const ModifyEmployeeType = () => {
     setMessage('');
     setError('');
 
-    const url = `/api/employeetype/${id}`;
+    const url = `/api/employeetype/`;
     const fetchMethod = 'PUT';
     const headers = { "Content-Type": "application/json" }
     const body = {"id": id, "type": employeeType}

@@ -39,9 +39,7 @@ const Employee = () => {
         setEmployeeList(json);
       })
       .catch((err) => setError(err));
-  }, []);
 
-  useEffect(() => {
     fetch("/api/employeetype", {
       method: "GET"
     })
@@ -51,7 +49,6 @@ const Employee = () => {
         setEmployeeTypeList(json);
       })
       .catch(err => setError(err))
-
   }, []);
 
   return (
@@ -77,9 +74,9 @@ const Employee = () => {
                 </tr>
               </thead>
               <tbody class="p-5">
-                {employeeList.map((employee) => {
+                {employeeTypeList && employeeList.map((employee) => {
                   return (
-                    <tr>
+                    <tr key={employee.employeeId}>
                       <th scope="row">{employee.employeeId}</th>
                       <td>{employee.firstName}</td>
                       <td>{employee.lastName}</td>
@@ -87,7 +84,7 @@ const Employee = () => {
                       <td>{employee.preferredShift}</td>
                       <td>{employee.workingDays}</td>
                       <td>{employee.totalVacationDays}</td>
-                      <td>{employeeTypeList && <>{employeeTypeList[employee.employeeType].type}</>}</td>
+                      <td>{employeeTypeList[employee.employeeType].type}</td>
                       <td>{employee.monthlyGrossSalary}</td>
                       <td>
                         {" "}

@@ -7,6 +7,7 @@ const Employee = () => {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [employeeList, setEmployeeList] = useState("");
+  const [employeeTypeList, setEmployeeTypeList] = useState("");
 
   const navigate = useNavigate();
 
@@ -38,6 +39,19 @@ const Employee = () => {
         setEmployeeList(json);
       })
       .catch((err) => setError(err));
+  }, []);
+
+  useEffect(() => {
+    fetch("/api/employeetype", {
+      method: "GET"
+    })
+      .then(res => res.json())
+      .then(json => {
+        setLoading(false);
+        setEmployeeTypeList(json);
+      })
+      .catch(err => setError(err))
+
   }, []);
 
   return (
@@ -73,7 +87,7 @@ const Employee = () => {
                       <td>{employee.preferredShift}</td>
                       <td>{employee.workingDays}</td>
                       <td>{employee.totalVacationDays}</td>
-                      <td>{employee.employeeType}</td>
+                      <td>{employeeTypeList && <>{employeeTypeList[employee.employeeType].type}</>}</td>
                       <td>{employee.monthlyGrossSalary}</td>
                       <td>
                         {" "}

@@ -46,7 +46,7 @@ const Employee = () => {
       <div class="container align-items-center">
         {employeeList && (
           <div className="employeeTypes">
-            <table class="table table-bordered table-striped table-responsive">
+            <table class="table table-light table-bordered table-striped table-responsive">
               <thead class="p-2">
                 <tr>
                   <th scope="col">Id</th>
@@ -58,6 +58,8 @@ const Employee = () => {
                   <th scope="col">Vacation Days</th>
                   <th scope="col">Employee Type</th>
                   <th scope="col">Monthly Salary</th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
                 </tr>
               </thead>
               <tbody class="p-5">

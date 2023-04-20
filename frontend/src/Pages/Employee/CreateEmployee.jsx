@@ -82,8 +82,8 @@ const CreateEmployee = () => {
   };
 
   return (
-    <div className="container align-items-center">
-      <h1>Add Employee</h1>
+    <div className="container bg-light w-25 p-2">
+      <h1 class="text-center">Add Employee</h1>
       <div className="container align-items-left">
       {!message && 
         <form className="UserForm" onSubmit={postemployee}>
@@ -183,8 +183,8 @@ const CreateEmployee = () => {
             </button>
           </div>
         </form>}
-        {error && <div className={"error"}>{error ? error : ""}</div>}
-        {message && <div className={"message"}>{message ? message : ""}</div>}
+        {error && <div class="alert alert-danger" role="alert" >{error ? error : ""}</div>}
+        {message && <div class="alert alert-success" role="alert" >{message ? message : ""}</div>}
       </div>
     </div>
   );

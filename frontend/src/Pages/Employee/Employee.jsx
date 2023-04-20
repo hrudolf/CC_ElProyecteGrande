@@ -11,7 +11,7 @@ const Employee = () => {
   const navigate = useNavigate();
 
   const DeleteEmployee = (employeeId) => {
-    fetch(`/api/employee/${employeeId}`, {
+    fetch(`/api/Employee/${employeeId}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -22,6 +22,7 @@ const Employee = () => {
         );
       })
       .catch((err) => setError(err));
+    window.location.reload(false);
   };
 
   useEffect(() => {

@@ -17,7 +17,6 @@ public class Employee
     public int MonthlyGrossSalary { get; set; }
     private bool _isActive = true;
 
-    
     public Employee(string firstName, string lastName , DateOnly dateOfBirth, int workingDays, 
         int totalVacationDays, int monthlyGrossSalary, int employeeType, int preferredShift)
     {
@@ -33,10 +32,12 @@ public class Employee
     }
     
     [JsonConstructor]
-    public Employee(int employeeId, string firstName, string lastName, DateOnly dateOfBirth, int workingDays, 
+
+    public Employee(int id, string firstName, string lastName , DateOnly dateOfBirth, int workingDays, 
+
         int totalVacationDays, int monthlyGrossSalary, int employeeType, int preferredShift)
     {
-        EmployeeId = employeeId;
+        EmployeeId = id;
         FirstName = firstName;
         LastName = lastName;
         DateOfBirth = dateOfBirth;

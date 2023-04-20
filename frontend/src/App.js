@@ -5,6 +5,9 @@ import EmployeeTypes from "./Pages/EmployeeTypes/EmployeeTypes";
 import { Routes, Route } from "react-router-dom";
 import CreateEmployeeType from "./Pages/EmployeeTypes/CreateEmployeeType";
 import ModifyEmployeeType from "./Pages/EmployeeTypes/ModifyEmployeeType";
+import Employee from "./Pages/Employee/Employee";
+import CreateEmployee from "./Pages/Employee/CreateEmployee";
+import ModifyEmployee from "./Pages/Employee/ModifyEmployee";
 
 function App() {
   return (
@@ -12,6 +15,11 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<HomePage />}></Route>
+          <Route path="/employees">
+            <Route path="" element={<Employee />} />
+            <Route path="create" element={<CreateEmployee />}></Route>
+            <Route path="edit/:id" element={<ModifyEmployee />}></Route>
+          </Route>
           <Route path="/employeetypes">
             <Route path="" element={<EmployeeTypes />} />
             <Route path="create" element={<CreateEmployeeType />}></Route>
@@ -20,7 +28,7 @@ function App() {
         </Route>
         <Route path="*" element={<NotFoundPage />}></Route>
       </Routes>
-    </div >
+    </div>
   );
 }
 

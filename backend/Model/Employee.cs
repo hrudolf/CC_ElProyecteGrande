@@ -17,26 +17,11 @@ public class Employee
     public int MonthlyGrossSalary { get; set; }
     public bool IsActive { get; set; } = true;
 
-    
+    [JsonConstructor]
     public Employee(string firstName, string lastName , DateOnly dateOfBirth, int workingDays, 
         int totalVacationDays, int monthlyGrossSalary, int employeeType, List<int> preferredShift)
     {
         EmployeeId = _employeeIdCounter++;
-        FirstName = firstName;
-        LastName = lastName;
-        DateOfBirth = dateOfBirth;
-        WorkingDays = workingDays;
-        TotalVacationDays = totalVacationDays;
-        MonthlyGrossSalary = monthlyGrossSalary;
-        EmployeeType = employeeType;
-        PreferredShift = preferredShift;
-    }
-    
-    [JsonConstructor]
-    public Employee(int employeeId, string firstName, string lastName, DateOnly dateOfBirth, int workingDays, 
-        int totalVacationDays, int monthlyGrossSalary, int employeeType, List<int> preferredShift)
-    {
-        EmployeeId = employeeId;
         FirstName = firstName;
         LastName = lastName;
         DateOfBirth = dateOfBirth;

@@ -58,7 +58,7 @@ const ModifyEmployeeType = () => {
   };
 
   return (
-    <div className="TODO">
+    <div class="container bg-light w-25 p-3">
       <form className="UserForm" onSubmit={updateEmployeeType}>
         <label htmlFor="employeeType">Edit employee role name:</label>
         <input

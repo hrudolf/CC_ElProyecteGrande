@@ -38,7 +38,7 @@ const CreateEmployeeType = () => {
   };
 
   return (
-    <div className="TODO">
+    <div class="container bg-light w-25 p-3">
       <form className="UserForm" onSubmit={postEmployeeType}>
         <label htmlFor="employeeType">Add an employee role:</label>
         <input

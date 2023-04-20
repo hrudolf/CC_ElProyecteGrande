@@ -8,26 +8,18 @@ public class Employee
     public int EmployeeId { get; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
-    
     public DateOnly DateOfBirth { get; set; }
-
-    // TODO after Shift Model is created
-    // public List<Shift> PreferredShift { get; }
-
+    public List<int> PreferredShift { get; set; }
     public int WorkingDays { get; set; }
     public int TotalVacationDays { get; set; }
-    
     public int EmployeeType { get; set; }
-    
-    // access right -> TODO: authentication
-
     public bool EmploymentStatus = true;
     public int MonthlyGrossSalary { get; set; }
-    public bool _isActive = true;
+    public bool IsActive { get; set; } = true;
 
     
     public Employee(string firstName, string lastName , DateOnly dateOfBirth, int workingDays, 
-        int totalVacationDays, int monthlyGrossSalary, int employeeType)
+        int totalVacationDays, int monthlyGrossSalary, int employeeType, List<int> preferredShift)
     {
         EmployeeId = _employeeIdCounter++;
         FirstName = firstName;
@@ -37,11 +29,12 @@ public class Employee
         TotalVacationDays = totalVacationDays;
         MonthlyGrossSalary = monthlyGrossSalary;
         EmployeeType = employeeType;
+        PreferredShift = preferredShift;
     }
     
     [JsonConstructor]
     public Employee(int employeeId, string firstName, string lastName, DateOnly dateOfBirth, int workingDays, 
-        int totalVacationDays, int monthlyGrossSalary, int employeeType)
+        int totalVacationDays, int monthlyGrossSalary, int employeeType, List<int> preferredShift)
     {
         EmployeeId = employeeId;
         FirstName = firstName;
@@ -51,15 +44,16 @@ public class Employee
         TotalVacationDays = totalVacationDays;
         MonthlyGrossSalary = monthlyGrossSalary;
         EmployeeType = employeeType;
+        PreferredShift = preferredShift;
     }
     
     public bool GetIsActive()
     {
-        return _isActive;
+        return IsActive;
     }
     
     public void ChangeIsActive()
     {
-        _isActive = !_isActive;
+        IsActive = !IsActive;
     }
 }

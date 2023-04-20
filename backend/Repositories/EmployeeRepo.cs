@@ -15,16 +15,16 @@ public class EmployeeRepo : IRepository<Employee>
     {
         return new List<Employee>()
         {
-            new Employee("Susan", "Smith", new DateOnly(1996, 02, 15), 5, 25, 35000, 5),
-            new Employee("Angela", "McClure", new DateOnly(1980, 04, 20), 3, 25, 30000, 4),
-            new Employee("Sandra", "Glenn", new DateOnly(2000, 02, 4), 5, 25, 25000,4),
-            new Employee("Cecilia", "Coles", new DateOnly(2010, 12, 15), 5, 20, 25000,4),
-            new Employee("Angela", "Metcalfe", new DateOnly(2010, 12, 15), 4, 20, 24000,3),
-            new Employee("Catherine", "Ross", new DateOnly(2005, 03, 5), 4, 25, 20000,4),
-            new Employee("Janet", "Marks", new DateOnly(2006, 09, 1), 5, 25, 25000,4),
-            new Employee("Cristina", "Fowles", new DateOnly(2007, 02, 15), 5, 20,  25000, 4),
-            new Employee("Karol", "Green", new DateOnly(2001, 05, 27), 5, 20,  24000, 4),
-            new Employee("John", "Garcia", new DateOnly(1996, 02, 15), 5, 25,  35000,4)
+            new Employee("Susan", "Smith", new DateOnly(1996, 02, 15), 5, 25, 35000, 5, new List<int>(){1}),
+            new Employee("Angela", "McClure", new DateOnly(1980, 04, 20), 3, 25, 30000, 4, new List<int>(){1,2}),
+            new Employee("Sandra", "Glenn", new DateOnly(2000, 02, 4), 5, 25, 25000,4, new List<int>(){1}),
+            new Employee("Cecilia", "Coles", new DateOnly(2010, 12, 15), 5, 20, 25000,4, new List<int>(){1,3}),
+            new Employee("Angela", "Metcalfe", new DateOnly(2010, 12, 15), 4, 20, 24000,3, new List<int>(){2}),
+            new Employee("Catherine", "Ross", new DateOnly(2005, 03, 5), 4, 25, 20000,4, new List<int>(){2}),
+            new Employee("Janet", "Marks", new DateOnly(2006, 09, 1), 5, 25, 25000,4, new List<int>(){2}),
+            new Employee("Cristina", "Fowles", new DateOnly(2007, 02, 15), 5, 20,  25000, 4, new List<int>(){3}),
+            new Employee("Karol", "Green", new DateOnly(2001, 05, 27), 5, 20,  24000, 4, new List<int>(){3}),
+            new Employee("John", "Garcia", new DateOnly(1996, 02, 15), 5, 25,  35000,4, new List<int>(){3})
         };
     }
 
@@ -64,9 +64,9 @@ public class EmployeeRepo : IRepository<Employee>
             employeeInDb.TotalVacationDays = updatedData.TotalVacationDays;
             employeeInDb.EmploymentStatus = updatedData.EmploymentStatus;
             employeeInDb.MonthlyGrossSalary = updatedData.MonthlyGrossSalary;
-            employeeInDb._isActive = updatedData._isActive;
+            employeeInDb.IsActive = updatedData.IsActive;
             employeeInDb.EmployeeType = updatedData.EmployeeType;
-            
+            employeeInDb.PreferredShift = updatedData.PreferredShift;
         }
 
         return employeeInDb;

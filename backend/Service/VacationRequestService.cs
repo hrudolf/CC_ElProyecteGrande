@@ -12,13 +12,6 @@ public class VacationRequestService : IVacationRequestService
         _repository = repository;
     }
 
-    public VacationRequest? Approve(int id)
-    {
-        VacationRequest? requestToApprove = _repository.GetById(id);
-        requestToApprove?.ChangeIsApproved(true);
-        return _repository.Update(requestToApprove);
-    }
-
     public VacationRequest Create(VacationRequest item)
     {
         return _repository.Create(item);
@@ -36,7 +29,7 @@ public class VacationRequestService : IVacationRequestService
 
     public VacationRequest? Delete(int id)
     {
-        VacationRequest? requestInDb = _repository.GetAll().FirstOrDefault(request => request.RequestId == id);
+        VacationRequest? requestInDb = _repository.GetById(id);
         if (requestInDb != null)
         {
             return _repository.Delete(id);
@@ -47,10 +40,26 @@ public class VacationRequestService : IVacationRequestService
 
     public VacationRequest? Update(VacationRequest updatedData)
     {
-        VacationRequest? requestInDb = _repository.GetAll().FirstOrDefault(request => request.RequestId == updatedData.RequestId);
+        VacationRequest? requestInDb = _repository.GetById(updatedData.RequestId);
         if (requestInDb != null)
         {
             return _repository.Update(updatedData);
+        }
+
+        return null;
+    }
+
+    public VacationRequest? ChangeApproval(int id)
+    {
+        VacationRequest? requestInDb = _repository.GetById(id);
+        if (requestInDb != null)
+        {
+            return _repository.Update(new VacationRequest(
+                requestInDb.RequestId,
+                requestInDb.EmployeeId,
+                requestInDb.StartDate,
+                requestInDb.EndDate,
+                !requestInDb.IsApproved));
         }
 
         return null;

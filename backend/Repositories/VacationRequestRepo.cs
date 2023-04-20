@@ -28,15 +28,15 @@ public class VacationRequestRepo : IRepository<VacationRequest>
 
     public VacationRequest Delete(int id)
     {
-        VacationRequest requestInDb = GetById(id)!;
+        VacationRequest requestInDb = _vacationRequests.First(request => request.RequestId == id);
         _vacationRequests.Remove(requestInDb);
         return requestInDb;
     }
 
     public VacationRequest Update(VacationRequest updatedData)
     {
-        VacationRequest requestInDb = GetById(updatedData.RequestId)!;
-        requestInDb.UpDateVacationDate(updatedData);
+        VacationRequest requestInDb = _vacationRequests.First(request => request.RequestId == updatedData.RequestId);
+        requestInDb.UpdateVacationRequest(updatedData);
         return requestInDb;
     }
 }

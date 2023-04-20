@@ -4,5 +4,5 @@ namespace backend.Service;
 
 public interface IVacationRequestService: IService<VacationRequest>
 {
-    VacationRequest? Approve(int id); 
+    VacationRequest? ChangeApproval(int id);
 }

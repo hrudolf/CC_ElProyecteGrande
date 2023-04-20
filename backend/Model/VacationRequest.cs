@@ -9,7 +9,7 @@ public class VacationRequest
     public int EmployeeId { get; }
     public DateOnly StartDate { get; private set; }
     public DateOnly EndDate { get; private set; }
-    private bool _isApproved;
+    public bool IsApproved { get; private set; }
 
     public VacationRequest(int employeeId, DateOnly startDate, DateOnly endDate)
     {
@@ -17,30 +17,23 @@ public class VacationRequest
         EmployeeId = employeeId;
         StartDate = startDate;
         EndDate = endDate;
+        IsApproved = false;
     }
     
     [JsonConstructor]
-    public VacationRequest(int requestId, int employeeId, DateOnly startDate, DateOnly endDate)
+    public VacationRequest(int requestId, int employeeId, DateOnly startDate, DateOnly endDate, bool isApproved = false)
     {
         RequestId = requestId;
         EmployeeId = employeeId;
         StartDate = startDate;
         EndDate = endDate;
-    }
-    public bool GetIsApproved()
-    {
-        return _isApproved;
+        IsApproved = isApproved;
     }
     
-    public void ChangeIsApproved(bool isApproved)
-    {
-        _isApproved = isApproved;
-    }
-
-    public void UpDateVacationDate(VacationRequest updatedData)
+    public void UpdateVacationRequest(VacationRequest updatedData)
     {
         StartDate = updatedData.StartDate;
         EndDate = updatedData.EndDate;
-        ChangeIsApproved(false);
+        IsApproved = updatedData.IsApproved;
     }
 }

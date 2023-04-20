@@ -14,13 +14,13 @@ public class VacationRequestController : ControllerBase
     {
         _service = service;
     }
-    
+
     [HttpGet]
     public IActionResult GetAllVacationRequests()
     {
         return Ok(_service.GetAll());
     }
-    
+
     [HttpGet("{id:int}")]
     public IActionResult GetVacationRequestById(int id)
     {
@@ -32,13 +32,14 @@ public class VacationRequestController : ControllerBase
 
         return NotFound();
     }
-    
+
     [HttpPost]
     public IActionResult CreateVacationRequest([FromBody] VacationRequest vacationRequest)
     {
-        return Ok(_service.Create(new VacationRequest(vacationRequest.EmployeeId, vacationRequest.StartDate, vacationRequest.EndDate)));
+        return Ok(_service.Create(new VacationRequest(vacationRequest.EmployeeId, vacationRequest.StartDate,
+            vacationRequest.EndDate)));
     }
-    
+
     [HttpDelete("{id:int}")]
     public IActionResult DeleteVacationRequest(int id)
     {
@@ -50,32 +51,28 @@ public class VacationRequestController : ControllerBase
 
         return NotFound();
     }
+
+    [HttpPut]
+    public IActionResult UpDateVacationRequest([FromBody] VacationRequest updatedVacationRequest)
+    {
+        VacationRequest? vacationRequest = _service.Update(updatedVacationRequest);
+        if (vacationRequest != null)
+        {
+            return Ok(vacationRequest);
+        }
+
+        return NotFound();
+    }
     
     [HttpPatch("{id:int}")]
     public IActionResult ApproveVacationRequest(int id)
     {
-        VacationRequest? vacationRequest = _service.Approve(id);
-            if (vacationRequest != null)
-            {
-                return Ok(vacationRequest);
-            }
-
-            return NotFound();
-    }
-    [HttpPut("{id:int}")]
-    public IActionResult UpDateVacationRequest(int id, [FromBody] VacationRequest updatedVacationRequest)
-    {
-        if (updatedVacationRequest.RequestId == id)
+        VacationRequest? vacationRequest = _service.ChangeApproval(id);
+        if (vacationRequest != null)
         {
-            VacationRequest? vacationRequest = _service.Update(updatedVacationRequest);
-            if (vacationRequest != null)
-            {
-                return Ok(vacationRequest);
-            }
-
-            return NotFound();
+            return Ok(vacationRequest);
         }
 
-        return BadRequest("IDs do not match.");
+        return NotFound();
     }
 }

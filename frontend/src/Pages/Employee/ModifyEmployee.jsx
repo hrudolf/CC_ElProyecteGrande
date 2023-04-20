@@ -7,6 +7,7 @@ const ModifyEmployee = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
+  const [employeeTypeList, setEmployeeTypeList] = useState("");
   const { id } = useParams();
 
   const [employee, setEmployee] = useState({
@@ -28,16 +29,33 @@ const ModifyEmployee = () => {
     setLoading(true);
     setMessage("");
     setError("");
+
     fetch(`/api/Employee/${id}`, {
       method: "GET",
     })
       .then((res) => res.json())
       .then((json) => {
-        setLoading(false);
         setEmployee(json);
       })
       .catch((err) => setError(err));
   }, [id]);
+
+  useEffect(() => {
+    setLoading(true);
+    setMessage("");
+    setError("");
+    
+    fetch("/api/employeetype", {
+      method: "GET"
+    })
+      .then(res => res.json())
+      .then(json => {
+        setLoading(false);
+        setEmployeeTypeList(json);
+      })
+      .catch(err => setError(err))
+
+  }, []);
 
   const postemployee = async (e) => {
     e.preventDefault();
@@ -103,104 +121,109 @@ const ModifyEmployee = () => {
     <div className="container bg-light w-25 p-3">
       <h1 class="text-center">Change Employee Details</h1>
       <div className="container align-items-left">
-        {!message && 
-        <form className="UserForm" onSubmit={postemployee}>
-          <label htmlFor="employee">First Name:</label>
-          <input
-            type="employee"
-            name="employee"
-            id="employee"
-            value={employee.firstName}
-            onChange={(e) => updateProperty(e.target.value, 1)}
-            required
-          />
+        {!message &&
+          <form className="UserForm" onSubmit={postemployee}>
+            <label htmlFor="firstname">First Name:</label>
+            <input
+              type="text"
+              name="firstname"
+              id="firstname"
+              value={employee.firstName}
+              onChange={(e) => updateProperty(e.target.value, 1)}
+              required
+            />
 
-          <label htmlFor="employee">Last Name:</label>
-          <input
-            type="employee"
-            name="employee"
-            id="employee"
-            value={employee.lastName}
-            onChange={(e) => updateProperty(e.target.value, 2)}
-            required
-          />
+            <label htmlFor="lastname">Last Name:</label>
+            <input
+              type="text"
+              name="lastname"
+              id="lastname"
+              value={employee.lastName}
+              onChange={(e) => updateProperty(e.target.value, 2)}
+              required
+            />
 
-          <label htmlFor="employee">Date of birth:</label>
-          <input
-            type="employee"
-            name="employee"
-            id="employee"
-            value={employee.dateOfBirth}
-            onChange={(e) => updateProperty(e.target.value, 3)}
-          />
+            <label htmlFor="birthdate">Date of birth:</label>
+            <input
+              type="date"
+              name="birthdate"
+              id="birthdate"
+              min="1920-01-01"
+              max="2023-04-20"
+              value={employee.dateOfBirth}
+              onChange={(e) => updateProperty(e.target.value, 3)}
+            />
 
-          <label htmlFor="employee">Preferred Shift:</label>
-          <input
-            type="employee"
-            name="employee"
-            id="employee"
-            value={employee.preferredShift}
-            onChange={(e) => updateProperty(e.target.value, 4)}
-          />
+            <label htmlFor="shift">Preferred Shift:</label>
+            <input
+              type="number"
+              name="shift"
+              id="shift"
+              value={employee.preferredShift}
+              onChange={(e) => updateProperty(e.target.value, 4)}
+              required
+            />
 
-          <label htmlFor="employee">Workdays per week:</label>
-          <input
-            type="employee"
-            name="employee"
-            id="employee"
-            value={employee.workingDays}
-            onChange={(e) => updateProperty(e.target.value, 5)}
-            required
-          />
+            <label htmlFor="workdays">Workdays per week:</label>
+            <input
+              type="number"
+              name="workdays"
+              id="workdays"
+              value={employee.workingDays}
+              onChange={(e) => updateProperty(e.target.value, 5)}
+              required
+            />
 
-          <label htmlFor="employee">Workdays per week:</label>
-          <input
-            type="employee"
-            name="employee"
-            id="employee"
-            value={employee.totalVacationDays}
-            onChange={(e) => updateProperty(e.target.value, 6)}
-            required
-          />
+            <label htmlFor="vacation">Vacation days per year:</label>
+            <input
+              type="number"
+              name="vacation"
+              id="vacation"
+              value={employee.totalVacationDays}
+              onChange={(e) => updateProperty(e.target.value, 6)}
+              required
+            />
 
-          <label htmlFor="employee">Employee Type:</label>
-          <input
-            type="employee"
-            name="employee"
-            id="employee"
-            value={employee.employeeType}
-            onChange={(e) => updateProperty(e.target.value, 7)}
-            required
-          />
+            {employeeTypeList && <>
+              <label htmlFor="employeeType">Employee Type:</label>
+              <select
+                name="employeeType"
+                id="employeeType"
+                value={employee.employeeType}
+                onChange={(e) => updateProperty(e.target.value, 7)}
+                required>
+                  {employeeTypeList.map((opt) => <option key={opt.id} value={opt.id}>{opt.type}</option>)}
+              </select>
+            </>}
 
-          <label htmlFor="employee">Monthly Salary:</label>
-          <input
-            type="employee"
-            name="employee"
-            id="employee"
-            value={employee.monthlyGrossSalary}
-            onChange={(e) => updateProperty(e.target.value, 8)}
-            required
-          />
+            <label htmlFor="salary">Monthly Salary:</label>
+            <input
+              type="number"
+              name="salary"
+              id="salary"
+              value={employee.monthlyGrossSalary}
+              onChange={(e) => updateProperty(e.target.value, 8)}
+              required
+            />
 
-          <div className="buttons">
-            <button
-              type="submit"
-              class="btn btn-primary w-auto m-1"
-              disabled={loading}
-            >
-              Update Employee Data
-            </button>
+            <div className="buttons">
+              <button
+                type="submit"
+                class="btn btn-primary w-auto m-1"
+                disabled={loading}
+              >
+                Update Employee Data
+              </button>
 
-            <button
-              type="button"
-              class="btn btn-secondary w-auto m-1"
-              onClick={() => navigate("/employees")}
-            >
-              Cancel
-            </button>
-          </div>
-        </form>}
+              <button
+                type="button"
+                class="btn btn-secondary w-auto m-1"
+                onClick={() => navigate("/employees")}
+              >
+                Cancel
+              </button>
+            </div>
+          </form>}
         {error && <div class="alert alert-danger" role="alert" >{error ? error : ""}</div>}
         {message && <div class="alert alert-success" role="alert">{message ? message : ""}</div>}
       </div>

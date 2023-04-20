@@ -43,7 +43,7 @@ const CreateEmployeeType = () => {
       <form className="UserForm" onSubmit={postEmployeeType}>
         <label htmlFor="employeeType">Add an employee role:</label>
         <input
-          type="employeeType"
+          type="text"
           name="employeeType"
           id="employeeType"
           value={employeeType}

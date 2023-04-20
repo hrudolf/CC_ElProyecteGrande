@@ -67,11 +67,7 @@ const Employee = () => {
                       <td>{employee.firstName}</td>
                       <td>{employee.lastName}</td>
                       <td>{employee.dateOfBirth}</td>
-                      <td>
-                        {employee.preferredShift.map((shift) => (
-                          <div>{shift} </div>
-                        ))}
-                      </td>
+                      <td>{employee.preferredShift}</td>
                       <td>{employee.workingDays}</td>
                       <td>{employee.totalVacationDays}</td>
                       <td>{employee.employeeType}</td>
@@ -110,7 +106,7 @@ const Employee = () => {
         {message && <div className={"message"}>{message ? message : ""}</div>}
         <button
           class="btn btn-primary w-auto"
-          onClick={() => navigate("/employe/create")}
+          onClick={() => navigate("/employees/create")}
         >
           Add a new employee
         </button>

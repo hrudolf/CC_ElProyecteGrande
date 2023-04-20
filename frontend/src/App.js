@@ -6,6 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import CreateEmployeeType from "./Pages/EmployeeTypes/CreateEmployeeType";
 import ModifyEmployeeType from "./Pages/EmployeeTypes/ModifyEmployeeType";
 import Employee from "./Pages/Employee/Employee";
+import CreateEmployee from "./Pages/Employee/CreateEmployee";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/" element={<HomePage />}></Route>
           <Route path="/employees">
             <Route path="" element={<Employee />} />
+            <Route path="create" element={<CreateEmployee />}></Route>
           </Route>
           <Route path="/employeetypes">
             <Route path="" element={<EmployeeTypes />} />

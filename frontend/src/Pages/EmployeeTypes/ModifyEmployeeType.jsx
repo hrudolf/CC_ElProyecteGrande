@@ -71,11 +71,11 @@ const ModifyEmployeeType = () => {
         />
 
         <div className="buttons">
-          <button type="submit" disabled={loading}>
+          <button type="submit" class="btn btn-primary w-auto m-1" disabled={loading}>
             Update Employee Role Name
           </button>
 
-          <button type="button" onClick={() => navigate('/employeetypes')}>
+          <button type="button" class="btn btn-secondary w-auto m-1" onClick={() => navigate('/employeetypes')}>
             Cancel
           </button>
         </div>

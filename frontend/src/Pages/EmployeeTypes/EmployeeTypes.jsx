@@ -38,25 +38,25 @@ const EmployeeTypes = () => {
     }, [])
 
     return (
-        <div className="EmployeeTypes">
-            <h1>Employee Roles</h1>
-            <div className="TODO">
+        <div class="container align-items-center">
+            <h1 class="p-2 m-2">Employee Roles</h1>
+            <div class="container align-items-center">
                 {employeeTypeList && <div className="employeeTypes">
-                    <table>
-                        <thead>
+                    <table class="table table-bordered table-striped table-responsive">
+                        <thead class="p-2">
                             <tr>
-                                <th>Id</th>
-                                <th>Role name</th>
+                                <th scope="col">Id</th>
+                                <th scope="col">Role name</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="p-5">
                             {employeeTypeList.map(employeeType => {
                                 return (
-                                    <tr>
-                                        <td>{employeeType.id}</td>
+                                    <tr>    
+                                        <th scope="row">{employeeType.id}</th>
                                         <td>{employeeType.type}</td>
-                                        <td> <button onClick={() => navigate(`/employeetypes/edit/${employeeType.id}`)} disabled={loading}>Edit</button> </td>
-                                        <td> <button onClick={() => DeleteEmployee(employeeType.id)} disabled={loading}>Delete</button> </td>
+                                        <td> <button class="btn btn-secondary" onClick={() => navigate(`/employeetypes/edit/${employeeType.id}`)} disabled={loading}>Edit</button> </td>
+                                        <td> <button class="btn btn-warning" onClick={() => DeleteEmployee(employeeType.id)} disabled={loading}>Delete</button> </td>
                                     </tr>
                                 )
                             })}
@@ -66,7 +66,7 @@ const EmployeeTypes = () => {
                 {loading && <div className={"loading"}>Loading...</div>}
                 {error && <div className={"error"}>{error ? error : ""}</div>}
                 {message && <div className={"message"}>{message ? message : ""}</div>}
-                <button onClick={() => navigate("/employeetypes/create")}>Add a new role</button>
+                <button class="btn btn-primary w-auto" onClick={() => navigate("/employeetypes/create")}>Add a new role</button>
             </div >
         </div>
     );

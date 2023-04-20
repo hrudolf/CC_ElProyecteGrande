@@ -51,11 +51,11 @@ const CreateEmployeeType = () => {
         />
 
         <div className="buttons">
-          <button type="submit" disabled={loading}>
+          <button type="submit" class="btn btn-primary w-auto m-1" disabled={loading}>
             Create new Employee Type
           </button>
 
-          <button type="button" onClick={() => navigate('/employeetypes')}>
+          <button type="button" class="btn btn-secondary w-auto m-1" onClick={() => navigate('/employeetypes')}>
             Cancel
           </button>
         </div>

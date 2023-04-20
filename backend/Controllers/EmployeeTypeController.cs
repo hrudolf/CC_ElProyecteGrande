@@ -20,7 +20,7 @@ public class EmployeeTypeController : ControllerBase
     {
         return Ok(_service.GetAll());
     }
-    
+
     [HttpGet("{id:int}")]
     public IActionResult GetEmployeeTypeById(int id)
     {
@@ -32,13 +32,13 @@ public class EmployeeTypeController : ControllerBase
 
         return NotFound();
     }
-    
+
     [HttpPost]
     public IActionResult CreateEmployeeType([FromBody] string employeeType)
     {
         return Ok(_service.Create(new EmployeeType(employeeType)));
     }
-    
+
     [HttpDelete("{id:int}")]
     public IActionResult DeleteEmployeeTypeById(int id)
     {
@@ -50,21 +50,16 @@ public class EmployeeTypeController : ControllerBase
 
         return NotFound();
     }
-    
-    [HttpPut("{id:int}")]
-    public IActionResult UpdateEmployeeType(int id, [FromBody] EmployeeType updatedEmployeeType)
-    {
-        if (updatedEmployeeType.Id == id)
-        {
-            EmployeeType? employeeType = _service.Update(updatedEmployeeType);
-            if (employeeType != null)
-            {
-                return Ok(employeeType);
-            }
 
-            return NotFound();
+    [HttpPut]
+    public IActionResult UpdateEmployeeType([FromBody] EmployeeType updatedEmployeeType)
+    {
+        EmployeeType? employeeType = _service.Update(updatedEmployeeType);
+        if (employeeType != null)
+        {
+            return Ok(employeeType);
         }
 
-        return BadRequest("IDs do not match.");
+        return NotFound();
     }
 }

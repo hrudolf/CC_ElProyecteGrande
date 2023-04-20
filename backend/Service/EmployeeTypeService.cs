@@ -15,10 +15,24 @@ public class EmployeeTypeService : IEmployeeTypeService
     public EmployeeType Create(EmployeeType employeeType) => _repository.Create(employeeType);
     public IEnumerable<EmployeeType> GetAll() => _repository.GetAll().Where(employeeType => employeeType.GetIsActive());
     public EmployeeType? GetById(int id) => _repository.GetById(id);
-    public EmployeeType? Delete(int id) => _repository.Delete(id);
+
+    public EmployeeType? Delete(int id)
+    {
+        EmployeeType? employeeInDb = GetById(id);
+        if (employeeInDb != null && employeeInDb.GetIsActive())
+        {
+            _repository.Delete(id);
+        };
+        return employeeInDb;
+    }
 
     public EmployeeType? Update(EmployeeType employeeType)
     {
-        return _repository.Update(employeeType);
+        EmployeeType? employeeInDb = GetById(employeeType.Id);
+        if (employeeInDb != null)
+        {
+            return _repository.Update(employeeType);
+        }
+        return employeeInDb;
     }
 }

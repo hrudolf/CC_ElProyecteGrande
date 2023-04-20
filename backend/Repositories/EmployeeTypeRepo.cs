@@ -40,21 +40,17 @@ public class EmployeeTypeRepo : IRepository<EmployeeType>
         return _employeeTypes.FirstOrDefault(employeeType => employeeType.Id == id);
     }
 
-    public EmployeeType? Update(EmployeeType updatedData)
+    public EmployeeType Update(EmployeeType updatedData)
     {
-        EmployeeType? employeeInDb = _employeeTypes.FirstOrDefault(employeeType => employeeType.Id == updatedData.Id);
-        if (employeeInDb != null)
-        {
-            employeeInDb.Type = updatedData.Type;
-        }
-
+        EmployeeType employeeInDb = _employeeTypes.First(employeeType => employeeType.Id == updatedData.Id);
+        employeeInDb.Type = updatedData.Type;
         return employeeInDb;
     }
 
-    public EmployeeType? Delete(int id)
+    public EmployeeType Delete(int id)
     {
-        EmployeeType? employeeInDb = _employeeTypes.FirstOrDefault(employeeType => employeeType.Id == id);
-        if (employeeInDb != null && employeeInDb.GetIsActive()) employeeInDb.ChangeIsActive();
+        EmployeeType employeeInDb = _employeeTypes.First(employeeType => employeeType.Id == id);
+        employeeInDb.ChangeIsActive();
         return employeeInDb;
     }
 }

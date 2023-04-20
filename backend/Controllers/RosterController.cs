@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using backend.Model;
 using backend.Service;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
@@ -19,13 +14,13 @@ namespace backend.Controllers
         {
             _service = service;
         }
-        
+
         [HttpGet]
         public IActionResult GetAllRoster()
         {
             return Ok(_service.GetAll());
         }
-        
+
         [HttpGet("{id:int}")]
         public IActionResult GetRosterById(int id)
         {
@@ -37,13 +32,13 @@ namespace backend.Controllers
 
             return NotFound();
         }
-        
+
         [HttpPost]
         public IActionResult CreateRosterItem([FromBody] Roster rosterItem)
         {
             return Ok(_service.Create(rosterItem));
         }
-        
+
         [HttpDelete("{id:int}")]
         public IActionResult DeleteRosterItemById(int id)
         {
@@ -55,22 +50,17 @@ namespace backend.Controllers
 
             return NotFound();
         }
-        
-        [HttpPut("{id:int}")]
-        public IActionResult UpdateRosterItem(int id, [FromBody] Roster updatedRosterItem)
-        {
-            if (updatedRosterItem.RosterId == id)
-            {
-                Roster? rosterItem = _service.Update(updatedRosterItem);
-                if (rosterItem != null)
-                {
-                    return Ok(rosterItem);
-                }
 
-                return NotFound();
+        [HttpPut]
+        public IActionResult UpdateRosterItem([FromBody] Roster updatedRosterItem)
+        {
+            Roster? rosterItem = _service.Update(updatedRosterItem);
+            if (rosterItem != null)
+            {
+                return Ok(rosterItem);
             }
 
-            return BadRequest("IDs do not match.");
+            return NotFound();
         }
     }
 }

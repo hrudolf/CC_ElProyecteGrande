@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using backend.Model;
 using backend.Service;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
@@ -19,13 +14,13 @@ namespace backend.Controllers
         {
             _service = service;
         }
-        
+
         [HttpGet]
         public IActionResult GetAllShifts()
         {
             return Ok(_service.GetAll());
         }
-        
+
         [HttpGet("{id:int}")]
         public IActionResult GetShiftById(int id)
         {
@@ -37,13 +32,13 @@ namespace backend.Controllers
 
             return NotFound();
         }
-        
+
         [HttpPost]
         public IActionResult CreateShift([FromBody] Shift shift)
         {
             return Ok(_service.Create(shift));
         }
-        
+
         [HttpDelete("{id:int}")]
         public IActionResult DeleteShiftById(int id)
         {
@@ -55,22 +50,17 @@ namespace backend.Controllers
 
             return NotFound();
         }
-        
-        [HttpPut("{id:int}")]
-        public IActionResult UpdateShift(int id, [FromBody] Shift updatedShift)
-        {
-            if (updatedShift.ShiftId == id)
-            {
-                Shift? shift = _service.Update(updatedShift);
-                if (shift != null)
-                {
-                    return Ok(shift);
-                }
 
-                return NotFound();
+        [HttpPut]
+        public IActionResult UpdateShift([FromBody] Shift updatedShift)
+        {
+            Shift? shift = _service.Update(updatedShift);
+            if (shift != null)
+            {
+                return Ok(shift);
             }
 
-            return BadRequest("IDs do not match.");
+            return NotFound();
         }
     }
 }

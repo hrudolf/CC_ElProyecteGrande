@@ -9,17 +9,17 @@ public class Employee
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public DateOnly DateOfBirth { get; set; }
-    public List<int> PreferredShift { get; set; }
+    public int PreferredShift { get; set; }
     public int WorkingDays { get; set; }
     public int TotalVacationDays { get; set; }
     public int EmployeeType { get; set; }
     public bool EmploymentStatus = true;
     public int MonthlyGrossSalary { get; set; }
-    public bool IsActive { get; set; } = true;
+    private bool _isActive = true;
 
     
     public Employee(string firstName, string lastName , DateOnly dateOfBirth, int workingDays, 
-        int totalVacationDays, int monthlyGrossSalary, int employeeType, List<int> preferredShift)
+        int totalVacationDays, int monthlyGrossSalary, int employeeType, int preferredShift)
     {
         EmployeeId = _employeeIdCounter++;
         FirstName = firstName;
@@ -34,7 +34,7 @@ public class Employee
     
     [JsonConstructor]
     public Employee(int employeeId, string firstName, string lastName, DateOnly dateOfBirth, int workingDays, 
-        int totalVacationDays, int monthlyGrossSalary, int employeeType, List<int> preferredShift)
+        int totalVacationDays, int monthlyGrossSalary, int employeeType, int preferredShift)
     {
         EmployeeId = employeeId;
         FirstName = firstName;
@@ -49,11 +49,11 @@ public class Employee
     
     public bool GetIsActive()
     {
-        return IsActive;
+        return _isActive;
     }
     
     public void ChangeIsActive()
     {
-        IsActive = !IsActive;
+        _isActive = !_isActive;
     }
 }

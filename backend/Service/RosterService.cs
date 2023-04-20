@@ -5,7 +5,7 @@ namespace backend.Service;
 
 public class RosterService : IRosterService
 {
-    private IRepository<Roster> _repository;
+    private readonly IRepository<Roster> _repository;
 
     public RosterService(IRepository<Roster> repository)
     {
@@ -18,10 +18,25 @@ public class RosterService : IRosterService
 
     public Roster? GetById(int id) => _repository.GetById(id);
 
-    public Roster? Delete(int id) => _repository.Delete(id);
+    public Roster? Delete(int id)
+    {
+        Roster? rosterInDb = GetById(id);
+        if (rosterInDb != null && rosterInDb.GetIsActive())
+        {
+            _repository.Delete(id);
+        }
+
+        return null;
+    }
 
     public Roster? Update(Roster updatedData)
     {
-        return _repository.Update(updatedData);
+        Roster? rosterInDb = GetById(updatedData.RosterId);
+        if (rosterInDb != null && rosterInDb.GetIsActive())
+        {
+            _repository.Update(updatedData);
+        }
+
+        return null;
     }
 }

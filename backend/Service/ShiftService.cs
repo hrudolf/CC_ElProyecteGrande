@@ -14,14 +14,29 @@ public class ShiftService : IShiftService
 
     public Shift Create(Shift item) => _repository.Create(item);
 
-    public IEnumerable<Shift> GetAll() => _repository.GetAll().Where(shift => shift.GetIsActive());
+    public IEnumerable<Shift> GetAll() => _repository.GetAll();
 
     public Shift? GetById(int id) => _repository.GetById(id);
 
-    public Shift? Delete(int id) => _repository.Delete(id);
+    public Shift? Delete(int id)
+    {
+        Shift? shiftInDb = GetById(id);
+        if (shiftInDb != null)
+        {
+            return _repository.Delete(id);
+        }
+
+        return null;
+    }
 
     public Shift? Update(Shift updatedData)
     {
-        return _repository.Update(updatedData);
+        Shift? shiftInDb = GetById(updatedData.ShiftId);
+        if (shiftInDb != null)
+        {
+            return _repository.Update(updatedData);
+        }
+
+        return null;
     }
 }

@@ -1,8 +1,6 @@
 using backend.Model;
 using backend.Repositories;
 using backend.Service;
-using Microsoft.AspNetCore.Http.Json;
-
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -42,14 +42,16 @@ const EmployeeTypes = () => {
             <h1 class="p-2 m-2">Employee Roles</h1>
             <div class="container align-items-center">
                 {employeeTypeList && <div className="employeeTypes">
-                    <table class="table table-bordered table-striped table-responsive">
-                        <thead class="p-2">
+                    <table class="table table-light table-bordered table-striped table-responsive">
+                        <thead >
                             <tr>
                                 <th scope="col">Id</th>
                                 <th scope="col">Role name</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
                             </tr>
                         </thead>
-                        <tbody class="p-5">
+                        <tbody >
                             {employeeTypeList.map(employeeType => {
                                 return (
                                     <tr>    

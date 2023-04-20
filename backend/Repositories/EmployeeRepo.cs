@@ -45,30 +45,25 @@ public class EmployeeRepo : IRepository<Employee>
         return _listOfEmployees.FirstOrDefault(employee => employee.EmployeeId == id);
     }
 
-    public Employee? Delete(int id)
+    public Employee Delete(int id)
     {
-        Employee? employeeInDb = _listOfEmployees.FirstOrDefault(employee => employee.EmployeeId == id);
-        if (employeeInDb != null && employeeInDb.GetIsActive()) employeeInDb.ChangeIsActive();
+        Employee employeeInDb = _listOfEmployees.First(employee => employee.EmployeeId == id);
+        employeeInDb.ChangeIsActive();
         return employeeInDb;
     }
 
-    public Employee? Update(Employee updatedData)
+    public Employee Update(Employee updatedData)
     {
-        Employee? employeeInDb = _listOfEmployees.FirstOrDefault(employee => employee.EmployeeId == updatedData.EmployeeId);
-        if (employeeInDb != null)
-        {
-            employeeInDb.FirstName = updatedData.FirstName;
-            employeeInDb.LastName = updatedData.LastName;
-            employeeInDb.DateOfBirth = updatedData.DateOfBirth;
-            employeeInDb.WorkingDays = updatedData.WorkingDays;
-            employeeInDb.TotalVacationDays = updatedData.TotalVacationDays;
-            employeeInDb.EmploymentStatus = updatedData.EmploymentStatus;
-            employeeInDb.MonthlyGrossSalary = updatedData.MonthlyGrossSalary;
-            employeeInDb.IsActive = updatedData.IsActive;
-            employeeInDb.EmployeeType = updatedData.EmployeeType;
-            employeeInDb.PreferredShift = updatedData.PreferredShift;
-        }
-
+        Employee employeeInDb = _listOfEmployees.First(employee => employee.EmployeeId == updatedData.EmployeeId);
+        employeeInDb.FirstName = updatedData.FirstName;
+        employeeInDb.LastName = updatedData.LastName;
+        employeeInDb.DateOfBirth = updatedData.DateOfBirth;
+        employeeInDb.WorkingDays = updatedData.WorkingDays;
+        employeeInDb.TotalVacationDays = updatedData.TotalVacationDays;
+        employeeInDb.EmploymentStatus = updatedData.EmploymentStatus;
+        employeeInDb.MonthlyGrossSalary = updatedData.MonthlyGrossSalary;
+        employeeInDb.EmployeeType = updatedData.EmployeeType;
+        employeeInDb.PreferredShift = updatedData.PreferredShift;
         return employeeInDb;
     }
 }

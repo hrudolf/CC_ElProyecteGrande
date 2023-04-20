@@ -4,14 +4,14 @@ namespace backend.Model;
 
 public class EmployeeType
 {
-    private static int Counter;
+    private static int _counter;
     public int Id { get; set; }
     public string Type { get; set; }
     private bool _isActive = true;
 
     public EmployeeType(string type)
     {
-        Id = Counter++;
+        Id = _counter++;
         Type = type;
     }
 

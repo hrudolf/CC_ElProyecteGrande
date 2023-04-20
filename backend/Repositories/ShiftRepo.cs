@@ -20,6 +20,7 @@ public class ShiftRepo : IRepository<Shift>
             new Shift("evening", 2, 1.20)
         };
     }
+
     public Shift Create(Shift item)
     {
         _listOfShifts.Add(item);
@@ -36,23 +37,19 @@ public class ShiftRepo : IRepository<Shift>
         return _listOfShifts.FirstOrDefault(shift => shift.ShiftId == id);
     }
 
-    public Shift? Delete(int id)
+    public Shift Delete(int id)
     {
-        Shift? shift = _listOfShifts.FirstOrDefault(shift => shift.ShiftId == id);
-        if (shift != null && shift.GetIsActive()) shift.ChangeIsActive();
+        Shift shift = _listOfShifts.First(shift => shift.ShiftId == id);
+        _listOfShifts.Remove(shift);
         return shift;
     }
 
-    public Shift? Update(Shift updatedData)
+    public Shift Update(Shift updatedData)
     {
-        Shift? shift = _listOfShifts.FirstOrDefault(shift => shift.ShiftId == updatedData.ShiftId);
-        if (shift != null)
-        {
-            shift.TimeOfShift = updatedData.TimeOfShift;
-            shift.NursesRequiredForShift = updatedData.NursesRequiredForShift;
-            shift.BonusRate = updatedData.BonusRate;
-            shift._isActive = updatedData._isActive;
-        }
+        Shift shift = _listOfShifts.First(shift => shift.ShiftId == updatedData.ShiftId);
+        shift.TimeOfShift = updatedData.TimeOfShift;
+        shift.NursesRequiredForShift = updatedData.NursesRequiredForShift;
+        shift.BonusRate = updatedData.BonusRate;
         return shift;
     }
 }

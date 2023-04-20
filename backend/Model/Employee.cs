@@ -1,5 +1,4 @@
-﻿using backend.Helper;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace backend.Model;
 
@@ -10,7 +9,7 @@ public class Employee
     public string FirstName { get; set; }
     public string LastName { get; set; }
     
-    public string DateOfBirth { get; set; }
+    public DateOnly DateOfBirth { get; set; }
 
     // TODO after Shift Model is created
     // public List<Shift> PreferredShift { get; }
@@ -27,7 +26,7 @@ public class Employee
     public bool _isActive = true;
 
     
-    public Employee(string firstName, string lastName , string dateOfBirth, int workingDays, 
+    public Employee(string firstName, string lastName , DateOnly dateOfBirth, int workingDays, 
         int totalVacationDays, int monthlyGrossSalary, int employeeType)
     {
         EmployeeId = _employeeIdCounter++;
@@ -41,7 +40,7 @@ public class Employee
     }
     
     [JsonConstructor]
-    public Employee(int employeeId, string firstName, string lastName, string dateOfBirth, int workingDays, 
+    public Employee(int employeeId, string firstName, string lastName, DateOnly dateOfBirth, int workingDays, 
         int totalVacationDays, int monthlyGrossSalary, int employeeType)
     {
         EmployeeId = employeeId;

@@ -18,6 +18,7 @@ public class VacationRequest
         StartDate = startDate;
         EndDate = endDate;
     }
+    
     [JsonConstructor]
     public VacationRequest(int requestId, int employeeId, DateOnly startDate, DateOnly endDate)
     {

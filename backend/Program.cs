@@ -1,4 +1,3 @@
-using backend.Helper;
 using backend.Model;
 using backend.Repositories;
 using backend.Service;
@@ -27,13 +26,6 @@ builder.Services.AddSingleton<IRepository<VacationRequest>, VacationRequestRepo>
 builder.Services.AddTransient<IVacationRequestService, VacationRequestService>();
 
 
-/*
-// custom DateOnly Json Converter
-builder.Services.Configure<JsonOptions>(options =>
-{
-    options.SerializerOptions.Converters.Add(new DateOnlyJsonConverter());
-});
-*/
 
 var app = builder.Build();
 

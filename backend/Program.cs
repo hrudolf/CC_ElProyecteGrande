@@ -37,7 +37,7 @@ using (var serviceScope = app.Services.CreateScope())
     context.Database.EnsureCreated();
     //Seed data
     EmployeeSeed employeeSeed = new EmployeeSeed(context);
-    employeeSeed.CreateEmployees();
+    employeeSeed.CreateEmployees(30);
 }
 
 // Configure the HTTP request pipeline.

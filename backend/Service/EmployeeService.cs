@@ -1,15 +1,20 @@
-﻿using backend.Model;
+﻿using backend.Database;
+using backend.Model;
 using backend.Repositories;
+using Microsoft.CodeAnalysis.Elfie.Serialization;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.Service;
 
 public class EmployeeService : IEmployeeService
 {
     private readonly IRepository<Employee> _repository;
+    private readonly DataContext _context;
 
-    public EmployeeService(IRepository<Employee> repository)
+    public EmployeeService(IRepository<Employee> repository, DataContext context)
     {
         _repository = repository;
+        _context = context;
     }
 
     public Employee Create(Employee item) => _repository.Create(item);
@@ -38,5 +43,10 @@ public class EmployeeService : IEmployeeService
         }
 
         return null;
+    }
+
+    public async Task<List<Employee>> GetAllEmployees()
+    {
+        return await _context.Employees.ToListAsync();
     }
 }

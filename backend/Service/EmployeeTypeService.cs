@@ -1,27 +1,42 @@
-﻿using backend.Model;
-using backend.Repositories;
+﻿using backend.Database;
+using backend.Model;
 
 namespace backend.Service;
 
 public class EmployeeTypeService : IEmployeeTypeService
 {
-    private readonly IRepository<EmployeeType> _repository;
+    private readonly DataContext _context;
 
-    public EmployeeTypeService(IRepository<EmployeeType> repository)
+    public EmployeeTypeService(DataContext context)
     {
-        _repository = repository;
+        _context = context;
     }
 
-    public EmployeeType Create(EmployeeType employeeType) => _repository.Create(employeeType);
-    public IEnumerable<EmployeeType> GetAll() => _repository.GetAll().Where(employeeType => employeeType.GetIsActive());
-    public EmployeeType? GetById(int id) => _repository.GetById(id);
+    public EmployeeType Create(EmployeeType employeeType)
+    {
+        _context.EmployeeTypes.Add(employeeType);
+        _context.SaveChanges();
+        return employeeType;
+    }
+
+    public IEnumerable<EmployeeType> GetAll()
+    {
+        return _context.EmployeeTypes;
+    }
+
+    public EmployeeType? GetById(int id)
+    {
+        return _context.EmployeeTypes.FirstOrDefault(employeeType => employeeType.Id == id);
+    }
 
     public EmployeeType? Delete(int id)
     {
         EmployeeType? employeeInDb = GetById(id);
         if (employeeInDb != null && employeeInDb.GetIsActive())
         {
-            return _repository.Delete(id);
+            _context.EmployeeTypes.Remove(employeeInDb);
+            _context.SaveChanges();
+            return employeeInDb;
         }
 
         return null;
@@ -32,7 +47,9 @@ public class EmployeeTypeService : IEmployeeTypeService
         EmployeeType? employeeInDb = GetById(employeeType.Id);
         if (employeeInDb != null)
         {
-            return _repository.Update(employeeType);
+            employeeInDb.Type = employeeType.Type;
+            _context.SaveChanges();
+            return employeeInDb;
         }
 
         return null;

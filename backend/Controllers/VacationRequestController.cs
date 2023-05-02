@@ -33,12 +33,15 @@ public class VacationRequestController : ControllerBase
         return NotFound();
     }
 
-    /*[HttpPost]
+    [HttpPost]
     public IActionResult CreateVacationRequest([FromBody] VacationRequest vacationRequest)
     {
-        return Ok(_service.Create(new VacationRequest(vacationRequest.Id, vacationRequest.StartDate,
-            vacationRequest.EndDate)));
-    }*/
+        return Ok(_service.Create(new VacationRequest
+        {
+            Employee = vacationRequest.Employee, StartDate = vacationRequest.StartDate,
+            EndDate = vacationRequest.EndDate
+        }));
+    }
 
     [HttpDelete("{id:int}")]
     public IActionResult DeleteVacationRequest(int id)
@@ -65,7 +68,7 @@ public class VacationRequestController : ControllerBase
     }
     
     [HttpPatch("{id:int}")]
-    public IActionResult ApproveVacationRequest(int id)
+    public IActionResult ChangeVacationRequestApproval(int id)
     {
         VacationRequest? vacationRequest = _service.ChangeApproval(id);
         if (vacationRequest != null)

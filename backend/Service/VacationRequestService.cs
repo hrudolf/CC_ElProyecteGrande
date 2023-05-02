@@ -1,68 +1,66 @@
+using backend.Database;
 using backend.Model;
-using backend.Repositories;
 
 namespace backend.Service;
 
 public class VacationRequestService : IVacationRequestService
 {
-    private readonly IRepository<VacationRequest> _repository;
+    private readonly DataContext _context;
 
-    public VacationRequestService(IRepository<VacationRequest> repository)
+    public VacationRequestService(DataContext context)
     {
-        _repository = repository;
+        _context = context;
     }
 
     public VacationRequest Create(VacationRequest item)
     {
-        return _repository.Create(item);
+         _context.VacationRequests.Add(item);
+         _context.SaveChanges();
+         return item;
     }
 
     public IEnumerable<VacationRequest> GetAll()
     {
-        return _repository.GetAll();
+
+        return _context.VacationRequests;
     }
 
     public VacationRequest? GetById(int id)
     {
-        return _repository.GetById(id);
+        return _context.VacationRequests.FirstOrDefault(request => request.Id == id);
     }
 
     public VacationRequest? Delete(int id)
     {
-        VacationRequest? requestInDb = _repository.GetById(id);
+        VacationRequest? requestInDb = GetById(id);
         if (requestInDb != null)
         {
-            return _repository.Delete(id);
+            _context.VacationRequests.Remove(requestInDb);
+            _context.SaveChanges();
         }
-
-        return null;
+        return requestInDb;
     }
 
     public VacationRequest? Update(VacationRequest updatedData)
     {
-        VacationRequest? requestInDb = _repository.GetById(updatedData.Id);
+        VacationRequest? requestInDb = GetById(updatedData.Id);
         if (requestInDb != null)
         {
-            return _repository.Update(updatedData);
+            requestInDb.UpdateVacationRequest(updatedData);
+            requestInDb.ChangeApproval(false);
+            _context.SaveChanges();
         }
-
-        return null;
+        return requestInDb;
     }
 
     public VacationRequest? ChangeApproval(int id)
     {
-        /*VacationRequest? requestInDb = _repository.GetById(id);
+        VacationRequest? requestInDb = GetById(id);
         if (requestInDb != null)
         {
-            return _repository.Update(new VacationRequest(
-                requestInDb.Id,
-                requestInDb.Employee,
-                requestInDb.StartDate,
-                requestInDb.EndDate,
-                !requestInDb.IsApproved));
+            requestInDb.ChangeApproval(!requestInDb.IsApproved);
+            _context.SaveChanges();
         }
-
-        return null;*/
-        throw new NotImplementedException();
+        return requestInDb;
     }
 }

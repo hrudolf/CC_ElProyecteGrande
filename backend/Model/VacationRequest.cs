@@ -8,8 +8,8 @@ public class VacationRequest
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
     public Employee Employee { get; set; }
-    public DateTime StartDate { get; private set; }
-    public DateTime EndDate { get; private set; }
+    public DateTime StartDate { get; set; }
+    public DateTime EndDate { get; set; }
     public bool IsApproved { get; private set; }
 
     /*public VacationRequest(Employee employee, DateTime startDate, DateTime endDate)
@@ -35,5 +35,9 @@ public class VacationRequest
         StartDate = updatedData.StartDate;
         EndDate = updatedData.EndDate;
         IsApproved = updatedData.IsApproved;
+    }
+    public void ChangeApproval(bool approvalState)
+    {
+        IsApproved = approvalState;
     }
 }

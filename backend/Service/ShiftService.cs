@@ -31,7 +31,7 @@ public class ShiftService : IShiftService
 
     public Shift? Update(Shift updatedData)
     {
-        Shift? shiftInDb = GetById(updatedData.ShiftId);
+        Shift? shiftInDb = GetById(updatedData.Id);
         if (shiftInDb != null)
         {
             return _repository.Update(updatedData);

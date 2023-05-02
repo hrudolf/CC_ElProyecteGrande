@@ -33,11 +33,11 @@ namespace backend.Controllers
             return NotFound();
         }
 
-        [HttpPost]
+        /*[HttpPost]
         public IActionResult CreateShift([FromBody] Shift shift)
         {
             return Ok(_service.Create(new Shift(shift.TimeOfShift, shift.NursesRequiredForShift, shift.BonusRate)));
-        }
+        }*/
 
         [HttpDelete("{id:int}")]
         public IActionResult DeleteShiftById(int id)

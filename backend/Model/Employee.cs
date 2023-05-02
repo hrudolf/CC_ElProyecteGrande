@@ -10,7 +10,7 @@ public class Employee
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public DateTime DateOfBirth { get; set; }
-    public int PreferredShift { get; set; }
+    public Shift PreferredShift { get; set; }
     public int WorkingDays { get; set; }
     public int TotalVacationDays { get; set; }
     public EmployeeType EmployeeType { get; set; }
@@ -18,7 +18,7 @@ public class Employee
     public int MonthlyGrossSalary { get; set; }
     private bool _isActive = true;
 
-    /*public Employee(string firstName, string lastName , DateOnly dateOfBirth, int workingDays, 
+    /*public Employee(string firstName, string lastName , DateTime dateOfBirth, int workingDays, 
         int totalVacationDays, int monthlyGrossSalary, EmployeeType employeeType, int preferredShift)
     {
         FirstName = firstName;
@@ -29,12 +29,13 @@ public class Employee
         MonthlyGrossSalary = monthlyGrossSalary;
         EmployeeType = employeeType;
         PreferredShift = preferredShift;
-    }
+    }*/
     
-    [JsonConstructor]
-    public Employee(int employeeId, string firstName, string lastName , DateOnly dateOfBirth, int workingDays, 
+    /*[JsonConstructor]
+    public Employee(int id, string firstName, string lastName , DateTime dateOfBirth, int workingDays, 
         int totalVacationDays, int monthlyGrossSalary, EmployeeType employeeType, int preferredShift)
     {
+        Id = id;
         FirstName = firstName;
         LastName = lastName;
         DateOfBirth = dateOfBirth;

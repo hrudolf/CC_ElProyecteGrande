@@ -1,18 +1,22 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace backend.Model;
 
 public class Shift
 {
-    private static int _shiftIdCounter;
-    public int ShiftId { get; }
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public int Id { get; set; }
     public string TimeOfShift { get; set; }
     public int NursesRequiredForShift { get; set; }
     public double BonusRate { get; set; }
-    
-    public Shift(string timeOfShift, int nursesRequiredForShift, double bonusRate)
+    [JsonIgnore]
+    public List<Roster> RosterList { get; set; } = new();
+    [JsonIgnore] 
+    public List<Employee> EmployeeList { get; set; }
+
+    /*public Shift(string timeOfShift, int nursesRequiredForShift, double bonusRate)
     {
-        ShiftId = _shiftIdCounter++;
         TimeOfShift = timeOfShift;
         NursesRequiredForShift = nursesRequiredForShift;
         BonusRate = bonusRate;  
@@ -21,9 +25,9 @@ public class Shift
     [JsonConstructor]
     public Shift(int shiftId, string timeOfShift, int nursesRequiredForShift, double bonusRate)
     {
-        ShiftId = shiftId;
+        Id = shiftId;
         TimeOfShift = timeOfShift;
         NursesRequiredForShift = nursesRequiredForShift;
         BonusRate = bonusRate;
-    }
+    }*/
 }

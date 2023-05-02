@@ -10,10 +10,10 @@ public class EmployeeSeed
     private readonly Random _rnd = new Random();
    
     private int _numberOfEmployees = 20;
-    private List<string> _firstNames = new List<string>()
-        { "Susan", "Sandra", "Angela", "Cecilia", "Catherine", "Tiffany", "Catherine", "Cristina", "Carol", "John" };
+    private static List<string> _firstNames = new List<string>()
+        { "Danny", "Sandra", "Angela", "Cecilia", "Catherine", "Tiffany", "Catherine", "Cristina", "Carol", "John" };
 
-    private List<string> _lastNames = new List<string>()
+    private  List<string> _lastNames = new List<string>()
         { "Smith", "McClure", "Glenn", "Coles", "Metcalfe", "Ross", "Marks", "Fowles", "Green", "Garcia" };
 
     public EmployeeSeed(DataContext dataContext)
@@ -39,7 +39,7 @@ public class EmployeeSeed
                 EmploymentStatus = true,
                 MonthlyGrossSalary = _rnd.Next(45000,60000)
             };
-            _dataContext.Employees.Add(newEmployee);
+            _dataContext.Add(newEmployee);
             _dataContext.SaveChanges();
 
             counter++;

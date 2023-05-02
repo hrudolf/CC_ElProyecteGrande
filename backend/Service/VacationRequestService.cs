@@ -12,9 +12,30 @@ public class VacationRequestService : IVacationRequestService
         _context = context;
     }
 
+    public VacationRequest? ConvertFromDTO(VacationRequestDTO vacationRequestData)
+    {
+        if (vacationRequestData.Id != null)
+        {
+            var request = _context.VacationRequests.Find(vacationRequestData.Id);
+            if (request == null) return null;
+            request.UpdateVacationRequest(vacationRequestData);
+            _context.SaveChanges();
+            return request;
+        }
+        var employeeInDb = _context.Employees.Find(vacationRequestData.EmployeeId);
+        if (employeeInDb == null) return null;
+
+        return new VacationRequest
+        {
+            Employee = employeeInDb,
+            StartDate = vacationRequestData.StartDate,
+            EndDate = vacationRequestData.EndDate
+        };
+    }
+
     public VacationRequest Create(VacationRequest item)
     {
-         _context.VacationRequests.Add(item);
+        _context.VacationRequests.Add(item);
          _context.SaveChanges();
          return item;
     }
@@ -41,16 +62,12 @@ public class VacationRequestService : IVacationRequestService
         return requestInDb;
     }
 
-    public VacationRequest? Update(VacationRequest updatedData)
+    public VacationRequest Update(VacationRequest updatedData)
     {
-        VacationRequest? requestInDb = GetById(updatedData.Id);
-        if (requestInDb != null)
-        {
-            requestInDb.UpdateVacationRequest(updatedData);
-            requestInDb.ChangeApproval(false);
-            _context.SaveChanges();
-        }
-        return requestInDb;
+        updatedData.ChangeApproval(false);
+        _context.SaveChanges();
+        
+        return updatedData;
     }
 
     public VacationRequest? ChangeApproval(int id)

@@ -36,7 +36,7 @@ public class VacationRequestRepo : IRepository<VacationRequest>
     public VacationRequest Update(VacationRequest updatedData)
     {
         VacationRequest requestInDb = _vacationRequests.First(request => request.Id == updatedData.Id);
-        requestInDb.UpdateVacationRequest(updatedData);
+        //requestInDb.UpdateVacationRequest(updatedData);
         return requestInDb;
     }
 }

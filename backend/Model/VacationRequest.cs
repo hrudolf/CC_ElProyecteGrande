@@ -30,7 +30,7 @@ public class VacationRequest
         IsApproved = isApproved;
     }*/
     
-    public void UpdateVacationRequest(VacationRequest updatedData)
+    public void UpdateVacationRequest(VacationRequestDTO updatedData)
     {
         StartDate = updatedData.StartDate;
         EndDate = updatedData.EndDate;
@@ -40,4 +40,14 @@ public class VacationRequest
     {
         IsApproved = approvalState;
     }
+}
+public class VacationRequestDTO
+{
+    public int? Id { get; set; } = null;
+    public int EmployeeId { get; set; }
+    public DateTime StartDate { get; set; }
+    public DateTime EndDate { get; set; }
+    
+    public bool IsApproved { get; private set; }
+
 }

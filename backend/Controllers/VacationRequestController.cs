@@ -34,13 +34,11 @@ public class VacationRequestController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult CreateVacationRequest([FromBody] VacationRequest vacationRequest)
+    public IActionResult CreateVacationRequest([FromBody] VacationRequestDTO vacationRequest)
     {
-        return Ok(_service.Create(new VacationRequest
-        {
-            Employee = vacationRequest.Employee, StartDate = vacationRequest.StartDate,
-            EndDate = vacationRequest.EndDate
-        }));
+        VacationRequest? request = _service.ConvertFromDTO(vacationRequest);
+        if (request == null) return NotFound();
+        return Ok(_service.Create(request));
     }
 
     [HttpDelete("{id:int}")]
@@ -56,14 +54,14 @@ public class VacationRequestController : ControllerBase
     }
 
     [HttpPut]
-    public IActionResult UpDateVacationRequest([FromBody] VacationRequest updatedVacationRequest)
+    public IActionResult UpDateVacationRequest([FromBody] VacationRequestDTO updatedVacationRequest)
     {
-        VacationRequest? vacationRequest = _service.Update(updatedVacationRequest);
-        if (vacationRequest != null)
+        VacationRequest? requestInDb = _service.ConvertFromDTO(updatedVacationRequest);
+        if (requestInDb != null)
         {
-            return Ok(vacationRequest);
+            VacationRequest? vacationRequest = _service.Update(requestInDb);
+            if (vacationRequest != null) return Ok(vacationRequest);
         }
-
         return NotFound();
     }
     

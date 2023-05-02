@@ -8,10 +8,10 @@ public class EmployeeRepo : IRepository<Employee>
 
     public EmployeeRepo()
     {
-        _listOfEmployees = PopulateEmployeeList();
+       // _listOfEmployees = PopulateEmployeeList();
     }
 
-    private List<Employee> PopulateEmployeeList()
+    /*private List<Employee> PopulateEmployeeList()
     {
         return new List<Employee>()
         {
@@ -26,7 +26,7 @@ public class EmployeeRepo : IRepository<Employee>
             new Employee("Karol", "Green", new DateOnly(2001, 05, 27), 5, 20,  24000, 4, 3),
             new Employee("John", "Garcia", new DateOnly(1996, 02, 15), 5, 25,  35000,4, 3)
         };
-    }
+    }*/
 
 
     public Employee Create(Employee item)
@@ -42,19 +42,19 @@ public class EmployeeRepo : IRepository<Employee>
 
     public Employee? GetById(int id)
     {
-        return _listOfEmployees.FirstOrDefault(employee => employee.EmployeeId == id);
+        return _listOfEmployees.FirstOrDefault(employee => employee.Id == id);
     }
 
     public Employee Delete(int id)
     {
-        Employee employeeInDb = _listOfEmployees.First(employee => employee.EmployeeId == id);
+        Employee employeeInDb = _listOfEmployees.First(employee => employee.Id == id);
         employeeInDb.ChangeIsActive();
         return employeeInDb;
     }
 
     public Employee Update(Employee updatedData)
     {
-        Employee employeeInDb = _listOfEmployees.First(employee => employee.EmployeeId == updatedData.EmployeeId);
+        Employee employeeInDb = _listOfEmployees.First(employee => employee.Id == updatedData.Id);
         employeeInDb.FirstName = updatedData.FirstName;
         employeeInDb.LastName = updatedData.LastName;
         employeeInDb.DateOfBirth = updatedData.DateOfBirth;

@@ -31,7 +31,7 @@ public class EmployeeService : IEmployeeService
 
     public Employee? Update(Employee updatedData)
     {
-        Employee? employeeInDb = GetById(updatedData.EmployeeId);
+        Employee? employeeInDb = GetById(updatedData.Id);
         if (employeeInDb != null)
         {
            return _repository.Update(updatedData);

@@ -1,26 +1,26 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace backend.Model;
 
 public class Employee
 {
-    private static int _employeeIdCounter;
-    public int EmployeeId { get; set;}
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public int Id { get; set;}
     public string FirstName { get; set; }
     public string LastName { get; set; }
-    public DateOnly DateOfBirth { get; set; }
+    public DateTime DateOfBirth { get; set; }
     public int PreferredShift { get; set; }
     public int WorkingDays { get; set; }
     public int TotalVacationDays { get; set; }
-    public int EmployeeType { get; set; }
+    public EmployeeType EmployeeType { get; set; }
     public bool EmploymentStatus = true;
     public int MonthlyGrossSalary { get; set; }
     private bool _isActive = true;
 
-    public Employee(string firstName, string lastName , DateOnly dateOfBirth, int workingDays, 
-        int totalVacationDays, int monthlyGrossSalary, int employeeType, int preferredShift)
+    /*public Employee(string firstName, string lastName , DateOnly dateOfBirth, int workingDays, 
+        int totalVacationDays, int monthlyGrossSalary, EmployeeType employeeType, int preferredShift)
     {
-        EmployeeId = _employeeIdCounter++;
         FirstName = firstName;
         LastName = lastName;
         DateOfBirth = dateOfBirth;
@@ -33,9 +33,8 @@ public class Employee
     
     [JsonConstructor]
     public Employee(int employeeId, string firstName, string lastName , DateOnly dateOfBirth, int workingDays, 
-        int totalVacationDays, int monthlyGrossSalary, int employeeType, int preferredShift)
+        int totalVacationDays, int monthlyGrossSalary, EmployeeType employeeType, int preferredShift)
     {
-        EmployeeId = employeeId;
         FirstName = firstName;
         LastName = lastName;
         DateOfBirth = dateOfBirth;
@@ -44,7 +43,7 @@ public class Employee
         MonthlyGrossSalary = monthlyGrossSalary;
         EmployeeType = employeeType;
         PreferredShift = preferredShift;
-    }
+    }*/
     
     public bool GetIsActive()
     {

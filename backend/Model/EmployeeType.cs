@@ -1,17 +1,18 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace backend.Model;
 
 public class EmployeeType
 {
-    private static int _counter;
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
     public string Type { get; set; }
     private bool _isActive = true;
 
+    [JsonIgnore] public List<Employee> EmployeeList { get; set; } = new();
     public EmployeeType(string type)
     {
-        Id = _counter++;
         Type = type;
     }
 

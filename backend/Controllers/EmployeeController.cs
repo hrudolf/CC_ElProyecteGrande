@@ -33,7 +33,7 @@ namespace backend.Controllers
             return NotFound();
         }
 
-        [HttpPost]
+        /*[HttpPost]
         public IActionResult CreateEmployee([FromBody] Employee employee)
         {
             return Ok(_service.Create(new Employee(employee.FirstName,
@@ -44,7 +44,7 @@ namespace backend.Controllers
                 employee.MonthlyGrossSalary,
                 employee.EmployeeType,
                 employee.PreferredShift)));
-        }
+        }*/
 
         [HttpDelete("{id:int}")]
         public IActionResult DeleteEmployeeById(int id)

@@ -1,3 +1,4 @@
+using backend.Database;
 using backend.Model;
 using backend.Service;
 using Microsoft.AspNetCore.Mvc;
@@ -9,16 +10,18 @@ namespace backend.Controllers
     public class EmployeeController : ControllerBase
     {
         private readonly IEmployeeService _service;
+        private readonly DataContext _context;
 
-        public EmployeeController(IEmployeeService service)
+        public EmployeeController(IEmployeeService service, DataContext context)
         {
             _service = service;
+            _context = context;
         }
 
         [HttpGet]
-        public IActionResult GetAllEmployees()
+        public async Task<List<Employee>> GetAllEmployees()
         {
-            return Ok(_service.GetAll());
+            return await _service.GetAllEmployees();
         }
 
         [HttpGet("{id:int}")]

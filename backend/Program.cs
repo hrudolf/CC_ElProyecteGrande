@@ -1,6 +1,9 @@
+using System.Configuration;
+using backend.Database;
 using backend.Model;
 using backend.Repositories;
 using backend.Service;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,10 +25,17 @@ builder.Services.AddTransient<IRosterService, RosterService>();
 builder.Services.AddCors();
 builder.Services.AddSingleton<IRepository<VacationRequest>, VacationRequestRepo>();
 builder.Services.AddTransient<IVacationRequestService, VacationRequestService>();
-
-
+builder.Services.AddDbContext<DataContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
+using (var serviceScope = app.Services.CreateScope())
+{
+    var context = serviceScope.ServiceProvider.GetRequiredService<DataContext>();
+    context.Database.EnsureDeleted();
+    context.Database.EnsureCreated();
+    //Seed data
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

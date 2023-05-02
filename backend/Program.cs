@@ -1,5 +1,6 @@
 using System.Configuration;
 using backend.Database;
+using backend.Database.Seed;
 using backend.Model;
 using backend.Repositories;
 using backend.Service;
@@ -35,6 +36,8 @@ using (var serviceScope = app.Services.CreateScope())
     context.Database.EnsureDeleted();
     context.Database.EnsureCreated();
     //Seed data
+    EmployeeSeed employeeSeed = new EmployeeSeed(context);
+    employeeSeed.CreateEmployees();
 }
 
 // Configure the HTTP request pipeline.

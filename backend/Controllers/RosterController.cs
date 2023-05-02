@@ -33,14 +33,14 @@ namespace backend.Controllers
             return NotFound();
         }
 
-        [HttpPost]
+        /*[HttpPost]
         public IActionResult CreateRosterItem([FromBody] Roster rosterItem)
         {
             return Ok(_service.Create(new Roster(rosterItem.Date,
-                rosterItem.ShiftId,
-                rosterItem.EmployeeId,
+                rosterItem.Shift,
+                rosterItem.Employee,
                 rosterItem.Attendance)));
-        }
+        }*/
 
         [HttpDelete("{id:int}")]
         public IActionResult DeleteRosterItemById(int id)

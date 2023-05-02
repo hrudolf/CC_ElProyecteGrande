@@ -31,7 +31,7 @@ public class RosterService : IRosterService
 
     public Roster? Update(Roster updatedData)
     {
-        Roster? rosterInDb = GetById(updatedData.RosterId);
+        Roster? rosterInDb = GetById(updatedData.Id);
         if (rosterInDb != null && rosterInDb.GetIsActive())
         {
             return _repository.Update(updatedData);

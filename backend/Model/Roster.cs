@@ -1,36 +1,36 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace backend.Model;
 
 public class Roster
 {
-    private static int _rosterIdCounter;
-    public int RosterId { get; }
-    public DateOnly Date { get; set; }
-    public int ShiftId { get; set; }
-    public int EmployeeId { get; set; }
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public int Id { get; set; }
+    public DateTime Date { get; set; }
+    public Shift? Shift { get; set; }
+    public Employee Employee { get; set; }
     public bool Attendance { get; set; }
     private bool _isActive = true;
 
-    public Roster(DateOnly date, int shiftId, int employeeId, bool attendance)
+    /*public Roster(DateTime date, Shift shift, Employee employee, bool attendance)
     {
-        RosterId = _rosterIdCounter++;
         Date = date;
-        ShiftId = shiftId;
-        EmployeeId = employeeId;
+        Shift = shift;
+        Employee = employee;
         Attendance = attendance;
     }
     
     
     [JsonConstructor]
-    public Roster(int rosterId, DateOnly date, int shiftId, int employeeId, bool attendance)
+    public Roster(int rosterId, DateTime date, Shift shift, Employee employee, bool attendance)
     {
-        RosterId = rosterId;
+        Id = rosterId;
         Date = date;
-        ShiftId = shiftId;
-        EmployeeId = employeeId;
+        Shift = shift;
+        Employee = employee;
         Attendance = attendance;
-    }
+    }*/
     
     public bool GetIsActive()
     {

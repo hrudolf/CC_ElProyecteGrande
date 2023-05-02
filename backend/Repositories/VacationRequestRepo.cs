@@ -23,19 +23,19 @@ public class VacationRequestRepo : IRepository<VacationRequest>
 
     public VacationRequest? GetById(int id)
     {
-        return _vacationRequests.FirstOrDefault(request => request.RequestId == id);
+        return _vacationRequests.FirstOrDefault(request => request.Id == id);
     }
 
     public VacationRequest Delete(int id)
     {
-        VacationRequest requestInDb = _vacationRequests.First(request => request.RequestId == id);
+        VacationRequest requestInDb = _vacationRequests.First(request => request.Id == id);
         _vacationRequests.Remove(requestInDb);
         return requestInDb;
     }
 
     public VacationRequest Update(VacationRequest updatedData)
     {
-        VacationRequest requestInDb = _vacationRequests.First(request => request.RequestId == updatedData.RequestId);
+        VacationRequest requestInDb = _vacationRequests.First(request => request.Id == updatedData.Id);
         requestInDb.UpdateVacationRequest(updatedData);
         return requestInDb;
     }

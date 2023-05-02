@@ -33,12 +33,12 @@ public class VacationRequestController : ControllerBase
         return NotFound();
     }
 
-    [HttpPost]
+    /*[HttpPost]
     public IActionResult CreateVacationRequest([FromBody] VacationRequest vacationRequest)
     {
-        return Ok(_service.Create(new VacationRequest(vacationRequest.EmployeeId, vacationRequest.StartDate,
+        return Ok(_service.Create(new VacationRequest(vacationRequest.Id, vacationRequest.StartDate,
             vacationRequest.EndDate)));
-    }
+    }*/
 
     [HttpDelete("{id:int}")]
     public IActionResult DeleteVacationRequest(int id)

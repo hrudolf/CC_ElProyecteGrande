@@ -40,7 +40,7 @@ public class VacationRequestService : IVacationRequestService
 
     public VacationRequest? Update(VacationRequest updatedData)
     {
-        VacationRequest? requestInDb = _repository.GetById(updatedData.RequestId);
+        VacationRequest? requestInDb = _repository.GetById(updatedData.Id);
         if (requestInDb != null)
         {
             return _repository.Update(updatedData);
@@ -51,17 +51,18 @@ public class VacationRequestService : IVacationRequestService
 
     public VacationRequest? ChangeApproval(int id)
     {
-        VacationRequest? requestInDb = _repository.GetById(id);
+        /*VacationRequest? requestInDb = _repository.GetById(id);
         if (requestInDb != null)
         {
             return _repository.Update(new VacationRequest(
-                requestInDb.RequestId,
-                requestInDb.EmployeeId,
+                requestInDb.Id,
+                requestInDb.Employee,
                 requestInDb.StartDate,
                 requestInDb.EndDate,
                 !requestInDb.IsApproved));
         }
 
-        return null;
+        return null;*/
+        throw new NotImplementedException();
     }
 }

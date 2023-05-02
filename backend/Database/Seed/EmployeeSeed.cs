@@ -23,7 +23,7 @@ public class EmployeeSeed
         var counter = 0;
         while (counter < numberOfEmployees)
         {
-            Employee newEmployee = new Employee()
+            Employee newEmployee = new Employee
             {
                 FirstName = _firstNames[Random.Shared.Next(_firstNames.Count)],
                 LastName = _lastNames[Random.Shared.Next(_lastNames.Count)],

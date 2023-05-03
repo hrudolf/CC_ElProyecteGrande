@@ -17,13 +17,13 @@ public class VacationRequestController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult GetAllVacationRequests()
+    public ActionResult<List<VacationRequest>> GetAllVacationRequests()
     {
         return Ok(_service.GetAll());
     }
 
     [HttpGet("{id:int}")]
-    public IActionResult GetVacationRequestById(int id)
+    public ActionResult<VacationRequest> GetVacationRequestById(int id)
     {
         VacationRequest? vacationRequest = _service.GetById(id);
         if (vacationRequest != null)
@@ -35,7 +35,7 @@ public class VacationRequestController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult CreateVacationRequest([FromBody] VacationRequestDto vacationRequest)
+    public ActionResult<VacationRequest> CreateVacationRequest([FromBody] VacationRequestDto vacationRequest)
     {
         VacationRequest? request = _service.ConvertFromDto(vacationRequest);
         if (request == null) return NotFound();
@@ -43,7 +43,7 @@ public class VacationRequestController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
-    public IActionResult DeleteVacationRequest(int id)
+    public ActionResult<VacationRequest> DeleteVacationRequest(int id)
     {
         VacationRequest? vacationRequest = _service.Delete(id);
         if (vacationRequest != null)
@@ -55,7 +55,7 @@ public class VacationRequestController : ControllerBase
     }
 
     [HttpPut]
-    public IActionResult UpDateVacationRequest([FromBody] VacationRequest updatedVacationRequest)
+    public ActionResult<VacationRequest> UpDateVacationRequest([FromBody] VacationRequest updatedVacationRequest)
     {
             VacationRequest? vacationRequest = _service.Update(updatedVacationRequest);
             if (vacationRequest != null) return Ok(vacationRequest);
@@ -63,7 +63,7 @@ public class VacationRequestController : ControllerBase
     }
     
     [HttpPatch("{id:int}")]
-    public IActionResult ChangeVacationRequestApproval(int id)
+    public ActionResult<VacationRequest> ChangeVacationRequestApproval(int id)
     {
         VacationRequest? vacationRequest = _service.ChangeApproval(id);
         if (vacationRequest != null)

@@ -1,3 +1,4 @@
+using backend.DTOs;
 using backend.Model;
 using backend.Service;
 using Microsoft.AspNetCore.Mvc;
@@ -33,14 +34,13 @@ namespace backend.Controllers
             return NotFound();
         }
 
-        /*[HttpPost]
-        public IActionResult CreateRosterItem([FromBody] Roster rosterItem)
+        [HttpPost]
+        public IActionResult CreateRosterItem([FromBody] RosterDto rosterItem)
         {
-            return Ok(_service.Create(new Roster(rosterItem.Date,
-                rosterItem.Shift,
-                rosterItem.Employee,
-                rosterItem.Attendance)));
-        }*/
+            Roster? roster = _service.ConvertFromDto(rosterItem);
+            if (roster == null) return NotFound();
+            return Ok(_service.Create(roster));
+        }
 
         [HttpDelete("{id:int}")]
         public IActionResult DeleteRosterItemById(int id)

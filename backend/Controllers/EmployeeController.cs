@@ -21,9 +21,9 @@ namespace backend.Controllers
 
         
         [HttpGet]
-        public async Task<List<Employee>> GetAllEmployees()
+        public List<Employee> GetAllEmployees()
         {
-            return await _service.GetAllEmployees();
+            return _service.GetAllEmployees();
         }
 
         

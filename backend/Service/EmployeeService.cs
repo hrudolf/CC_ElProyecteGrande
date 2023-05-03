@@ -18,16 +18,27 @@ public class EmployeeService : IEmployeeService
     }
 
     
-    // Methods with Entity Framework 
-
-    public async Task<List<Employee>> GetAllEmployees()
+    public List<Employee> GetAllEmployees()
     {
-        return await _context.Employees.ToListAsync();
+        var employees = _context.Employees
+            .Include(e => e.EmployeeType)
+            .Include(e => e.PreferredShift)
+            .Include(e => e.VacationRequests)
+            .ToList();
+            
+        return employees;
     }
 
     public Employee? GetEmployeeById(int id)
     {
-        return _context.Employees.ToList().FirstOrDefault(employee => employee.Id == id);
+        var employees = _context.Employees
+            .Where(employee => employee.Id == id)
+            .Include(e => e.EmployeeType)
+            .Include(e => e.PreferredShift)
+            .Include(e => e.VacationRequests)
+            .ToList()
+            .FirstOrDefault();
+        return employees;
     }
 
     public Employee? DeleteEmployeePermanentlyById(int id)

@@ -1,4 +1,5 @@
-﻿using backend.Model;
+﻿using backend.DTOs;
+using backend.Model;
 using backend.Service;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,13 +17,13 @@ public class EmployeeTypeController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult GetAllEmployeeTypes()
+    public ActionResult<List<EmployeeType>> GetAllEmployeeTypes()
     {
         return Ok(_service.GetAll());
     }
 
     [HttpGet("{id:int}")]
-    public IActionResult GetEmployeeTypeById(int id)
+    public ActionResult<EmployeeType> GetEmployeeTypeById(int id)
     {
         EmployeeType? employeeType = _service.GetById(id);
         if (employeeType != null)
@@ -30,17 +31,17 @@ public class EmployeeTypeController : ControllerBase
             return Ok(employeeType);
         }
 
-        return NotFound();
+        return NotFound($"EmployeeType with id #{id} could not be found.");
     }
 
     [HttpPost]
-    public IActionResult CreateEmployeeType([FromBody] string employeeType)
+    public ActionResult<EmployeeType> CreateEmployeeType(EmployeeTypeDto employeeType)
     {
-        return Ok(_service.Create(new EmployeeType(employeeType)));
+        return Ok(_service.Create(new EmployeeType { Type = employeeType.Type }));
     }
 
     [HttpDelete("{id:int}")]
-    public IActionResult DeleteEmployeeTypeById(int id)
+    public ActionResult<EmployeeType> DeleteEmployeeTypeById(int id)
     {
         EmployeeType? employeeType = _service.Delete(id);
         if (employeeType != null)
@@ -48,11 +49,11 @@ public class EmployeeTypeController : ControllerBase
             return Ok(employeeType);
         }
 
-        return NotFound();
+        return NotFound($"EmployeeType with id #{id} could not be found.");
     }
 
     [HttpPut]
-    public IActionResult UpdateEmployeeType([FromBody] EmployeeType updatedEmployeeType)
+    public ActionResult<EmployeeType> UpdateEmployeeType([FromBody] EmployeeType updatedEmployeeType)
     {
         EmployeeType? employeeType = _service.Update(updatedEmployeeType);
         if (employeeType != null)
@@ -60,6 +61,6 @@ public class EmployeeTypeController : ControllerBase
             return Ok(employeeType);
         }
 
-        return NotFound();
+        return NotFound($"EmployeeType with id #{updatedEmployeeType.Id} could not be found.");
     }
 }

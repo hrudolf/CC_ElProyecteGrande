@@ -32,7 +32,7 @@ public class EmployeeTypeService : IEmployeeTypeService
     public EmployeeType? Delete(int id)
     {
         EmployeeType? employeeInDb = GetById(id);
-        if (employeeInDb != null && employeeInDb.GetIsActive())
+        if (employeeInDb != null)
         {
             _context.EmployeeTypes.Remove(employeeInDb);
             _context.SaveChanges();
@@ -42,12 +42,12 @@ public class EmployeeTypeService : IEmployeeTypeService
         return null;
     }
 
-    public EmployeeType? Update(EmployeeType employeeType)
+    public EmployeeType? Update(EmployeeType updatedType)
     {
-        EmployeeType? employeeInDb = GetById(employeeType.Id);
+        EmployeeType? employeeInDb = GetById(updatedType.Id);
         if (employeeInDb != null)
         {
-            employeeInDb.Type = employeeType.Type;
+            employeeInDb.Type = updatedType.Type;
             _context.SaveChanges();
             return employeeInDb;
         }

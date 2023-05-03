@@ -1,3 +1,4 @@
+using backend.DTOs;
 using backend.Model;
 using backend.Service;
 using Microsoft.AspNetCore.Mvc;
@@ -34,9 +35,9 @@ public class VacationRequestController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult CreateVacationRequest([FromBody] VacationRequestDTO vacationRequest)
+    public IActionResult CreateVacationRequest([FromBody] VacationRequestDto vacationRequest)
     {
-        VacationRequest? request = _service.ConvertFromDTO(vacationRequest);
+        VacationRequest? request = _service.ConvertFromDto(vacationRequest);
         if (request == null) return NotFound();
         return Ok(_service.Create(request));
     }
@@ -54,15 +55,11 @@ public class VacationRequestController : ControllerBase
     }
 
     [HttpPut]
-    public IActionResult UpDateVacationRequest([FromBody] VacationRequestDTO updatedVacationRequest)
+    public IActionResult UpDateVacationRequest([FromBody] VacationRequest updatedVacationRequest)
     {
-        VacationRequest? requestInDb = _service.ConvertFromDTO(updatedVacationRequest);
-        if (requestInDb != null)
-        {
-            VacationRequest? vacationRequest = _service.Update(requestInDb);
+            VacationRequest? vacationRequest = _service.Update(updatedVacationRequest);
             if (vacationRequest != null) return Ok(vacationRequest);
-        }
-        return NotFound();
+            return NotFound();
     }
     
     [HttpPatch("{id:int}")]

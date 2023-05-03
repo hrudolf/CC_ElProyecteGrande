@@ -1,4 +1,5 @@
 using backend.Database;
+using backend.DTOs;
 using backend.Model;
 
 namespace backend.Service;
@@ -12,16 +13,8 @@ public class VacationRequestService : IVacationRequestService
         _context = context;
     }
 
-    public VacationRequest? ConvertFromDTO(VacationRequestDTO vacationRequestData)
+    public VacationRequest? ConvertFromDto(VacationRequestDto vacationRequestData)
     {
-        if (vacationRequestData.Id != null)
-        {
-            var request = _context.VacationRequests.Find(vacationRequestData.Id);
-            if (request == null) return null;
-            request.UpdateVacationRequest(vacationRequestData);
-            _context.SaveChanges();
-            return request;
-        }
         var employeeInDb = _context.Employees.Find(vacationRequestData.EmployeeId);
         if (employeeInDb == null) return null;
 
@@ -62,12 +55,16 @@ public class VacationRequestService : IVacationRequestService
         return requestInDb;
     }
 
-    public VacationRequest Update(VacationRequest updatedData)
+    public VacationRequest? Update(VacationRequest vacationRequestData)
     {
-        updatedData.ChangeApproval(false);
-        _context.SaveChanges();
-        
-        return updatedData;
+        VacationRequest? requestInDb = GetById(vacationRequestData.Id);
+        if (requestInDb != null)
+        {
+            requestInDb.UpdateVacationRequest(vacationRequestData);
+            requestInDb.ChangeApproval(false);
+            _context.SaveChanges();
+        }
+        return requestInDb;
     }
 
     public VacationRequest? ChangeApproval(int id)

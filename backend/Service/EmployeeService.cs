@@ -1,4 +1,6 @@
-﻿using backend.Database;
+﻿using System.Diagnostics;
+using backend.Database;
+using backend.DTOs;
 using backend.Model;
 using backend.Repositories;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
@@ -63,6 +65,29 @@ public class EmployeeService : IEmployeeService
 
         if (employee == null) return employee;
         _context.Remove(employee);
+        _context.SaveChanges();
+
+        return employee;
+    }
+
+    public Employee? UpdateEmployee(int id, UpdateEmployeeDto? updateEmployeeDto)
+    {
+        Employee? employee = GetEmployeeById(id);
+
+        if (updateEmployeeDto == null && employee == null) return employee;
+        
+        if (updateEmployeeDto?.FirstName != null) employee!.FirstName = updateEmployeeDto.FirstName ;
+        if (updateEmployeeDto?.LastName != null) employee!.LastName = updateEmployeeDto.LastName;
+        if (updateEmployeeDto?.DateOfBirth != null) employee!.DateOfBirth = updateEmployeeDto.DateOfBirth;
+        //TODO employee!.PreferredShift = updateEmployeeDto.PreferredShift;
+        employee.WorkingDays = updateEmployeeDto.WorkingDays;
+        employee.TotalVacationDays = updateEmployeeDto.TotalVacationDays;
+        //TODO employee!.VacationRequests = updateEmployeeDto.VacationRequests;
+        //TODO employee!.EmployeeType = updateEmployeeDto.EmployeeType;
+        employee.EmploymentStatus = updateEmployeeDto.EmploymentStatus;
+        employee.MonthlyGrossSalary = updateEmployeeDto.MonthlyGrossSalary;
+        employee.IsActive = updateEmployeeDto.IsActive;
+
         _context.SaveChanges();
 
         return employee;

@@ -1,4 +1,5 @@
 using backend.Database;
+using backend.DTOs;
 using backend.Model;
 using backend.Service;
 using Microsoft.AspNetCore.Mvc;
@@ -61,10 +62,10 @@ namespace backend.Controllers
             return NotFound();
         }
 
-        [HttpPut]
-        public IActionResult UpdateEmployee([FromBody] Employee updatedEmployee)
+        [HttpPut("{id:int}")]
+        public IActionResult UpdateEmployee(int id, [FromBody] UpdateEmployeeDto updatedEmployee)
         {
-            Employee? employee = _service.Update(updatedEmployee);
+            Employee? employee = _service.UpdateEmployee(id, updatedEmployee);
             if (employee != null)
             {
                 return Ok(employee);

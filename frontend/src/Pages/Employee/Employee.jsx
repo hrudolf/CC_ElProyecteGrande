@@ -12,7 +12,7 @@ const Employee = () => {
   const navigate = useNavigate();
 
   const DeleteEmployee = (employeeId) => {
-    fetch(`/api/Employee/${employeeId}`, {
+    fetch(`/api/Employee/temporary-delete/${employeeId}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -30,7 +30,7 @@ const Employee = () => {
     setLoading(true);
     setMessage("");
     setError("");
-    fetch("/api/employee", {
+    fetch("/api/employee/all-employees", {
       method: "GET",
     })
       .then((res) => res.json())
@@ -41,14 +41,14 @@ const Employee = () => {
       .catch((err) => setError(err));
 
     fetch("/api/employeetype", {
-      method: "GET"
+      method: "GET",
     })
-      .then(res => res.json())
-      .then(json => {
+      .then((res) => res.json())
+      .then((json) => {
         setLoading(false);
         setEmployeeTypeList(json);
       })
-      .catch(err => setError(err))
+      .catch((err) => setError(err));
   }, []);
 
   return (
@@ -64,53 +64,50 @@ const Employee = () => {
                   <th scope="col">First Name</th>
                   <th scope="col">Last Name</th>
                   <th scope="col">Date of Birth</th>
-                  <th scope="col">Preferred Shift</th>
                   <th scope="col">Workdays per Week</th>
                   <th scope="col">Vacation Days</th>
-                  <th scope="col">Employee Type</th>
                   <th scope="col">Monthly Salary</th>
                   <th scope="col"></th>
                   <th scope="col"></th>
                 </tr>
               </thead>
               <tbody class="p-5">
-                {employeeTypeList && employeeList.map((employee) => {
-                  return (
-                    <tr key={employee.id}>
-                      <th scope="row">{employee.id}</th>
-                      <td>{employee.firstName}</td>
-                      <td>{employee.lastName}</td>
-                      <td>{employee.dateOfBirth}</td>
-                      <td>{employee.preferredShift}</td>
-                      <td>{employee.workingDays}</td>
-                      <td>{employee.totalVacationDays}</td>
-                      <td>{(employeeTypeList.map(el => el.id).indexOf(employee.employeeType) === -1 ? "N/A" : employeeTypeList.reduce((acc, curr) => acc = curr.id === employee.employeeType ? curr.type : acc, ''))}</td>
-                      <td>{employee.monthlyGrossSalary}</td>
-                      <td>
-                        {" "}
-                        <button
-                          class="btn btn-secondary"
-                          onClick={() =>
-                            navigate(`/employees/edit/${employee.id}`)
-                          }
-                          disabled={loading}
-                        >
-                          Edit
-                        </button>{" "}
-                      </td>
-                      <td>
-                        {" "}
-                        <button
-                          class="btn btn-warning"
-                          onClick={() => DeleteEmployee(employee.id)}
-                          disabled={loading}
-                        >
-                          Delete
-                        </button>{" "}
-                      </td>
-                    </tr>
-                  );
-                })}
+                {employeeTypeList &&
+                  employeeList.map((employee) => {
+                    return (
+                      <tr key={employee.id}>
+                        <th scope="row">{employee.id}</th>
+                        <td>{employee.firstName}</td>
+                        <td>{employee.lastName}</td>
+                        <td>{employee.dateOfBirth}</td>
+                        <td>{employee.workingDays}</td>
+                        <td>{employee.totalVacationDays}</td>
+                        <td>{employee.monthlyGrossSalary}</td>
+                        <td>
+                          {" "}
+                          <button
+                            class="btn btn-secondary"
+                            onClick={() =>
+                              navigate(`/employees/edit/${employee.id}`)
+                            }
+                            disabled={loading}
+                          >
+                            Edit
+                          </button>{" "}
+                        </td>
+                        <td>
+                          {" "}
+                          <button
+                            class="btn btn-warning"
+                            onClick={() => DeleteEmployee(employee.id)}
+                            disabled={loading}
+                          >
+                            Delete
+                          </button>{" "}
+                        </td>
+                      </tr>
+                    );
+                  })}
               </tbody>
             </table>
           </div>

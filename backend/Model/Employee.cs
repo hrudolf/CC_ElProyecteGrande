@@ -17,7 +17,6 @@ public class Employee
     public Shift? PreferredShift { get; set; }
     public int WorkingDays { get; set; }
     public int TotalVacationDays { get; set; }
-    [JsonIgnore]
     public List<VacationRequest> VacationRequests { get; set; } = new();
     public EmployeeType? EmployeeType { get; set; }
     public bool EmploymentStatus = true;

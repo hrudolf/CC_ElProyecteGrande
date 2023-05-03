@@ -8,6 +8,10 @@ import ModifyEmployeeType from "./Pages/EmployeeTypes/ModifyEmployeeType";
 import Employee from "./Pages/Employee/Employee";
 import CreateEmployee from "./Pages/Employee/CreateEmployee";
 import ModifyEmployee from "./Pages/Employee/ModifyEmployee";
+import VacationRequest from "./Pages/VacationRequests/VacationRequest";
+import CreateVacationRequest from "./Pages/VacationRequests/CreateVacationRequest";
+import ModifyVacationRequest from "./Pages/VacationRequests/ModifyVacationRequest";
+
 
 function App() {
   return (
@@ -24,6 +28,11 @@ function App() {
             <Route path="" element={<EmployeeTypes />} />
             <Route path="create" element={<CreateEmployeeType />}></Route>
             <Route path="edit/:id" element={<ModifyEmployeeType />}></Route>
+          </Route>
+          <Route path="/vacationrequests">
+            <Route path="" element={<VacationRequest />} />
+            <Route path="create" element={<CreateVacationRequest />}></Route>
+            <Route path="edit/:id" element={<ModifyVacationRequest />}></Route>
           </Route>
         </Route>
         <Route path="*" element={<NotFoundPage />}></Route>

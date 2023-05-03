@@ -5,7 +5,9 @@ namespace backend.Service;
 
 public interface IEmployeeService 
 {
-    Task<List<Employee>> GetAllEmployees();
+    List<Employee> GetAllEmployees();
+    
+    List<Employee> GetAllActiveEmployees();
 
     Employee? GetEmployeeById(int id);
 

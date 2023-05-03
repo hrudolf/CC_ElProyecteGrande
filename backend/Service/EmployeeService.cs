@@ -18,16 +18,39 @@ public class EmployeeService : IEmployeeService
     }
 
     
-    // Methods with Entity Framework 
-
-    public async Task<List<Employee>> GetAllEmployees()
+    public List<Employee> GetAllEmployees()
     {
-        return await _context.Employees.ToListAsync();
+        var employees = _context.Employees
+            .Include(e => e.EmployeeType)
+            .Include(e => e.PreferredShift)
+            .Include(e => e.VacationRequests)
+            .ToList();
+            
+        return employees;
+    }
+
+    public List<Employee> GetAllActiveEmployees()
+    {
+        var employees = _context.Employees
+            .Where(employee => employee.IsActive == true)
+            .Include(e => e.EmployeeType)
+            .Include(e => e.PreferredShift)
+            .Include(e => e.VacationRequests)
+            .ToList();
+            
+        return employees;
     }
 
     public Employee? GetEmployeeById(int id)
     {
-        return _context.Employees.ToList().FirstOrDefault(employee => employee.Id == id);
+        var employees = _context.Employees
+            .Where(employee => employee.Id == id)
+            .Include(e => e.EmployeeType)
+            .Include(e => e.PreferredShift)
+            .Include(e => e.VacationRequests)
+            .ToList()
+            .FirstOrDefault();
+        return employees;
     }
 
     public Employee? DeleteEmployeePermanentlyById(int id)
@@ -45,16 +68,25 @@ public class EmployeeService : IEmployeeService
     {
         Employee? employee = GetEmployeeById(id);
 
-        if (updateEmployeeDto == null && employee == null) return employee;
+        if (updateEmployeeDto == null || employee == null) return employee;
         
         if (updateEmployeeDto?.FirstName != null) employee!.FirstName = updateEmployeeDto.FirstName ;
         if (updateEmployeeDto?.LastName != null) employee!.LastName = updateEmployeeDto.LastName;
         if (updateEmployeeDto?.DateOfBirth != null) employee!.DateOfBirth = updateEmployeeDto.DateOfBirth;
-        //TODO employee!.PreferredShift = updateEmployeeDto.PreferredShift;
+        
+        Shift preferred = _context.Shifts.Where(shift => shift.Id == updateEmployeeDto.PreferredShift.Id)
+            .ToList()
+            .FirstOrDefault();
+        employee!.PreferredShift = preferred;
+        
         employee.WorkingDays = updateEmployeeDto.WorkingDays;
         employee.TotalVacationDays = updateEmployeeDto.TotalVacationDays;
-        //TODO employee!.VacationRequests = updateEmployeeDto.VacationRequests;
-        //TODO employee!.EmployeeType = updateEmployeeDto.EmployeeType;
+
+        EmployeeType employeeType = _context.EmployeeTypes.Where(type => type.Id == updateEmployeeDto.EmployeeType.Id)
+            .ToList()
+            .FirstOrDefault();
+        employee!.EmployeeType = employeeType;
+        
         employee.EmploymentStatus = updateEmployeeDto.EmploymentStatus;
         employee.MonthlyGrossSalary = updateEmployeeDto.MonthlyGrossSalary;
         employee.IsActive = updateEmployeeDto.IsActive;
@@ -78,20 +110,27 @@ public class EmployeeService : IEmployeeService
 
     public Employee CreateEmployee(UpdateEmployeeDto updateEmployeeDto)
     {
+        Shift preferred = _context.Shifts
+            .Where(shift => shift.Id == updateEmployeeDto.PreferredShift.Id)
+            .ToList()
+            .FirstOrDefault();
+        
+        EmployeeType employeeType = _context.EmployeeTypes
+            .Where(type => type.Id == updateEmployeeDto.EmployeeType.Id)
+            .ToList()
+            .FirstOrDefault();
+        
         Employee newEmployee = new Employee
         {
             FirstName = updateEmployeeDto.FirstName,
             LastName = updateEmployeeDto.LastName,
             DateOfBirth = updateEmployeeDto.DateOfBirth,
-            // TODO PreferredShift = updateEmployeeDto.PreferredShift,
+            PreferredShift = preferred,
             WorkingDays = updateEmployeeDto.WorkingDays,
             TotalVacationDays = updateEmployeeDto.TotalVacationDays,
-            // TODO VacationRequests = updateEmployeeDto.VacationRequests,
-            // TODO EmployeeType = updateEmployeeDto.EmployeeType,
-            // EmploymentStatus = updateEmployeeDto.EmploymentStatus,
+            EmployeeType = employeeType,
             MonthlyGrossSalary = updateEmployeeDto.MonthlyGrossSalary,
-            // IsActive = updateEmployeeDto.IsActive,
-
+            
         };
 
         _context.Employees.Add(newEmployee);

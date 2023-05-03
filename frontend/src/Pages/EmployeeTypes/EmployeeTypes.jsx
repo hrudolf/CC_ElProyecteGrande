@@ -1,26 +1,14 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "./CreateEmployeeType.css";
+import EmployeeTypeRow from "./EmployeeTypeRow";
+import EmployeeTypeNewRow from "./EmployeeTypeNewRow";
 
 const EmployeeTypes = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');
     const [employeeTypeList, setEmployeeTypeList] = useState('');
-
-    const navigate = useNavigate();
-
-    const DeleteEmployee = (employeeTypeId) => {
-        fetch(`/api/employeetype/${employeeTypeId}`, {
-            method: "DELETE"
-        })
-            .then(res => res.json())
-            .then(json => {
-                setLoading(false);
-                setEmployeeTypeList(employeeTypeList.filter(employeeType => employeeType.id !== employeeTypeId));
-            })
-            .catch(err => setError(err))
-    }
+    const [newRow, setNewRow] = useState(false);
 
     useEffect(() => {
         setLoading(true);
@@ -37,6 +25,59 @@ const EmployeeTypes = () => {
             .catch(err => setError(err))
     }, [])
 
+    const DeleteEmployee = (employeeTypeId) => {
+        fetch(`/api/employeetype/${employeeTypeId}`, {
+            method: "DELETE"
+        })
+            .then(res => res.json())
+            .then(json => {
+                setLoading(false);
+                setEmployeeTypeList(employeeTypeList.filter(employeeType => employeeType.id !== employeeTypeId));
+            })
+            .catch(err => setError(err))
+    }
+
+    const newEmployee = {
+        "id": "",
+        "type": ""
+    }
+
+    const HandleUpdate = async (id, input) => {
+        setLoading(true);    
+        const response = await fetch(`/api/employeetype/`, {
+          method: 'PUT',
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({"id": id, "type": input}),
+        })
+    
+        const json = await response.json()
+        if (response.ok) {
+            setLoading(false);
+            const employeeTypeListCopy = JSON.parse(JSON.stringify(employeeTypeList));
+            const updatedIndex = employeeTypeListCopy.findIndex(elem => elem.id === json.id);
+            employeeTypeListCopy[updatedIndex].type = json.type;
+            setEmployeeTypeList(employeeTypeListCopy);
+        }
+      };
+
+      const HandlePost = async (input) => {
+        setLoading(true);    
+        const response = await fetch(`/api/employeetype/`, {
+          method: 'POST',
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({"type": input}),
+        })
+    
+        const json = await response.json()
+        if (response.ok) {
+            setLoading(false);
+            const employeeTypeListCopy = JSON.parse(JSON.stringify(employeeTypeList));
+            employeeTypeListCopy.push(json);
+            setEmployeeTypeList(employeeTypeListCopy);
+            setNewRow(false);
+        }
+      };
+
     return (
         <div class="container align-items-center">
             <h1 class="p-2 m-2">Employee Roles</h1>
@@ -48,27 +89,18 @@ const EmployeeTypes = () => {
                                 <th scope="col">Id</th>
                                 <th scope="col">Role name</th>
                                 <th scope="col"></th>
-                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody >
-                            {employeeTypeList.map(employeeType => {
-                                return (
-                                    <tr>    
-                                        <th scope="row">{employeeType.id}</th>
-                                        <td>{employeeType.type}</td>
-                                        <td> <button class="btn btn-secondary" onClick={() => navigate(`/employeetypes/edit/${employeeType.id}`)} disabled={loading}>Edit</button> </td>
-                                        <td> <button class="btn btn-warning" onClick={() => DeleteEmployee(employeeType.id)} disabled={loading}>Delete</button> </td>
-                                    </tr>
-                                )
-                            })}
+                            {employeeTypeList.map(employeeType => <EmployeeTypeRow employeeType={employeeType} DeleteEmployee={DeleteEmployee} loading={loading} HandleUpdate={HandleUpdate}></EmployeeTypeRow> )}
+                            {newRow && <EmployeeTypeNewRow employeeType={newEmployee} loading={loading} HandlePost={HandlePost} setNewRow={setNewRow}/>}
                         </tbody>
                     </table>
                 </div>}
                 {loading && <div className={"loading"}>Loading...</div>}
                 {error && <div className={"error"}>{error ? error : ""}</div>}
                 {message && <div className={"message"}>{message ? message : ""}</div>}
-                <button class="btn btn-primary w-auto" onClick={() => navigate("/employeetypes/create")}>Add a new role</button>
+                <button class="btn btn-primary w-auto" onClick={() => setNewRow(true)}>Add a new role</button>
             </div >
         </div>
     );

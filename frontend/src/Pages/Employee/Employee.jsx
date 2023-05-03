@@ -76,22 +76,22 @@ const Employee = () => {
               <tbody class="p-5">
                 {employeeTypeList && employeeList.map((employee) => {
                   return (
-                    <tr key={employee.employeeId}>
-                      <th scope="row">{employee.employeeId}</th>
+                    <tr key={employee.id}>
+                      <th scope="row">{employee.id}</th>
                       <td>{employee.firstName}</td>
                       <td>{employee.lastName}</td>
                       <td>{employee.dateOfBirth}</td>
                       <td>{employee.preferredShift}</td>
                       <td>{employee.workingDays}</td>
                       <td>{employee.totalVacationDays}</td>
-                      <td>{(employeeTypeList.map(el => el.id).indexOf(employee.employeeType) === -1 ? "N/A" : employeeTypeList.reduce((acc, curr) => acc = curr.id == employee.employeeType ? curr.type : acc, ''))}</td>
+                      <td>{(employeeTypeList.map(el => el.id).indexOf(employee.employeeType) === -1 ? "N/A" : employeeTypeList.reduce((acc, curr) => acc = curr.id === employee.employeeType ? curr.type : acc, ''))}</td>
                       <td>{employee.monthlyGrossSalary}</td>
                       <td>
                         {" "}
                         <button
                           class="btn btn-secondary"
                           onClick={() =>
-                            navigate(`/employees/edit/${employee.employeeId}`)
+                            navigate(`/employees/edit/${employee.id}`)
                           }
                           disabled={loading}
                         >
@@ -102,7 +102,7 @@ const Employee = () => {
                         {" "}
                         <button
                           class="btn btn-warning"
-                          onClick={() => DeleteEmployee(employee.employeeId)}
+                          onClick={() => DeleteEmployee(employee.id)}
                           disabled={loading}
                         >
                           Delete

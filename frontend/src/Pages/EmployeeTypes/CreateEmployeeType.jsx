@@ -24,7 +24,7 @@ const CreateEmployeeType = () => {
     const response = await fetch(url, {
       method: fetchMethod,
       headers: headers,
-      body: JSON.stringify(employeeType),
+      body: JSON.stringify({"type": employeeType}),
     })
 
     const json = await response.json()

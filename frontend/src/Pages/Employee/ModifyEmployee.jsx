@@ -13,7 +13,7 @@ const ModifyEmployee = () => {
   const { id } = useParams();
 
   const [employee, setEmployee] = useState({
-    employeeId: id,
+    id: id,
     firstName: "",
     lastName: "",
     dateOfBirth: "",

@@ -1,4 +1,5 @@
 using backend.Database;
+using backend.DTOs;
 using backend.Model;
 using backend.Service;
 using Microsoft.AspNetCore.Mvc;
@@ -18,59 +19,52 @@ namespace backend.Controllers
             _context = context;
         }
 
+        
         [HttpGet]
         public async Task<List<Employee>> GetAllEmployees()
         {
             return await _service.GetAllEmployees();
         }
 
+        
         [HttpGet("{id:int}")]
         public IActionResult GetEmployeeById(int id)
         {
-            Employee? employee = _service.GetById(id);
-            if (employee != null)
-            {
-                return Ok(employee);
-            }
-
-            return NotFound();
+            Employee? employee = _service.GetEmployeeById(id);
+            return employee != null ? Ok(employee) : NotFound("User not found");
+            
         }
 
-        /*[HttpPost]
-        public IActionResult CreateEmployee([FromBody] Employee employee)
+        
+        [HttpPost]
+        public IActionResult CreateEmployee([FromBody] UpdateEmployeeDto employeeDto)
         {
-            return Ok(_service.Create(new Employee(employee.FirstName,
-                employee.LastName,
-                employee.DateOfBirth,
-                employee.WorkingDays,
-                employee.TotalVacationDays,
-                employee.MonthlyGrossSalary,
-                employee.EmployeeType,
-                employee.PreferredShift)));
-        }*/
+            return Ok(_service.CreateEmployee(employeeDto));
+        }
 
+        
         [HttpDelete("{id:int}")]
-        public IActionResult DeleteEmployeeById(int id)
+        public IActionResult DeleteEmployeePermanentlyById(int id)
         {
-            Employee? employee = _service.Delete(id);
-            if (employee != null)
-            {
-                return Ok(employee);
-            }
-
-            return NotFound();
+            Employee? employee = _service.DeleteEmployeePermanentlyById(id);
+            return employee != null ? Ok(employee) : NotFound("User not found");
         }
 
-        [HttpPut]
-        public IActionResult UpdateEmployee([FromBody] Employee updatedEmployee)
+        
+        
+        [HttpPut("temporarydelete/{id:int}")]
+        public IActionResult DeleteEmployeeTemporarilyById(int id)
         {
-            Employee? employee = _service.Update(updatedEmployee);
-            if (employee != null)
-            {
-                return Ok(employee);
-            }
-
-            return NotFound();
+            Employee? employee = _service.DeleteEmployeeTemporarilyById(id);
+            return employee != null ? Ok(employee) : NotFound("User not found");
+        }
+        
+        
+        [HttpPut("{id:int}")]
+        public IActionResult UpdateEmployee(int id, [FromBody] UpdateEmployeeDto updatedEmployee)
+        {
+            Employee? employee = _service.UpdateEmployee(id, updatedEmployee);
+            return employee != null ? Ok(employee) : NotFound("User not found");
         }
     }
 }

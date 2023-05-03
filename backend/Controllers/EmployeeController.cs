@@ -19,12 +19,14 @@ namespace backend.Controllers
             _context = context;
         }
 
+        
         [HttpGet]
         public async Task<List<Employee>> GetAllEmployees()
         {
             return await _service.GetAllEmployees();
         }
 
+        
         [HttpGet("{id:int}")]
         public IActionResult GetEmployeeById(int id)
         {
@@ -33,19 +35,14 @@ namespace backend.Controllers
             
         }
 
-        /*[HttpPost]
-        public IActionResult CreateEmployee([FromBody] Employee employee)
+        
+        [HttpPost]
+        public IActionResult CreateEmployee([FromBody] UpdateEmployeeDto employeeDto)
         {
-            return Ok(_service.Create(new Employee(employee.FirstName,
-                employee.LastName,
-                employee.DateOfBirth,
-                employee.WorkingDays,
-                employee.TotalVacationDays,
-                employee.MonthlyGrossSalary,
-                employee.EmployeeType,
-                employee.PreferredShift)));
-        }*/
+            return Ok(_service.CreateEmployee(employeeDto));
+        }
 
+        
         [HttpDelete("{id:int}")]
         public IActionResult DeleteEmployeePermanentlyById(int id)
         {
@@ -53,13 +50,14 @@ namespace backend.Controllers
             return employee != null ? Ok(employee) : NotFound("User not found");
         }
 
+        
         [HttpPut("{id:int}")]
-
         public IActionResult DeleteEmployeeTemporarilyById(int id)
         {
             Employee? employee = _service.DeleteEmployeeTemporarilyById(id);
             return employee != null ? Ok(employee) : NotFound("User not found");
         }
+        
         
         [HttpPut("{id:int}")]
         public IActionResult UpdateEmployee(int id, [FromBody] UpdateEmployeeDto updatedEmployee)

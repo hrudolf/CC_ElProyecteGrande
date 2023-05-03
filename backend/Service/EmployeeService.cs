@@ -107,6 +107,25 @@ public class EmployeeService : IEmployeeService
 
     public Employee CreateEmployee(UpdateEmployeeDto updateEmployeeDto)
     {
-        throw new NotImplementedException();
+        Employee newEmployee = new Employee
+        {
+            FirstName = updateEmployeeDto.FirstName,
+            LastName = updateEmployeeDto.LastName,
+            DateOfBirth = updateEmployeeDto.DateOfBirth,
+            // TODO PreferredShift = updateEmployeeDto.PreferredShift,
+            WorkingDays = updateEmployeeDto.WorkingDays,
+            TotalVacationDays = updateEmployeeDto.TotalVacationDays,
+            // TODO VacationRequests = updateEmployeeDto.VacationRequests,
+            // TODO EmployeeType = updateEmployeeDto.EmployeeType,
+            // EmploymentStatus = updateEmployeeDto.EmploymentStatus,
+            MonthlyGrossSalary = updateEmployeeDto.MonthlyGrossSalary,
+            // IsActive = updateEmployeeDto.IsActive,
+
+        };
+
+        _context.Employees.Add(newEmployee);
+        _context.SaveChanges();
+                
+        return newEmployee; 
     }
 }

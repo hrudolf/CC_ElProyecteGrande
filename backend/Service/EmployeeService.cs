@@ -56,4 +56,15 @@ public class EmployeeService : IEmployeeService
     {
         return _context.Employees.ToList().FirstOrDefault(employee => employee.Id == id);
     }
+
+    public Employee? DeleteEmployeeById(int id)
+    {
+        Employee? employee = GetEmployeeById(id);
+
+        if (employee == null) return employee;
+        _context.Remove(employee);
+        _context.SaveChanges();
+
+        return employee;
+    }
 }

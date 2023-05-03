@@ -52,7 +52,7 @@ namespace backend.Controllers
         [HttpDelete("{id:int}")]
         public IActionResult DeleteEmployeeById(int id)
         {
-            Employee? employee = _service.Delete(id);
+            Employee? employee = _service.DeleteEmployeeById(id);
             if (employee != null)
             {
                 return Ok(employee);

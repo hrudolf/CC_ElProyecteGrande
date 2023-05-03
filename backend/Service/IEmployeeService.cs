@@ -3,7 +3,7 @@ using backend.Model;
 
 namespace backend.Service;
 
-public interface IEmployeeService : IService<Employee>
+public interface IEmployeeService 
 {
     Task<List<Employee>> GetAllEmployees();
 

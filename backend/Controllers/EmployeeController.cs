@@ -51,6 +51,7 @@ namespace backend.Controllers
         }
 
         
+        /*
         [HttpPut("{id:int}")]
         public IActionResult DeleteEmployeeTemporarilyById(int id)
         {
@@ -64,6 +65,6 @@ namespace backend.Controllers
         {
             Employee? employee = _service.UpdateEmployee(id, updatedEmployee);
             return employee != null ? Ok(employee) : NotFound("User not found");
-        }
+        }*/
     }
 }

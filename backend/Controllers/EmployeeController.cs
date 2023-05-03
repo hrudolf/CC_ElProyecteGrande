@@ -59,12 +59,12 @@ namespace backend.Controllers
             return employee != null ? Ok(employee) : NotFound("User not found");
         }
         
-        /*
+        
         [HttpPut("{id:int}")]
         public IActionResult UpdateEmployee(int id, [FromBody] UpdateEmployeeDto updatedEmployee)
         {
             Employee? employee = _service.UpdateEmployee(id, updatedEmployee);
             return employee != null ? Ok(employee) : NotFound("User not found");
-        }*/
+        }
     }
 }

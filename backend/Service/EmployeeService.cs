@@ -70,7 +70,7 @@ public class EmployeeService : IEmployeeService
         
         if (employee == null) return employee;
 
-        employee.IsActive = employee.IsActive!;
+        employee.IsActive = !employee.IsActive;
         _context.SaveChanges();
 
         return employee;

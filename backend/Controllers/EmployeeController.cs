@@ -51,15 +51,15 @@ namespace backend.Controllers
         }
 
         
-        /*
-        [HttpPut("{id:int}")]
+        
+        [HttpPut("temporarydelete/{id:int}")]
         public IActionResult DeleteEmployeeTemporarilyById(int id)
         {
             Employee? employee = _service.DeleteEmployeeTemporarilyById(id);
             return employee != null ? Ok(employee) : NotFound("User not found");
         }
         
-        
+        /*
         [HttpPut("{id:int}")]
         public IActionResult UpdateEmployee(int id, [FromBody] UpdateEmployeeDto updatedEmployee)
         {

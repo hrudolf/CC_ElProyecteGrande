@@ -29,6 +29,18 @@ public class EmployeeService : IEmployeeService
         return employees;
     }
 
+    public List<Employee> GetAllActiveEmployees()
+    {
+        var employees = _context.Employees
+            .Where(employee => employee.IsActive == true)
+            .Include(e => e.EmployeeType)
+            .Include(e => e.PreferredShift)
+            .Include(e => e.VacationRequests)
+            .ToList();
+            
+        return employees;
+    }
+
     public Employee? GetEmployeeById(int id)
     {
         var employees = _context.Employees
@@ -61,11 +73,20 @@ public class EmployeeService : IEmployeeService
         if (updateEmployeeDto?.FirstName != null) employee!.FirstName = updateEmployeeDto.FirstName ;
         if (updateEmployeeDto?.LastName != null) employee!.LastName = updateEmployeeDto.LastName;
         if (updateEmployeeDto?.DateOfBirth != null) employee!.DateOfBirth = updateEmployeeDto.DateOfBirth;
-        //TODO employee!.PreferredShift = updateEmployeeDto.PreferredShift;
+        
+        Shift preferred = _context.Shifts.Where(shift => shift.Id == updateEmployeeDto.PreferredShift.Id)
+            .ToList()
+            .FirstOrDefault();
+        employee!.PreferredShift = preferred;
+        
         employee.WorkingDays = updateEmployeeDto.WorkingDays;
         employee.TotalVacationDays = updateEmployeeDto.TotalVacationDays;
-        //TODO employee!.VacationRequests = updateEmployeeDto.VacationRequests;
-        //TODO employee!.EmployeeType = updateEmployeeDto.EmployeeType;
+
+        EmployeeType employeeType = _context.EmployeeTypes.Where(type => type.Id == updateEmployeeDto.EmployeeType.Id)
+            .ToList()
+            .FirstOrDefault();
+        employee!.EmployeeType = employeeType;
+        
         employee.EmploymentStatus = updateEmployeeDto.EmploymentStatus;
         employee.MonthlyGrossSalary = updateEmployeeDto.MonthlyGrossSalary;
         employee.IsActive = updateEmployeeDto.IsActive;

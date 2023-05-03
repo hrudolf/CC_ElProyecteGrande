@@ -37,7 +37,11 @@ public class VacationRequestService : IVacationRequestService
     public IEnumerable<VacationRequest> GetAll()
     {
         return _context.VacationRequests
-            .Include(request=>request.Employee);
+            .Include(request => request.Employee)
+            .Include(request => request.Employee)
+            .ThenInclude(employee => employee.EmployeeType)
+            .Include(request => request.Employee)
+            .ThenInclude(employee => employee.PreferredShift);
     }
 
     public VacationRequest? GetById(int id)

@@ -9,7 +9,7 @@ public interface IEmployeeService : IService<Employee>
 
     Employee? GetEmployeeById(int id);
 
-    Employee? DeleteEmployeeById(int id);
+    Employee? DeleteEmployeePermanentlyById(int id);
 
     Employee? UpdateEmployee(int id, UpdateEmployeeDto updateEmployeeDto);
 }

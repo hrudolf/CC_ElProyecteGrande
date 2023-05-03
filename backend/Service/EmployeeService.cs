@@ -59,7 +59,7 @@ public class EmployeeService : IEmployeeService
         return _context.Employees.ToList().FirstOrDefault(employee => employee.Id == id);
     }
 
-    public Employee? DeleteEmployeeById(int id)
+    public Employee? DeleteEmployeePermanentlyById(int id)
     {
         Employee? employee = GetEmployeeById(id);
 

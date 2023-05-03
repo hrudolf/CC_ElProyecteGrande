@@ -51,9 +51,9 @@ namespace backend.Controllers
         }*/
 
         [HttpDelete("{id:int}")]
-        public IActionResult DeleteEmployeeById(int id)
+        public IActionResult DeleteEmployeePermanentlyById(int id)
         {
-            Employee? employee = _service.DeleteEmployeeById(id);
+            Employee? employee = _service.DeleteEmployeePermanentlyById(id);
             if (employee != null)
             {
                 return Ok(employee);

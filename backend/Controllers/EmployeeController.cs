@@ -27,7 +27,7 @@ namespace backend.Controllers
         [HttpGet("{id:int}")]
         public IActionResult GetEmployeeById(int id)
         {
-            Employee? employee = _service.GetById(id);
+            Employee? employee = _service.GetEmployeeById(id);
             if (employee != null)
             {
                 return Ok(employee);

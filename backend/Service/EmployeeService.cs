@@ -44,9 +44,16 @@ public class EmployeeService : IEmployeeService
 
         return null;
     }
+    
+    // Methods with Entity Framework 
 
     public async Task<List<Employee>> GetAllEmployees()
     {
         return await _context.Employees.ToListAsync();
+    }
+
+    public Employee? GetEmployeeById(int id)
+    {
+        return _context.Employees.ToList().FirstOrDefault(employee => employee.Id == id);
     }
 }

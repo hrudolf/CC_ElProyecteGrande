@@ -1,6 +1,7 @@
 using backend.Database;
 using backend.DTOs;
 using backend.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.Service;
 
@@ -35,13 +36,13 @@ public class VacationRequestService : IVacationRequestService
 
     public IEnumerable<VacationRequest> GetAll()
     {
-
-        return _context.VacationRequests;
+        return _context.VacationRequests
+            .Include(request=>request.Employee);
     }
 
     public VacationRequest? GetById(int id)
     {
-        return _context.VacationRequests.FirstOrDefault(request => request.Id == id);
+        return GetAll().FirstOrDefault(request => request.Id == id);
     }
 
     public VacationRequest? Delete(int id)

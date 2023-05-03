@@ -20,7 +20,6 @@ builder.Services.AddTransient<IShiftService, ShiftService>();
 builder.Services.AddTransient<IRosterService, RosterService>();
 
 builder.Services.AddCors();
-builder.Services.AddSingleton<IRepository<VacationRequest>, VacationRequestRepo>();
 builder.Services.AddTransient<IVacationRequestService, VacationRequestService>();
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -32,12 +31,8 @@ using (var serviceScope = app.Services.CreateScope())
     context.Database.EnsureDeleted();
     context.Database.EnsureCreated();
     //Seed data
-    EmployeeSeed employeeSeed = new EmployeeSeed(context);
-    EmployeeTypeSeed employeeTypeSeed = new EmployeeTypeSeed(context);
-    ShiftSeed shiftSeed = new ShiftSeed(context);
-    employeeTypeSeed.Create();
-    shiftSeed.Create();
-    employeeSeed.CreateEmployees(30);
+    DataSeed dataSeed = new DataSeed(context);
+    dataSeed.CreateAll(25);
 }
 
 // Configure the HTTP request pipeline.

@@ -1,3 +1,4 @@
+using backend.DTOs;
 using backend.Model;
 using backend.Service;
 using Microsoft.AspNetCore.Mvc;
@@ -16,13 +17,13 @@ namespace backend.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllRoster()
+        public ActionResult<List<Roster>> GetAllRoster()
         {
             return Ok(_service.GetAll());
         }
 
         [HttpGet("{id:int}")]
-        public IActionResult GetRosterById(int id)
+        public ActionResult<Roster> GetRosterById(int id)
         {
             Roster? roster = _service.GetById(id);
             if (roster != null)
@@ -33,17 +34,16 @@ namespace backend.Controllers
             return NotFound();
         }
 
-        /*[HttpPost]
-        public IActionResult CreateRosterItem([FromBody] Roster rosterItem)
+        [HttpPost]
+        public ActionResult<Roster> CreateRosterItem([FromBody] RosterDto rosterItem)
         {
-            return Ok(_service.Create(new Roster(rosterItem.Date,
-                rosterItem.Shift,
-                rosterItem.Employee,
-                rosterItem.Attendance)));
-        }*/
+            Roster? roster = _service.ConvertFromDto(rosterItem);
+            if (roster == null) return NotFound();
+            return Ok(_service.Create(roster));
+        }
 
         [HttpDelete("{id:int}")]
-        public IActionResult DeleteRosterItemById(int id)
+        public ActionResult<Roster> DeleteRosterItemById(int id)
         {
             Roster? roster = _service.Delete(id);
             if (roster != null)
@@ -55,7 +55,7 @@ namespace backend.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateRosterItem([FromBody] Roster updatedRosterItem)
+        public ActionResult<Roster> UpdateRosterItem([FromBody] Roster updatedRosterItem)
         {
             Roster? rosterItem = _service.Update(updatedRosterItem);
             if (rosterItem != null)

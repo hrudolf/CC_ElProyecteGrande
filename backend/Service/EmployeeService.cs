@@ -68,7 +68,7 @@ public class EmployeeService : IEmployeeService
     {
         Employee? employee = GetEmployeeById(id);
 
-        if (updateEmployeeDto == null && employee == null) return employee;
+        if (updateEmployeeDto == null || employee == null) return employee;
         
         if (updateEmployeeDto?.FirstName != null) employee!.FirstName = updateEmployeeDto.FirstName ;
         if (updateEmployeeDto?.LastName != null) employee!.LastName = updateEmployeeDto.LastName;

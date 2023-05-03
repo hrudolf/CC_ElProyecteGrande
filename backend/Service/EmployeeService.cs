@@ -110,20 +110,27 @@ public class EmployeeService : IEmployeeService
 
     public Employee CreateEmployee(UpdateEmployeeDto updateEmployeeDto)
     {
+        Shift preferred = _context.Shifts
+            .Where(shift => shift.Id == updateEmployeeDto.PreferredShift.Id)
+            .ToList()
+            .FirstOrDefault();
+        
+        EmployeeType employeeType = _context.EmployeeTypes
+            .Where(type => type.Id == updateEmployeeDto.EmployeeType.Id)
+            .ToList()
+            .FirstOrDefault();
+        
         Employee newEmployee = new Employee
         {
             FirstName = updateEmployeeDto.FirstName,
             LastName = updateEmployeeDto.LastName,
             DateOfBirth = updateEmployeeDto.DateOfBirth,
-            // TODO PreferredShift = updateEmployeeDto.PreferredShift,
+            PreferredShift = preferred,
             WorkingDays = updateEmployeeDto.WorkingDays,
             TotalVacationDays = updateEmployeeDto.TotalVacationDays,
-            // TODO VacationRequests = updateEmployeeDto.VacationRequests,
-            // TODO EmployeeType = updateEmployeeDto.EmployeeType,
-            // EmploymentStatus = updateEmployeeDto.EmploymentStatus,
+            EmployeeType = employeeType,
             MonthlyGrossSalary = updateEmployeeDto.MonthlyGrossSalary,
-            // IsActive = updateEmployeeDto.IsActive,
-
+            
         };
 
         _context.Employees.Add(newEmployee);

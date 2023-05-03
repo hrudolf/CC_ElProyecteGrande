@@ -29,12 +29,8 @@ namespace backend.Controllers
         public IActionResult GetEmployeeById(int id)
         {
             Employee? employee = _service.GetEmployeeById(id);
-            if (employee != null)
-            {
-                return Ok(employee);
-            }
-
-            return NotFound();
+            return employee != null ? Ok(employee) : NotFound("User not found");
+            
         }
 
         /*[HttpPost]
@@ -54,24 +50,22 @@ namespace backend.Controllers
         public IActionResult DeleteEmployeePermanentlyById(int id)
         {
             Employee? employee = _service.DeleteEmployeePermanentlyById(id);
-            if (employee != null)
-            {
-                return Ok(employee);
-            }
-
-            return NotFound();
+            return employee != null ? Ok(employee) : NotFound("User not found");
         }
 
+        [HttpPut("{id:int}")]
+
+        public IActionResult DeleteEmployeeTemporarilyById(int id)
+        {
+            Employee? employee = _service.DeleteEmployeeTemporarilyById(id);
+            return employee != null ? Ok(employee) : NotFound("User not found");
+        }
+        
         [HttpPut("{id:int}")]
         public IActionResult UpdateEmployee(int id, [FromBody] UpdateEmployeeDto updatedEmployee)
         {
             Employee? employee = _service.UpdateEmployee(id, updatedEmployee);
-            if (employee != null)
-            {
-                return Ok(employee);
-            }
-
-            return NotFound();
+            return employee != null ? Ok(employee) : NotFound("User not found");
         }
     }
 }

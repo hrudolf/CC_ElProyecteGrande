@@ -92,4 +92,21 @@ public class EmployeeService : IEmployeeService
 
         return employee;
     }
+
+    public Employee? DeleteEmployeeTemporarilyById(int id)
+    {
+        Employee? employee = GetEmployeeById(id);
+        
+        if (employee == null) return employee;
+
+        employee.IsActive = employee.IsActive!;
+        _context.SaveChanges();
+
+        return employee;
+    }
+
+    public Employee CreateEmployee(UpdateEmployeeDto updateEmployeeDto)
+    {
+        throw new NotImplementedException();
+    }
 }

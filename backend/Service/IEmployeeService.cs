@@ -12,4 +12,8 @@ public interface IEmployeeService : IService<Employee>
     Employee? DeleteEmployeePermanentlyById(int id);
 
     Employee? UpdateEmployee(int id, UpdateEmployeeDto updateEmployeeDto);
+    
+    Employee? DeleteEmployeeTemporarilyById(int id);
+
+    Employee CreateEmployee(UpdateEmployeeDto updateEmployeeDto);
 }

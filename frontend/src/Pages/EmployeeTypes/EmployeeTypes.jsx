@@ -43,13 +43,13 @@ const EmployeeTypes = () => {
     }
 
     const HandleUpdate = async (id, input) => {
-        setLoading(true);    
+        setLoading(true);
         const response = await fetch(`/api/employeetype/`, {
-          method: 'PUT',
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({"id": id, "type": input}),
+            method: 'PUT',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ "id": id, "type": input }),
         })
-    
+
         const json = await response.json()
         if (response.ok) {
             setLoading(false);
@@ -58,16 +58,16 @@ const EmployeeTypes = () => {
             employeeTypeListCopy[updatedIndex].type = json.type;
             setEmployeeTypeList(employeeTypeListCopy);
         }
-      };
+    };
 
-      const HandlePost = async (input) => {
-        setLoading(true);    
+    const HandlePost = async (input) => {
+        setLoading(true);
         const response = await fetch(`/api/employeetype/`, {
-          method: 'POST',
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({"type": input}),
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ "type": input }),
         })
-    
+
         const json = await response.json()
         if (response.ok) {
             setLoading(false);
@@ -75,8 +75,10 @@ const EmployeeTypes = () => {
             employeeTypeListCopy.push(json);
             setEmployeeTypeList(employeeTypeListCopy);
             setNewRow(false);
+        } else {
+            setError("Oops, something happened, please refresh the page and try again later.")
         }
-      };
+    };
 
     return (
         <div class="container align-items-center">
@@ -92,8 +94,8 @@ const EmployeeTypes = () => {
                             </tr>
                         </thead>
                         <tbody >
-                            {employeeTypeList.map(employeeType => <EmployeeTypeRow employeeType={employeeType} DeleteEmployee={DeleteEmployee} loading={loading} HandleUpdate={HandleUpdate}></EmployeeTypeRow> )}
-                            {newRow && <EmployeeTypeNewRow employeeType={newEmployee} loading={loading} HandlePost={HandlePost} setNewRow={setNewRow}/>}
+                            {employeeTypeList.map(employeeType => <EmployeeTypeRow employeeType={employeeType} DeleteEmployee={DeleteEmployee} loading={loading} HandleUpdate={HandleUpdate}></EmployeeTypeRow>)}
+                            {newRow && <EmployeeTypeNewRow employeeType={newEmployee} loading={loading} HandlePost={HandlePost} setNewRow={setNewRow} />}
                         </tbody>
                     </table>
                 </div>}

@@ -14,7 +14,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IRepository<Employee>, EmployeeRepo>();
-builder.Services.AddSingleton<IRepository<Shift>, ShiftRepo>();
 builder.Services.AddSingleton<IRepository<Roster>, RosterRepo>();
 builder.Services.AddTransient<IEmployeeTypeService, EmployeeTypeService>();
 builder.Services.AddTransient<IEmployeeService, EmployeeService>();
@@ -36,7 +35,9 @@ using (var serviceScope = app.Services.CreateScope())
     //Seed data
     EmployeeSeed employeeSeed = new EmployeeSeed(context);
     EmployeeTypeSeed employeeTypeSeed = new EmployeeTypeSeed(context);
+    ShiftSeed shiftSeed = new ShiftSeed(context);
     employeeTypeSeed.Create();
+    shiftSeed.Create();
     employeeSeed.CreateEmployees(30);
 }
 

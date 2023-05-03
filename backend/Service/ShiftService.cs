@@ -1,29 +1,42 @@
-﻿using backend.Model;
-using backend.Repositories;
+﻿using backend.Database;
+using backend.Model;
 
 namespace backend.Service;
 
 public class ShiftService : IShiftService
 {
-    private readonly IRepository<Shift> _repository;
+    private readonly DataContext _context;
 
-    public ShiftService(IRepository<Shift> repository)
+    public ShiftService(DataContext context)
     {
-        _repository = repository;
+        _context = context;
     }
 
-    public Shift Create(Shift item) => _repository.Create(item);
+    public Shift Create(Shift shift)
+    {
+        _context.Shifts.Add(shift);
+        _context.SaveChanges();
+        return shift;
+    }
 
-    public IEnumerable<Shift> GetAll() => _repository.GetAll();
+    public IEnumerable<Shift> GetAll()
+    {
+        return _context.Shifts;
+    }
 
-    public Shift? GetById(int id) => _repository.GetById(id);
+    public Shift? GetById(int id)
+    {
+        return _context.Shifts.FirstOrDefault(shift => shift.Id == id);
+    }
 
     public Shift? Delete(int id)
     {
         Shift? shiftInDb = GetById(id);
         if (shiftInDb != null)
         {
-            return _repository.Delete(id);
+            _context.Shifts.Remove(shiftInDb);
+            _context.SaveChanges();
+            return shiftInDb;
         }
 
         return null;
@@ -34,7 +47,11 @@ public class ShiftService : IShiftService
         Shift? shiftInDb = GetById(updatedData.Id);
         if (shiftInDb != null)
         {
-            return _repository.Update(updatedData);
+            shiftInDb.NameOfShift = updatedData.NameOfShift;
+            shiftInDb.NursesRequiredForShift = updatedData.NursesRequiredForShift;
+            shiftInDb.BonusRate = updatedData.BonusRate;
+            _context.SaveChanges();
+            return shiftInDb;
         }
 
         return null;

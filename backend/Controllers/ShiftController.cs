@@ -1,3 +1,4 @@
+using backend.DTOs;
 using backend.Model;
 using backend.Service;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +9,7 @@ namespace backend.Controllers
     [ApiController]
     public class ShiftController : ControllerBase
     {
-        private IShiftService _service;
+        private readonly IShiftService _service;
 
         public ShiftController(IShiftService service)
         {
@@ -16,13 +17,13 @@ namespace backend.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllShifts()
+        public ActionResult<List<Shift>> GetAllShifts()
         {
             return Ok(_service.GetAll());
         }
 
         [HttpGet("{id:int}")]
-        public IActionResult GetShiftById(int id)
+        public ActionResult<Shift> GetShiftById(int id)
         {
             Shift? shift = _service.GetById(id);
             if (shift != null)
@@ -30,14 +31,19 @@ namespace backend.Controllers
                 return Ok(shift);
             }
 
-            return NotFound();
+            return NotFound($"Shift with id #{id} could not be found.");
         }
 
-        /*[HttpPost]
-        public IActionResult CreateShift([FromBody] Shift shift)
+        [HttpPost]
+        public ActionResult<Shift> CreateShift(ShiftDto shift)
         {
-            return Ok(_service.Create(new Shift(shift.TimeOfShift, shift.NursesRequiredForShift, shift.BonusRate)));
-        }*/
+            return Ok(_service.Create(new Shift
+            {
+                NameOfShift = shift.NameOfShift,
+                NursesRequiredForShift = shift.NursesRequiredForShift,
+                BonusRate = shift.BonusRate
+            }));
+        }
 
         [HttpDelete("{id:int}")]
         public IActionResult DeleteShiftById(int id)
@@ -48,7 +54,7 @@ namespace backend.Controllers
                 return Ok(shift);
             }
 
-            return NotFound();
+            return NotFound($"Shift with id #{id} could not be found.");
         }
 
         [HttpPut]
@@ -60,7 +66,7 @@ namespace backend.Controllers
                 return Ok(shift);
             }
 
-            return NotFound();
+            return NotFound($"Shift with id #{updatedShift.Id} could not be found.");
         }
     }
 }

@@ -9,9 +9,9 @@ public class Employee
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set;}
     [Required]
-    public string FirstName { get; set; }
+    public string FirstName { get; set; } = String.Empty;
     [Required]
-    public string LastName { get; set; }
+    public string LastName { get; set; } = String.Empty;
     [Required]
     public DateTime DateOfBirth { get; set; }
     public Shift? PreferredShift { get; set; }

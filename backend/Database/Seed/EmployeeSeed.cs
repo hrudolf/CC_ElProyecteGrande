@@ -1,5 +1,4 @@
-﻿using System.Runtime.InteropServices.JavaScript;
-using backend.Model;
+﻿using backend.Model;
 
 namespace backend.Database.Seed;
 
@@ -51,12 +50,12 @@ public class EmployeeSeed
         return start.AddDays(Random.Shared.Next(range));
     }
 
-    private Shift GetRandomShift()
+    private Shift? GetRandomShift()
     {
         return null;
     }
     
-    private EmployeeType GetRandomEmployeeType()
+    private EmployeeType? GetRandomEmployeeType()
     {
         return null;
     }

@@ -1,4 +1,3 @@
-using System.Configuration;
 using backend.Database;
 using backend.Database.Seed;
 using backend.Model;
@@ -14,7 +13,6 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSingleton<IRepository<EmployeeType>, EmployeeTypeRepo>();
 builder.Services.AddSingleton<IRepository<Employee>, EmployeeRepo>();
 builder.Services.AddSingleton<IRepository<Shift>, ShiftRepo>();
 builder.Services.AddSingleton<IRepository<Roster>, RosterRepo>();
@@ -37,6 +35,8 @@ using (var serviceScope = app.Services.CreateScope())
     context.Database.EnsureCreated();
     //Seed data
     EmployeeSeed employeeSeed = new EmployeeSeed(context);
+    EmployeeTypeSeed employeeTypeSeed = new EmployeeTypeSeed(context);
+    employeeTypeSeed.Create();
     employeeSeed.CreateEmployees(30);
 }
 

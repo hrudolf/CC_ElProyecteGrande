@@ -4,12 +4,12 @@ namespace backend.Repositories;
 
 public class EmployeeRepo : IRepository<Employee>
 {
-    private List<Employee> _listOfEmployees;
+    private readonly List<Employee> _listOfEmployees = new List<Employee>();
 
-    public EmployeeRepo()
+    /*public EmployeeRepo()
     {
-       // _listOfEmployees = PopulateEmployeeList();
-    }
+       _listOfEmployees = PopulateEmployeeList();
+    }*/
 
     /*private List<Employee> PopulateEmployeeList()
     {

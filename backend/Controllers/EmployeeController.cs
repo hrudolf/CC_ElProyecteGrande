@@ -59,7 +59,7 @@ namespace backend.Controllers
 
         
         
-        [HttpPut("temporary-delete/{id:int}")]
+        [HttpPatch("temporary-delete/{id:int}")]
         public IActionResult DeleteEmployeeTemporarilyById(int id)
         {
             Employee? employee = _service.DeleteEmployeeTemporarilyById(id);

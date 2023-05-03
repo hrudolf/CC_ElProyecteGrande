@@ -1,8 +1,17 @@
-.UserForm{
+.UserForm {
     display: flex;
     flex-direction: column;
     padding: 10px;
     gap: 20px;
     align-items: center;
     justify-content: space-between;
+}
+
+.datarow:hover {
+    border: 1px double red;
+    cursor: pointer;
+}
+
+td span {
+    cursor: pointer;
 }

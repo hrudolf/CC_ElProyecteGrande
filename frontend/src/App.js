@@ -3,8 +3,6 @@ import NotFoundPage from "./Pages/NotFoundPage";
 import HomePage from "./Pages/HomePage";
 import EmployeeTypes from "./Pages/EmployeeTypes/EmployeeTypes";
 import { Routes, Route } from "react-router-dom";
-import CreateEmployeeType from "./Pages/EmployeeTypes/CreateEmployeeType";
-import ModifyEmployeeType from "./Pages/EmployeeTypes/ModifyEmployeeType";
 import Employee from "./Pages/Employee/Employee";
 import CreateEmployee from "./Pages/Employee/CreateEmployee";
 import ModifyEmployee from "./Pages/Employee/ModifyEmployee";
@@ -26,8 +24,6 @@ function App() {
           </Route>
           <Route path="/employeetypes">
             <Route path="" element={<EmployeeTypes />} />
-            <Route path="create" element={<CreateEmployeeType />}></Route>
-            <Route path="edit/:id" element={<ModifyEmployeeType />}></Route>
           </Route>
           <Route path="/vacationrequests">
             <Route path="" element={<VacationRequest />} />

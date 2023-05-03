@@ -46,7 +46,7 @@ namespace backend.Controllers
         }
 
         [HttpDelete("{id:int}")]
-        public IActionResult DeleteShiftById(int id)
+        public ActionResult<Shift> DeleteShiftById(int id)
         {
             Shift? shift = _service.Delete(id);
             if (shift != null)
@@ -58,7 +58,7 @@ namespace backend.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateShift([FromBody] Shift updatedShift)
+        public ActionResult<Shift> UpdateShift([FromBody] Shift updatedShift)
         {
             Shift? shift = _service.Update(updatedShift);
             if (shift != null)

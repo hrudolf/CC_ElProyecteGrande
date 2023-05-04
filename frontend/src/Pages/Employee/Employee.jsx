@@ -123,6 +123,7 @@ const Employee = () => {
                           <RequestPopUp
                             firstName={employee.firstName}
                             lastName={employee.lastName}
+                            id={employee.id}
                           />{" "}
                           <button
                             class="btn btn-secondary"

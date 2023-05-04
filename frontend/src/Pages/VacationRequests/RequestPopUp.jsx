@@ -70,7 +70,7 @@ function RequestPopUp(props) {
               {requestList &&
                 requestList.map((request) => {
                   return (
-                    <tr>
+                    <tr key={request.id}>
                       <td style={{ width: "100px" }}>
                         {request.startDate.slice(0, 10)}
                       </td>

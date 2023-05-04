@@ -95,7 +95,7 @@ const EmployeeTypes = () => {
                             </tr>
                         </thead>
                         <tbody >
-                            {employeeTypeList.map(employeeType => <EmployeeTypeRow employeeType={employeeType} DeleteEmployee={DeleteEmployee} loading={loading} HandleUpdate={HandleUpdate}></EmployeeTypeRow>)}
+                            {employeeTypeList.map(employeeType => <EmployeeTypeRow key={employeeType.id} employeeType={employeeType} DeleteEmployee={DeleteEmployee} loading={loading} HandleUpdate={HandleUpdate}></EmployeeTypeRow>)}
                             {newRow && <EmployeeTypeNewRow employeeType={newEmployee} loading={loading} HandlePost={HandlePost} setNewRow={setNewRow} />}
                         </tbody>
                     </table>

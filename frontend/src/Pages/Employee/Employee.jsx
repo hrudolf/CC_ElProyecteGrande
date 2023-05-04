@@ -113,6 +113,7 @@ const Employee = () => {
                             firstName={employee.firstName}
                             lastName={employee.lastName}
                             id={employee.id}
+                            vacationDays={employee.totalVacationDays}
                           />{" "}
                           <button
                             className="btn btn-secondary"

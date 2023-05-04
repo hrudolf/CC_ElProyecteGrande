@@ -82,4 +82,44 @@ public class VacationRequestService : IVacationRequestService
         }
         return requestInDb;
     }
+
+    public int GetVacationDaysApproved(int id)
+    {
+        int sumOfDaysApproved = 0;
+        List <VacationRequest> requests = _context.VacationRequests
+            .Where(request => request.Employee.Id == id && request.IsApproved == true)
+            .ToList();
+
+        foreach (var request in requests)
+        {
+            if (request.EndDate > request.StartDate)
+            {
+                var difference = request.EndDate - request.StartDate;
+                sumOfDaysApproved += difference.Days;
+            }
+            
+        }
+
+        return sumOfDaysApproved;
+    }
+    
+    public int GetVacationDaysPending(int id)
+    {
+        int sumOfDaysApproved = 0;
+        List <VacationRequest> requests = _context.VacationRequests
+            .Where(request => request.Employee.Id == id && request.IsApproved == false)
+            .ToList();
+
+        foreach (var request in requests)
+        {
+            if (request.EndDate > request.StartDate)
+            {
+                var difference = request.EndDate - request.StartDate;
+                sumOfDaysApproved += difference.Days;
+            }
+            
+        }
+
+        return sumOfDaysApproved;
+    }
 }

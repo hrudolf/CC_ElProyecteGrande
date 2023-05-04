@@ -169,7 +169,7 @@ const CreateEmployee = () => {
                 {shiftList && (
                   <>
                     <Col>
-                      <label htmlFor="shift">Employee Type:</label>
+                      <label htmlFor="shift">Preferred shift:</label>
                     </Col>
                     <Col>
                       <select
@@ -195,7 +195,7 @@ const CreateEmployee = () => {
             <div className="row no-gutters w-100">
               <Row>
                 <Col>
-                  <label htmlFor="workdays">Workdays per week:</label>
+                  <label htmlFor="workdays">Workdays per month:</label>
                 </Col>
                 <Col>
                   <input

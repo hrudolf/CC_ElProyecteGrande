@@ -187,7 +187,7 @@ const ModifyEmployee = () => {
                 {shiftList && (
                   <>
                     <Col>
-                      <label htmlFor="shift">Employee Type:</label>
+                      <label htmlFor="shift">Preferred shift:</label>
                     </Col>
                     <Col>
                       <select

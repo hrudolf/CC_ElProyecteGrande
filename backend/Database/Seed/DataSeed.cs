@@ -71,7 +71,7 @@ public class DataSeed
             {
                 FirstName = firstNames[Random.Shared.Next(firstNames.Count)],
                 LastName = lastNames[Random.Shared.Next(lastNames.Count)],
-                DateOfBirth = GetRandomDate(),
+                DateOfBirth = GetRandomDate().Date,
                 PreferredShift = GetRandomShift(),
                 WorkingDays = Random.Shared.Next(20, 25),
                 TotalVacationDays = Random.Shared.Next(20, 25),

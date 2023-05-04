@@ -60,14 +60,41 @@ const Employee = () => {
             <table class="table table-light table-bordered table-striped table-responsive">
               <thead class="p-2">
                 <tr>
-                  <th scope="col">Id</th>
-                  <th scope="col">First Name</th>
-                  <th scope="col">Last Name</th>
-                  <th scope="col">Date of Birth</th>
-                  <th scope="col">Workdays per Week</th>
-                  <th scope="col">Vacation Days</th>
+                  <th scope="col" style={{ verticalAlign: "top" }}>
+                    Id
+                  </th>
+                  <th scope="col" style={{ verticalAlign: "top" }}>
+                    First Name
+                  </th>
+                  <th scope="col" style={{ verticalAlign: "top" }}>
+                    Last Name
+                  </th>
+                  <th scope="col" style={{ verticalAlign: "top" }}>
+                    Date of Birth
+                  </th>
+                  <th scope="col" style={{ verticalAlign: "top" }}>
+                    Role
+                  </th>
+                  <th scope="col" style={{ verticalAlign: "top" }}>
+                    Preferred shift
+                  </th>
+                  <th
+                    scope="col"
+                    style={{ width: "100px", textAlign: "center" }}
+                  >
+                    Workdays per Month
+                  </th>
+                  <th
+                    scope="col"
+                    style={{
+                      width: "80px",
+                      textAlign: "center",
+                      verticalAlign: "top",
+                    }}
+                  >
+                    Vacation Days
+                  </th>
                   <th scope="col">Monthly Salary</th>
-                  <th scope="col"></th>
                   <th scope="col"></th>
                 </tr>
               </thead>
@@ -75,14 +102,28 @@ const Employee = () => {
                 {employeeTypeList &&
                   employeeList.map((employee) => {
                     return (
-                      <tr key={employee.id}>
+                      <tr key={employee.id} style={{ verticalAlign: "middle" }}>
                         <th scope="row">{employee.id}</th>
                         <td>{employee.firstName}</td>
                         <td>{employee.lastName}</td>
-                        <td>{employee.dateOfBirth}</td>
-                        <td>{employee.workingDays}</td>
-                        <td>{employee.totalVacationDays}</td>
-                        <td>{employee.monthlyGrossSalary}</td>
+                        <td>{employee.dateOfBirth.slice(0, 10)}</td>
+                        <td>{employee.employeeType.type}</td>
+                        <td>{employee.preferredShift.nameOfShift}</td>
+                        <td style={{ textAlign: "right" }}>
+                          {employee.workingDays}
+                        </td>
+                        <td style={{ textAlign: "right" }}>
+                          {employee.totalVacationDays}
+                        </td>
+                        <td style={{ textAlign: "right" }}>
+                          $
+                          {parseInt(employee.monthlyGrossSalary).toLocaleString(
+                            "en-US",
+                            {
+                              valute: "USD",
+                            }
+                          )}
+                        </td>
                         <td>
                           {" "}
                           <button
@@ -94,9 +135,15 @@ const Employee = () => {
                           >
                             Edit
                           </button>{" "}
-                        </td>
-                        <td>
-                          {" "}
+                          <button
+                            class="btn btn-secondary"
+                            onClick={() =>
+                              navigate(`/employees/edit/${employee.id}`)
+                            }
+                            disabled={loading}
+                          >
+                            Vacation requests
+                          </button>{" "}
                           <button
                             class="btn btn-warning"
                             onClick={() => DeleteEmployee(employee.id)}

@@ -61,15 +61,6 @@ const Employee = () => {
                   <th scope="col" style={{ width: "100px" }}>
                     Workdays per Month
                   </th>
-                  <th
-                    scope="col"
-                    style={{
-                      width: "80px",
-                      textAlign: "center",
-                    }}
-                  >
-                    Vacation Days
-                  </th>
                   <th scope="col">Monthly Salary</th>
                   <th scope="col" style={{ textAlign: "center" }}>
                     <button
@@ -94,9 +85,6 @@ const Employee = () => {
                         <td>{employee.preferredShift.nameOfShift}</td>
                         <td style={{ textAlign: "right" }}>
                           {employee.workingDays}
-                        </td>
-                        <td style={{ textAlign: "right" }}>
-                          {employee.totalVacationDays}
                         </td>
                         <td style={{ textAlign: "right" }}>
                           $

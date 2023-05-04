@@ -58,7 +58,7 @@ function RequestPopUp(props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <table className="table-auto">
+          <table className="table table-striped table-borderless ">
             <thead>
               <tr>
                 <th>Start Date</th>

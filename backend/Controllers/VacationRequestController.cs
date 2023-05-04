@@ -71,12 +71,12 @@ public class VacationRequestController : ControllerBase
     }
     
     [HttpPatch("{id:int}")]
-    public ActionResult<VacationRequest> ChangeVacationRequestApproval(int id)
+    public ActionResult<IEnumerable<VacationRequest>> ChangeVacationRequestApproval(int id)
     {
         VacationRequest? vacationRequest = _service.ChangeApproval(id);
         if (vacationRequest != null)
         {
-            return Ok(vacationRequest);
+            return Ok(_service.GetAll());
         }
 
         return NotFound();

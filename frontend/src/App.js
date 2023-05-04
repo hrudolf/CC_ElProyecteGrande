@@ -30,8 +30,8 @@ function App() {
             <Route path="create" element={<CreateVacationRequest />}></Route>
             <Route path="edit/:id" element={<ModifyVacationRequest />}></Route>
           </Route>
-        </Route>
         <Route path="*" element={<NotFoundPage />}></Route>
+        </Route>
       </Routes>
     </div>
   );

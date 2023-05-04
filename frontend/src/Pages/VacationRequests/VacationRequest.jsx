@@ -11,6 +11,19 @@ const VacationRequest = () => {
 
   const navigate = useNavigate();
 
+  const ChangeRequestApproval = (requestId) => {
+    fetch(`/api/VacationRequest/${requestId}`, {
+      method: "PATCH",
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        setLoading(false);
+        setRequestList(json);
+      })
+      .catch((err) => setError(err));
+    window.location.reload(false);
+  };
+
   const DeleteRequest = (requestId) => {
     fetch(`/api/VacationRequest/${requestId}`, {
       method: "DELETE",
@@ -61,6 +74,7 @@ const VacationRequest = () => {
                   <th scope="col">Is Approved</th>
                   <th scope="col"></th>
                   <th scope="col"></th>
+                  <th scope="col"></th>
                 </tr>
               </thead>
               <tbody class="p-5">
@@ -75,6 +89,16 @@ const VacationRequest = () => {
                       <td>{request.startDate.slice(0,10)}</td>
                       <td>{request.endDate.slice(0,10)}</td>
                       <td>{request.isApproved ? "true" : "false"}</td>
+                      <td>
+                        {" "}
+                        <button
+                          class="btn btn-info"
+                          onClick={() => ChangeRequestApproval(request.id)}
+                          disabled={loading}
+                        >
+                          Approve
+                        </button>{" "}
+                      </td>
                       <td>
                         {" "}
                         <button

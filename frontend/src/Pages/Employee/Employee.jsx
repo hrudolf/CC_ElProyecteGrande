@@ -78,10 +78,7 @@ const Employee = () => {
                   <th scope="col" style={{ verticalAlign: "top" }}>
                     Preferred shift
                   </th>
-                  <th
-                    scope="col"
-                    style={{ width: "100px", textAlign: "center" }}
-                  >
+                  <th scope="col" style={{ width: "100px", textAlign: "top" }}>
                     Workdays per Month
                   </th>
                   <th
@@ -94,7 +91,9 @@ const Employee = () => {
                   >
                     Vacation Days
                   </th>
-                  <th scope="col">Monthly Salary</th>
+                  <th scope="col" style={{ verticalAlign: "top" }}>
+                    Monthly Salary
+                  </th>
                   <th scope="col"></th>
                 </tr>
               </thead>

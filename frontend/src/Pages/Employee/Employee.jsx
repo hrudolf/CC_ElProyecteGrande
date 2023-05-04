@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CreateEmployee.css";
 import Spinner from "../Layout/Spinner";
+import Popup from "reactjs-popup";
+import RequestPopUp from "../VacationRequests/RequestPopUp";
 
 const Employee = () => {
   const [loading, setLoading] = useState(true);
@@ -59,27 +61,15 @@ const Employee = () => {
         {employeeList && (
           <div className="employeeTypes">
             <table className="table table-light table-bordered table-striped table-responsive">
-              <thead className="p-2">
+              <thead className="p-2" style={{ verticalAlign: "middle" }}>
                 <tr>
-                  <th scope="col" style={{ verticalAlign: "top" }}>
-                    Id
-                  </th>
-                  <th scope="col" style={{ verticalAlign: "top" }}>
-                    First Name
-                  </th>
-                  <th scope="col" style={{ verticalAlign: "top" }}>
-                    Last Name
-                  </th>
-                  <th scope="col" style={{ verticalAlign: "top" }}>
-                    Date of Birth
-                  </th>
-                  <th scope="col" style={{ verticalAlign: "top" }}>
-                    Role
-                  </th>
-                  <th scope="col" style={{ verticalAlign: "top" }}>
-                    Preferred shift
-                  </th>
-                  <th scope="col" style={{ width: "100px", textAlign: "top" }}>
+                  <th scope="col">Id</th>
+                  <th scope="col">First Name</th>
+                  <th scope="col">Last Name</th>
+                  <th scope="col">Date of Birth</th>
+                  <th scope="col">Role</th>
+                  <th scope="col">Preferred shift</th>
+                  <th scope="col" style={{ width: "100px" }}>
                     Workdays per Month
                   </th>
                   <th
@@ -87,20 +77,18 @@ const Employee = () => {
                     style={{
                       width: "80px",
                       textAlign: "center",
-                      verticalAlign: "top",
                     }}
                   >
                     Vacation Days
                   </th>
-                  <th scope="col" style={{ verticalAlign: "top" }}>
-                    Monthly Salary
-                  </th>
-                  <th scope="col">
-                  {!loading &&<button
-                  className="btn btn-primary w-auto"
-                  onClick={() => navigate("/employees/create")}
-                  >Add a new employee
-                  </button>}
+                  <th scope="col">Monthly Salary</th>
+                  <th scope="col" style={{ textAlign: "center" }}>
+                    <button
+                      className="btn btn-primary w-auto"
+                      onClick={() => navigate("/employees/create")}
+                    >
+                      Add a new employee
+                    </button>
                   </th>
                 </tr>
               </thead>
@@ -132,6 +120,11 @@ const Employee = () => {
                         </td>
                         <td>
                           {" "}
+                          <RequestPopUp
+                            firstName={employee.firstName}
+                            lastName={employee.lastName}
+                            id={employee.id}
+                          />{" "}
                           <button
                             className="btn btn-secondary"
                             onClick={() =>
@@ -168,7 +161,7 @@ const Employee = () => {
         {loading && <div><Spinner/></div>}
         {error && <div className={"error"}>{error ? error : ""}</div>}
         {message && <div className={"message"}>{message ? message : ""}</div>}
-        </div>
+      </div>
     </div>
   );
 };

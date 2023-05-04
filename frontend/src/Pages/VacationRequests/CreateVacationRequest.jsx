@@ -5,7 +5,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 const CreateVacationRequest = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
 
@@ -44,22 +44,9 @@ const CreateVacationRequest = () => {
   };
 
   const updateProperty = (input, id) => {
-    const requestCopy = JSON.parse(JSON.stringify(request));
-    switch (id) {
-      case 1:
-        requestCopy.employeeId = input;
-        break;
-      case 2:
-        requestCopy.startDate = input;
-        break;
-      case 3:
-        requestCopy.endDate = input;
-        break;
-      default:
-        console.log(" ");
-    }
-
-    setRequest(requestCopy);
+      const requestCopy = JSON.parse(JSON.stringify(request));
+      requestCopy[id] = input;
+      setRequest(requestCopy);
   };
 
   return (
@@ -80,7 +67,7 @@ const CreateVacationRequest = () => {
                     name="employeeId"
                     id="employeeId"
                     value={request.employeeId}
-                    onChange={(e) => updateProperty(e.target.value, 1)}
+                    onChange={(e) => updateProperty(e.target.value, "employeeId")}
                     required
                   />
                 </Col>
@@ -99,7 +86,7 @@ const CreateVacationRequest = () => {
                     name="startDate"
                     id="startDate"
                     value={request.startDate}
-                    onChange={(e) => updateProperty(e.target.value, 2)}
+                    onChange={(e) => updateProperty(e.target.value, "startDate")}
                     required
                   />
                 </Col>
@@ -120,12 +107,11 @@ const CreateVacationRequest = () => {
                     min="2023-05-03"
                     max="2025-12-31"
                     value={request.endDate}
-                    onChange={(e) => updateProperty(e.target.value, 3)}
+                    onChange={(e) => updateProperty(e.target.value, "endDate")}
                   />
                 </Col>
               </Row>
             </div>
-
 
             <div className="buttons">
               <button

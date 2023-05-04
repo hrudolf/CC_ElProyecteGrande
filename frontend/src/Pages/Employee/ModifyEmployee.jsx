@@ -10,6 +10,7 @@ const ModifyEmployee = () => {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [employeeTypeList, setEmployeeTypeList] = useState("");
+  const [shiftList, setShiftList] = useState("");
   const { id } = useParams();
 
   const [employee, setEmployee] = useState({
@@ -17,7 +18,7 @@ const ModifyEmployee = () => {
     firstName: "",
     lastName: "",
     dateOfBirth: "",
-    preferredShift: [],
+    preferredShift: "",
     workingDays: 0,
     totalVacationDays: 0,
     employeeType: 0,
@@ -58,14 +59,30 @@ const ModifyEmployee = () => {
       .catch((err) => setError(err));
   }, []);
 
+  useEffect(() => {
+    setLoading(true);
+    setMessage("");
+    setError("");
+
+    fetch("/api/Shift", {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        setLoading(false);
+        setShiftList(json);
+      })
+      .catch((err) => setError(err));
+  }, []);
+
   const postemployee = async (e) => {
     e.preventDefault();
     setLoading(true);
     setMessage("");
     setError("");
 
-    const url = `/api/Employee`;
-    const fetchMethod = "PUT";
+    const url = `/api/Employee/${employee.id}`;
+    const fetchMethod = "PATCH";
     const headers = { "Content-Type": "application/json" };
     console.log(employee);
     const response = await fetch(url, {
@@ -84,38 +101,21 @@ const ModifyEmployee = () => {
     }
   };
 
-  const updateProperty = (input, id) => {
+  const updateProperty = (input, key) => {
     const employeeCopy = JSON.parse(JSON.stringify(employee));
-    switch (id) {
-      case 1:
-        employeeCopy.firstName = input;
-        break;
-      case 2:
-        employeeCopy.lastName = input;
-        break;
-      case 3:
-        employeeCopy.dateOfBirth = input;
-        break;
-      case 4:
-        employeeCopy.preferredShift = input;
-        break;
-      case 5:
-        employeeCopy.workingDays = input;
-        break;
-      case 6:
-        employeeCopy.totalVacationDays = input;
-        break;
-      case 7:
-        employeeCopy.employeeType = input;
-        break;
-      case 8:
-        employeeCopy.monthlyGrossSalary = input;
-        break;
-      default:
-        console.log(" ");
+    
+    if (key === "employeeType") {
+      input = employeeTypeList.find(e => e.id === +input);
     }
 
+    if (key === "preferredShift") {
+      input = shiftList.find(e => e.id === +input);
+    }
+
+    employeeCopy[key] = input;
+
     setEmployee(employeeCopy);
+    console.log(employeeCopy);
   };
 
   return (
@@ -136,7 +136,7 @@ const ModifyEmployee = () => {
                     name="firstname"
                     id="firstname"
                     value={employee.firstName}
-                    onChange={(e) => updateProperty(e.target.value, 1)}
+                    onChange={(e) => updateProperty(e.target.value, "firstName")}
                     required
                   />
                 </Col>
@@ -155,7 +155,7 @@ const ModifyEmployee = () => {
                     name="lastname"
                     id="lastname"
                     value={employee.lastName}
-                    onChange={(e) => updateProperty(e.target.value, 2)}
+                    onChange={(e) => updateProperty(e.target.value, "lastName")}
                     required
                   />
                 </Col>
@@ -175,8 +175,8 @@ const ModifyEmployee = () => {
                     id="birthdate"
                     min="1920-01-01"
                     max="2023-04-20"
-                    value={employee.dateOfBirth}
-                    onChange={(e) => updateProperty(e.target.value, 3)}
+                    value={employee.dateOfBirth.slice(0, 10)}
+                    onChange={(e) => updateProperty(e.target.value, "dateOfBirth")}
                   />
                 </Col>
               </Row>
@@ -184,22 +184,29 @@ const ModifyEmployee = () => {
 
             <div class="row no-gutters w-100">
               <Row>
-                <Col>
-                  <label htmlFor="shift">Preferred Shift:</label>
-                </Col>
-                <Col>
-                  <input
-                    className="w-100"
-                    type="number"
-                    name="shift"
-                    min="1"
-                    max="3"
-                    id="shift"
-                    value={employee.preferredShift}
-                    onChange={(e) => updateProperty(e.target.value, 4)}
-                    required
-                  />
-                </Col>
+                {shiftList && (
+                  <>
+                    <Col>
+                      <label htmlFor="shift">Employee Type:</label>
+                    </Col>
+                    <Col>
+                      <select
+                        name="shift"
+                        className="w-100"
+                        id="shift"
+                        value={employee.preferredShift.id}
+                        onChange={(e) => updateProperty(e.target.value, "preferredShift")}
+                        required
+                      >
+                        {shiftList.map((opt) => (
+                          <option key={opt.id} value={opt.id}>
+                            {opt.nameOfShift}
+                          </option>
+                        ))}
+                      </select>
+                    </Col>
+                  </>
+                )}
               </Row>
             </div>
 
@@ -215,7 +222,7 @@ const ModifyEmployee = () => {
                     name="workdays"
                     id="workdays"
                     value={employee.workingDays}
-                    onChange={(e) => updateProperty(e.target.value, 5)}
+                    onChange={(e) => updateProperty(e.target.value, "workingDays")}
                     required
                   />
                 </Col>
@@ -234,7 +241,7 @@ const ModifyEmployee = () => {
                     name="vacation"
                     id="vacation"
                     value={employee.totalVacationDays}
-                    onChange={(e) => updateProperty(e.target.value, 6)}
+                    onChange={(e) => updateProperty(e.target.value, "totalVacationDays")}
                     required
                   />
                 </Col>
@@ -253,8 +260,8 @@ const ModifyEmployee = () => {
                         name="employeeType"
                         className="w-100"
                         id="employeeType"
-                        value={employee.employeeType}
-                        onChange={(e) => updateProperty(e.target.value, 7)}
+                        value={employee.employeeType.id}
+                        onChange={(e) => updateProperty(e.target.value, "employeeType")}
                         required
                       >
                         {employeeTypeList.map((opt) => (
@@ -281,7 +288,7 @@ const ModifyEmployee = () => {
                     name="salary"
                     id="salary"
                     value={employee.monthlyGrossSalary}
-                    onChange={(e) => updateProperty(e.target.value, 8)}
+                    onChange={(e) => updateProperty(e.target.value, "monthlyGrossSalary")}
                     required
                   />
                 </Col>

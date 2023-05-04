@@ -6,7 +6,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 const ModifyEmployee = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [employeeTypeList, setEmployeeTypeList] = useState("");
@@ -75,7 +75,7 @@ const ModifyEmployee = () => {
       .catch((err) => setError(err));
   }, []);
 
-  const postemployee = async (e) => {
+  const patchemployee = async (e) => {
     e.preventDefault();
     setLoading(true);
     setMessage("");
@@ -123,7 +123,7 @@ const ModifyEmployee = () => {
       <h1 class="text-center">Change Employee Details</h1>
       <div className="container align-items-left w-75">
         {!message && (
-          <form className="UserForm" onSubmit={postemployee}>
+          <form className="UserForm" onSubmit={patchemployee}>
             <div class="row no-gutters w-100">
               <Row>
                 <Col>
@@ -213,7 +213,7 @@ const ModifyEmployee = () => {
             <div class="row no-gutters w-100">
               <Row>
                 <Col>
-                  <label htmlFor="workdays">Workdays per week:</label>
+                  <label htmlFor="workdays">Workdays per month:</label>
                 </Col>
                 <Col>
                   <input

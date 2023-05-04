@@ -71,11 +71,11 @@ const ModifyVacationRequest = () => {
 
   return (
     <div className="container bg-light w-50 p-2">
-      <h1 class="text-center">Change Request Details</h1>
+      <h1 className="text-center">Change Request Details</h1>
       <div className="container align-items-left w-75">
         {!message && (
           <form className="UserForm" onSubmit={putRequest}>
-            <div class="row no-gutters w-100">
+            <div className="row no-gutters w-100">
               <Row>
                 <Col>
                   <label htmlFor="startDate">Start Date:</label>
@@ -94,7 +94,7 @@ const ModifyVacationRequest = () => {
               </Row>
             </div>
 
-            <div class="row no-gutters w-100">
+            <div className="row no-gutters w-100">
               <Row>
                 <Col>
                   <label htmlFor="endDate">End Date:</label>
@@ -118,7 +118,7 @@ const ModifyVacationRequest = () => {
             <div className="buttons">
               <button
                 type="submit"
-                class="btn btn-primary w-auto m-1"
+                className="btn btn-primary w-auto m-1"
                 disabled={loading}
               >
                 Update Vacation Request
@@ -126,7 +126,7 @@ const ModifyVacationRequest = () => {
 
               <button
                 type="button"
-                class="btn btn-secondary w-auto m-1"
+                className="btn btn-secondary w-auto m-1"
                 onClick={() => navigate("/vacationRequests")}
               >
                 Cancel
@@ -135,12 +135,12 @@ const ModifyVacationRequest = () => {
           </form>
         )}
         {error && (
-          <div class="alert alert-danger" role="alert">
+          <div className="alert alert-danger" role="alert">
             {error ? error : ""}
           </div>
         )}
         {message && (
-          <div class="alert alert-success" role="alert">
+          <div className="alert alert-success" role="alert">
             {message ? message : ""}
           </div>
         )}

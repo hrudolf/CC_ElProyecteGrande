@@ -53,13 +53,13 @@ const Employee = () => {
   }, []);
 
   return (
-    <div class="container align-items-center">
-      <h1 class="p-2 m-2">Employees</h1>
-      <div class="container align-items-center">
+    <div className="container align-items-center">
+      <h1 className="p-2 m-2">Employees</h1>
+      <div className="container align-items-center">
         {employeeList && (
           <div className="employeeTypes">
-            <table class="table table-light table-bordered table-striped table-responsive">
-              <thead class="p-2">
+            <table className="table table-light table-bordered table-striped table-responsive">
+              <thead className="p-2">
                 <tr>
                   <th scope="col" style={{ verticalAlign: "top" }}>
                     Id
@@ -97,14 +97,14 @@ const Employee = () => {
                   </th>
                   <th scope="col">
                   {!loading &&<button
-                  class="btn btn-primary w-auto"
+                  className="btn btn-primary w-auto"
                   onClick={() => navigate("/employees/create")}
                   >Add a new employee
                   </button>}
                   </th>
                 </tr>
               </thead>
-              <tbody class="p-5">
+              <tbody className="p-5">
                 {employeeTypeList &&
                   employeeList.map((employee) => {
                     return (
@@ -133,7 +133,7 @@ const Employee = () => {
                         <td>
                           {" "}
                           <button
-                            class="btn btn-secondary"
+                            className="btn btn-secondary"
                             onClick={() =>
                               navigate(`/employees/edit/${employee.id}`)
                             }
@@ -142,7 +142,7 @@ const Employee = () => {
                             Edit
                           </button>{" "}
                           <button
-                            class="btn btn-secondary"
+                            className="btn btn-secondary"
                             onClick={() =>
                               navigate(`/employees/edit/${employee.id}`)
                             }
@@ -151,7 +151,7 @@ const Employee = () => {
                             Vacation requests
                           </button>{" "}
                           <button
-                            class="btn btn-warning"
+                            className="btn btn-warning"
                             onClick={() => DeleteEmployee(employee.id)}
                             disabled={loading}
                           >

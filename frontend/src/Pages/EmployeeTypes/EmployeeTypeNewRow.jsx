@@ -28,7 +28,7 @@ const EmployeeTypeNewRow = ({ employeeType, loading, HandlePost, setNewRow }) =>
             <th scope="row">{employeeType.id}</th>
             {!editing && <td> <span onClick={() => { if (!loading) setEditing(true) }}>{input} </span></td>}
             {editing && <td> <input autoFocus type="text" value={input} onKeyDown={handleKeys} onChange={e => setInput(e.target.value)} /> <span onClick={handleDataUpdate}>✔️</span></td>}
-            <td> <button class="btn btn-warning" onClick={() => setNewRow(false)} disabled={loading}>Cancel</button> </td>
+            <td> <button className="btn btn-warning" onClick={() => setNewRow(false)} disabled={loading}>Cancel</button> </td>
         </tr>
     );
 }

@@ -26,7 +26,7 @@ const EmployeeTypeRow = ({ employeeType, DeleteEmployee, loading, HandleUpdate }
             <th scope="row">{employeeType.id}</th>
             {!editing && <td className="datarow" onClick={() => { if (!loading) setEditing(true) }}>{input}</td>}
             {editing && <td className="datarow"> <input autoFocus type="text" value={input} onKeyDown={handleKeys} onChange={e => setInput(e.target.value)} /> <span onClick={handleDataUpdate}>✔️</span></td>}
-            <td> <button class="btn btn-warning" onClick={() => DeleteEmployee(employeeType.id)} disabled={loading}>Delete</button> </td>
+            <td> <button className="btn btn-warning" onClick={() => DeleteEmployee(employeeType.id)} disabled={loading}>Delete</button> </td>
         </tr>
     );
 }

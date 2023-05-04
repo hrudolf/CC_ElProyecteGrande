@@ -54,9 +54,6 @@ const VacationRequest = () => {
                   <th scope="col">Id</th>
                   <th scope="col">First Name</th>
                   <th scope="col">Last Name</th>
-                  <th scope="col">Date of Birth</th>
-                  <th scope="col">Preferred Shift</th>
-                  <th scope="col">Workdays per Week</th>
                   <th scope="col">Vacation Days</th>
                   <th scope="col">Employee Type</th>
                   <th scope="col">Vacation StartDate</th>
@@ -73,13 +70,10 @@ const VacationRequest = () => {
                       <th scope="row">{request.id}</th>
                       <td>{request.employee.firstName}</td>
                       <td>{request.employee.lastName}</td>
-                      <td>{request.employee.dateOfBirth}</td>
-                      <td>{request.employee.preferredShift.nameOfShift}</td>
-                      <td>{request.employee.workingDays}</td>
                       <td>{request.employee.totalVacationDays}</td>
                       <td>{request.employee.employeeType.type}</td>
-                      <td>{request.startDate}</td>
-                      <td>{request.endDate}</td>
+                      <td>{request.startDate.slice(0,10)}</td>
+                      <td>{request.endDate.slice(0,10)}</td>
                       <td>{request.isApproved ? "true" : "false"}</td>
                       <td>
                         {" "}

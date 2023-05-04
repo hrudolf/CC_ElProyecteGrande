@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CreateEmployee.css";
 import Spinner from "../Layout/Spinner";
-import Popup from "reactjs-popup";
 import RequestPopUp from "../VacationRequests/RequestPopUp";
 
 const Employee = () => {
@@ -135,15 +134,6 @@ const Employee = () => {
                             Edit
                           </button>{" "}
                           <button
-                            className="btn btn-secondary"
-                            onClick={() =>
-                              navigate(`/employees/edit/${employee.id}`)
-                            }
-                            disabled={loading}
-                          >
-                            Vacation requests
-                          </button>{" "}
-                          <button
                             className="btn btn-warning"
                             onClick={() => DeleteEmployee(employee.id)}
                             disabled={loading}
@@ -158,7 +148,7 @@ const Employee = () => {
             </table>
           </div>
         )}
-        {loading && <div><Spinner/></div>}
+        {loading && <div><Spinner /></div>}
         {error && <div className={"error"}>{error ? error : ""}</div>}
         {message && <div className={"message"}>{message ? message : ""}</div>}
       </div>

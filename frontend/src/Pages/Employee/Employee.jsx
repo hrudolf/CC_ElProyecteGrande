@@ -9,6 +9,7 @@ const Employee = () => {
   const [message, setMessage] = useState("");
   const [employeeList, setEmployeeList] = useState("");
   const [employeeTypeList, setEmployeeTypeList] = useState("");
+  const [vacationRequests, setVacationRequests] = useState();
 
   const navigate = useNavigate();
 
@@ -95,13 +96,7 @@ const Employee = () => {
                   <th scope="col" style={{ verticalAlign: "top" }}>
                     Monthly Salary
                   </th>
-                  <th scope="col">
-                  {!loading &&<button
-                  class="btn btn-primary w-auto"
-                  onClick={() => navigate("/employees/create")}
-                  >Add a new employee
-                  </button>}
-                  </th>
+                  <th scope="col"></th>
                 </tr>
               </thead>
               <tbody class="p-5">
@@ -165,10 +160,16 @@ const Employee = () => {
             </table>
           </div>
         )}
-        {loading && <div><Spinner/></div>}
+        {loading && <div className={"loading"}>Loading...</div>}
         {error && <div className={"error"}>{error ? error : ""}</div>}
         {message && <div className={"message"}>{message ? message : ""}</div>}
-        </div>
+        <button
+          class="btn btn-primary w-auto"
+          onClick={() => navigate("/employees/create")}
+        >
+          Add a new employee
+        </button>
+      </div>
     </div>
   );
 };

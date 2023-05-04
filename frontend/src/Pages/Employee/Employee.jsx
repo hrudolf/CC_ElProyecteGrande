@@ -9,7 +9,6 @@ const Employee = () => {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [employeeList, setEmployeeList] = useState("");
-  const [employeeTypeList, setEmployeeTypeList] = useState("");
 
   const navigate = useNavigate();
 

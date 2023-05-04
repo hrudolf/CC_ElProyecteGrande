@@ -42,6 +42,18 @@ public class VacationRequestController : ControllerBase
         return Ok(vacationRequests.Where(request => request.Employee.Id == id));
     }
 
+    [HttpGet("approved/{id:int}")]
+    public int GetApprovedVacationDays(int id)
+    {
+        return _service.GetVacationDaysApproved(id);
+    }
+    
+    [HttpGet("pending/{id:int}")]
+    public int GetPendingVacationDays(int id)
+    {
+        return _service.GetVacationDaysPending(id);
+    }
+
     [HttpPost]
     public ActionResult<VacationRequest> CreateVacationRequest([FromBody] VacationRequestDto vacationRequest)
     {

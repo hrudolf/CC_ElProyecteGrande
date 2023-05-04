@@ -5,6 +5,8 @@ import Modal from "react-bootstrap/Modal";
 function RequestPopUp(props) {
   const [show, setShow] = useState(false);
   const [requestList, setRequestList] = useState("");
+  const [vacationDaysUsed, setVacationDaysUsed] = useState(0);
+  const [vacationDaysPending, setVacationDaysPending] = useState(0);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -16,6 +18,24 @@ function RequestPopUp(props) {
       .then((res) => res.json())
       .then((json) => {
         setRequestList(json);
+      })
+      .catch((err) => console.log(err));
+
+    fetch(`api/VacationRequest/approved/${props.id}`, {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        setVacationDaysUsed(json);
+      })
+      .catch((err) => console.log(err));
+
+    fetch(`api/VacationRequest/pending/${props.id}`, {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        setVacationDaysPending(json);
       })
       .catch((err) => console.log(err));
   }, [props.id]);
@@ -38,7 +58,7 @@ function RequestPopUp(props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <table className="table-auto">
+          <table className="table table-striped table-borderless ">
             <thead>
               <tr>
                 <th>Start Date</th>
@@ -67,9 +87,38 @@ function RequestPopUp(props) {
           </table>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
+          <div
+            style={{
+              display: "flex",
+              flexBasis: 0,
+              flexGrow: 1,
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "left",
+                lineHeight: "60%",
+              }}
+            >
+              <p>Total vacation days: {props.vacationDays}</p>
+              <p>Vacation days left: {props.vacationDays - vacationDaysUsed}</p>
+              <p>Pending vacation days: {vacationDaysPending}</p>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                alignSelf: "flex-end",
+              }}
+            >
+              <Button variant="secondary" onClick={handleClose}>
+                Close
+              </Button>
+            </div>
+          </div>
         </Modal.Footer>
       </Modal>
     </>

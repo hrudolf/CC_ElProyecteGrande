@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import "./CreateEmployeeType.css";
 import EmployeeTypeRow from "./EmployeeTypeRow";
 import EmployeeTypeNewRow from "./EmployeeTypeNewRow";
+import Spinner from "../Layout/Spinner";
 
 const EmployeeTypes = () => {
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');
     const [employeeTypeList, setEmployeeTypeList] = useState('');
@@ -99,7 +100,7 @@ const EmployeeTypes = () => {
                         </tbody>
                     </table>
                 </div>}
-                {loading && <div className={"loading"}>Loading...</div>}
+                {loading && <div><Spinner/></div>}
                 {error && <div className={"error"}>{error ? error : ""}</div>}
                 {message && <div className={"message"}>{message ? message : ""}</div>}
                 <button className="btn btn-primary w-auto" onClick={() => setNewRow(true)}>Add a new role</button>

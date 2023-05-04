@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CreateEmployee.css";
+import Spinner from "../Layout/Spinner";
 
 const Employee = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [employeeList, setEmployeeList] = useState("");
@@ -94,7 +95,13 @@ const Employee = () => {
                   <th scope="col" style={{ verticalAlign: "top" }}>
                     Monthly Salary
                   </th>
-                  <th scope="col"></th>
+                  <th scope="col">
+                  {!loading &&<button
+                  class="btn btn-primary w-auto"
+                  onClick={() => navigate("/employees/create")}
+                  >Add a new employee
+                  </button>}
+                  </th>
                 </tr>
               </thead>
               <tbody class="p-5">
@@ -158,16 +165,10 @@ const Employee = () => {
             </table>
           </div>
         )}
-        {loading && <div className={"loading"}>Loading...</div>}
+        {loading && <div><Spinner/></div>}
         {error && <div className={"error"}>{error ? error : ""}</div>}
         {message && <div className={"message"}>{message ? message : ""}</div>}
-        <button
-          class="btn btn-primary w-auto"
-          onClick={() => navigate("/employees/create")}
-        >
-          Add a new employee
-        </button>
-      </div>
+        </div>
     </div>
   );
 };

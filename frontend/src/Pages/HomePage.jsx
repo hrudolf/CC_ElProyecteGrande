@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 
 const HomePage = () => (
   <div className="Layout">
-    <div className="container bg-light my-auto w-50">
+    <div className="container bg-light-opacity my-auto p-2 w-50">
       <img
         src={require("./img/rooster.png")}
         alt="Green Rooster"

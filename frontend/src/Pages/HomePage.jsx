@@ -1,8 +1,9 @@
 import { Outlet } from "react-router-dom";
+import './HomePage.css'
 
 const HomePage = () => (
   <div >
-    <div className="container bg-light-opacity my-auto p-2 w-50">
+    <div className="container heropic">
       <img
         src={require("./img/rooster.png")}
         alt="Green Rooster"

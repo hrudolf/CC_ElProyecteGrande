@@ -6,7 +6,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 const ModifyVacationRequest = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   
@@ -86,7 +86,7 @@ const ModifyVacationRequest = () => {
                     type="date"
                     name="startDate"
                     id="startDate"
-                    value={request.startDate}
+                    value={request.startDate.slice(0,10)}
                     onChange={(e) => updateProperty(e.target.value, "startDate")}
                     required
                   />
@@ -107,7 +107,7 @@ const ModifyVacationRequest = () => {
                     id="endDate"
                     min="2023-05-03"
                     max="2025-12-31"
-                    value={request.endDate}
+                    value={request.endDate.slice(0,10)}
                     onChange={(e) => updateProperty(e.target.value, "endDate")}
                   />
                 </Col>

@@ -34,17 +34,17 @@ const Layout = () => (
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/login" 
-            className="nav-link active h5" 
-            aria-current="page">
-              Login
-            </Link>
-          </li>
-          <li className="nav-item">
             <Link to="/vacationrequests" 
             className="nav-link active h5" 
             aria-current="page">
               Vacation Requests
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/login" 
+            className="nav-link active h5" 
+            aria-current="page">
+              Login
             </Link>
           </li>
 

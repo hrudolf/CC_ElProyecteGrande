@@ -33,6 +33,14 @@ public class VacationRequestController : ControllerBase
 
         return NotFound();
     }
+    
+    [HttpGet("employee/{id:int}")]
+    public ActionResult<IEnumerable<VacationRequest>> GetVacationRequestsByEmployee(int id)
+    {
+        IEnumerable<VacationRequest> vacationRequests = _service.GetAll();
+
+        return Ok(vacationRequests.Where(request => request.Employee.Id == id));
+    }
 
     [HttpPost]
     public ActionResult<VacationRequest> CreateVacationRequest([FromBody] VacationRequestDto vacationRequest)

@@ -30,7 +30,7 @@ const Employee = () => {
     setLoading(true);
     setMessage("");
     setError("");
-    fetch("/api/employee/all-employees", {
+    fetch("/api/employee", {
       method: "GET",
     })
       .then((res) => res.json())

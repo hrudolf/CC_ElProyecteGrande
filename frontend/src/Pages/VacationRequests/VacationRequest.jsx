@@ -32,7 +32,7 @@ const VacationRequest = () => {
       .then((json) => {
         setLoading(false);
         setRequestList(
-            requestList.filter((request) => request.id !== requestId)
+          requestList.filter((request) => request.id !== requestId)
         );
       })
       .catch((err) => setError(err));
@@ -86,19 +86,9 @@ const VacationRequest = () => {
                       <td>{request.employee.lastName}</td>
                       <td>{request.employee.totalVacationDays}</td>
                       <td>{request.employee.employeeType.type}</td>
-                      <td>{request.startDate.slice(0,10)}</td>
-                      <td>{request.endDate.slice(0,10)}</td>
+                      <td>{request.startDate.slice(0, 10)}</td>
+                      <td>{request.endDate.slice(0, 10)}</td>
                       <td>{request.isApproved ? "true" : "false"}</td>
-                      <td>
-                        {" "}
-                        <button
-                          className="btn btn-info"
-                          onClick={() => ChangeRequestApproval(request.id)}
-                          disabled={loading}
-                        >
-                          Approve
-                        </button>{" "}
-                      </td>
                       <td>
                         {" "}
                         <button
@@ -138,11 +128,11 @@ const VacationRequest = () => {
             </table>
           </div>
         )}
-        
-        {loading && <div><Spinner/></div>}
+
+        {loading && <div><Spinner /></div>}
         {error && <div className={"error"}>{error ? error : ""}</div>}
         {message && <div className={"message"}>{message ? message : ""}</div>}
-        {!loading &&<button
+        {!loading && <button
           className="btn btn-primary w-auto"
           onClick={() => navigate("/vacationRequests/create")}
         >

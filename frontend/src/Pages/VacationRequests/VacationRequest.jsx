@@ -21,7 +21,7 @@ const VacationRequest = () => {
         setRequestList(json);
       })
       .catch((err) => setError(err));
-    window.location.reload(false);
+    /* window.location.reload(false); */
   };
 
   const DeleteRequest = (requestId) => {
@@ -36,7 +36,7 @@ const VacationRequest = () => {
         );
       })
       .catch((err) => setError(err));
-    window.location.reload(false);
+   /*  window.location.reload(false); */
   };
 
   useEffect(() => {

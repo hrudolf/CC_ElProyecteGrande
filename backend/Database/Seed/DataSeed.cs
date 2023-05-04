@@ -16,6 +16,7 @@ public class DataSeed
         CreateShifts();
         CreateEmployeeTypes();
         CreateEmployees(numberOfEmployees);
+        CreateVacationRequests(5);
     }
 
     public void CreateShifts()
@@ -87,6 +88,26 @@ public class DataSeed
         }
     }
 
+    public void CreateVacationRequests(int numberOfRequests)
+    {
+        var counter = 0;
+        while (counter < numberOfRequests)
+        {
+            var startDate = GetRandomDateForVacationRequest();
+            VacationRequest vacationRequest = new VacationRequest
+            {
+                Employee = GetRandomEmployee(),
+                StartDate = startDate,
+                EndDate = startDate.AddDays(Random.Shared.Next(2, 10))
+            };
+
+            _context.Add(vacationRequest);
+            _context.SaveChanges();
+            
+            counter++;
+        }
+    }
+
     private DateTime GetRandomDate()
     {
         DateTime start = new DateTime(1970, 01, 01);
@@ -107,5 +128,20 @@ public class DataSeed
         List<EmployeeType> employeeTypes = _context.EmployeeTypes.ToList();
         if (employeeTypes.Count == 0) return null;
         return employeeTypes[Random.Shared.Next(employeeTypes.Count)];
+    }
+    
+    private Employee? GetRandomEmployee()
+    {
+        List<Employee> employees = _context.Employees.ToList();
+        if (employees.Count == 0) return null;
+        return employees[Random.Shared.Next(employees.Count)];
+    }
+    
+    private DateTime GetRandomDateForVacationRequest()
+    {
+        DateTime start = new DateTime(2023, 04, 01);
+        DateTime end = new DateTime(2023, 12, 31);
+        int range = (end - start).Days;
+        return start.AddDays(Random.Shared.Next(range));
     }
 }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./VacationRequest.css";
+import Spinner from "../Layout/Spinner";
 
 const VacationRequest = () => {
   const [loading, setLoading] = useState(false);
@@ -85,7 +86,7 @@ const VacationRequest = () => {
                         <button
                           class="btn btn-secondary"
                           onClick={() =>
-                            navigate(`/vacationRequests/edit/${request.id}`)
+                            navigate(`/vacationrequests/edit/${request.id}`)
                           }
                           disabled={loading}
                         >
@@ -109,15 +110,16 @@ const VacationRequest = () => {
             </table>
           </div>
         )}
-        {loading && <div className={"loading"}>Loading...</div>}
+        
+        {loading && <div><Spinner/></div>}
         {error && <div className={"error"}>{error ? error : ""}</div>}
         {message && <div className={"message"}>{message ? message : ""}</div>}
-        <button
+        {!loading &&<button
           class="btn btn-primary w-auto"
           onClick={() => navigate("/vacationRequests/create")}
         >
           Add a new request
-        </button>
+        </button>}
       </div>
     </div>
   );

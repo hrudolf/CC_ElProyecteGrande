@@ -64,20 +64,7 @@ const ModifyVacationRequest = () => {
 
   const updateProperty = (input, id) => {
     const requestCopy = JSON.parse(JSON.stringify(request));
-    switch (id) {
-      case 1:
-        requestCopy.employeeId = request.employeeId;
-        break;
-      case 2:
-        requestCopy.startDate = input;
-        break;
-      case 3:
-        requestCopy.endDate = input;
-        break;
-      default:
-        console.log(" ");
-    }
-
+    requestCopy[id] = input;
     setRequest(requestCopy);
   };
 
@@ -88,25 +75,6 @@ const ModifyVacationRequest = () => {
       <div className="container align-items-left w-75">
         {!message && (
           <form className="UserForm" onSubmit={putRequest}>
-{/*             <div class="row no-gutters w-100">
-              <Row>
-                <Col>
-                  <label htmlFor="employeeId">Employee Id:</label>
-                </Col>
-                <Col>
-                  <input
-                    className="w-100"
-                    type="int"
-                    name="employeeId"
-                    id="employeeId"
-                    value={request.employeeId}
-                    onChange={(e) => updateProperty(e.target.value, 1)}
-                    required
-                  />
-                </Col>
-              </Row>
-            </div>
- */}
             <div class="row no-gutters w-100">
               <Row>
                 <Col>
@@ -119,7 +87,7 @@ const ModifyVacationRequest = () => {
                     name="startDate"
                     id="startDate"
                     value={request.startDate}
-                    onChange={(e) => updateProperty(e.target.value, 2)}
+                    onChange={(e) => updateProperty(e.target.value, "startDate")}
                     required
                   />
                 </Col>
@@ -140,7 +108,7 @@ const ModifyVacationRequest = () => {
                     min="2023-05-03"
                     max="2025-12-31"
                     value={request.endDate}
-                    onChange={(e) => updateProperty(e.target.value, 3)}
+                    onChange={(e) => updateProperty(e.target.value, "endDate")}
                   />
                 </Col>
               </Row>

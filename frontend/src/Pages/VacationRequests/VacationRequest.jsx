@@ -71,7 +71,7 @@ const VacationRequest = () => {
                   <th scope="col">Employee Type</th>
                   <th scope="col">Vacation StartDate</th>
                   <th scope="col">Vacation EndDate</th>
-                  <th scope="col">Is Approved</th>
+                  <th scope="col">Approved?</th>
                   <th scope="col"></th>
                   <th scope="col"></th>
                   <th scope="col"></th>
@@ -88,7 +88,7 @@ const VacationRequest = () => {
                       <td>{request.employee.employeeType.type}</td>
                       <td>{request.startDate.slice(0, 10)}</td>
                       <td>{request.endDate.slice(0, 10)}</td>
-                      <td>{request.isApproved ? "true" : "false"}</td>
+                      <td>{request.isApproved ? "Yes" : "No"}</td>
                       <td>
                         {" "}
                         <button
@@ -96,7 +96,7 @@ const VacationRequest = () => {
                           onClick={() => ChangeRequestApproval(request.id)}
                           disabled={loading}
                         >
-                          Approve
+                          {request.isApproved ? "Revoke" : "Approve"}
                         </button>{" "}
                       </td>
                       <td>

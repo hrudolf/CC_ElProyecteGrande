@@ -32,7 +32,7 @@ const VacationRequest = () => {
       .then((json) => {
         setLoading(false);
         setRequestList(
-            requestList.filter((request) => request.id !== requestId)
+          requestList.filter((request) => request.id !== requestId)
         );
       })
       .catch((err) => setError(err));
@@ -56,13 +56,13 @@ const VacationRequest = () => {
   }, []);
 
   return (
-    <div class="container align-items-center">
-      <h1 class="p-2 m-2">Vacation Requests</h1>
-      <div class="container align-items-center">
+    <div className="container align-items-center">
+      <h1 className="p-2 m-2">Vacation Requests</h1>
+      <div className="container align-items-center">
         {requestList && (
           <div className="">
-            <table class="table table-light table-bordered table-striped table-responsive">
-              <thead class="p-2">
+            <table className="table table-light table-bordered table-striped table-responsive">
+              <thead className="p-2">
                 <tr>
                   <th scope="col">Id</th>
                   <th scope="col">First Name</th>
@@ -77,7 +77,7 @@ const VacationRequest = () => {
                   <th scope="col"></th>
                 </tr>
               </thead>
-              <tbody class="p-5">
+              <tbody className="p-5">
                 {requestList.map((request) => {
                   return (
                     <tr key={request.id}>
@@ -86,13 +86,13 @@ const VacationRequest = () => {
                       <td>{request.employee.lastName}</td>
                       <td>{request.employee.totalVacationDays}</td>
                       <td>{request.employee.employeeType.type}</td>
-                      <td>{request.startDate.slice(0,10)}</td>
-                      <td>{request.endDate.slice(0,10)}</td>
+                      <td>{request.startDate.slice(0, 10)}</td>
+                      <td>{request.endDate.slice(0, 10)}</td>
                       <td>{request.isApproved ? "true" : "false"}</td>
                       <td>
                         {" "}
                         <button
-                          class="btn btn-info"
+                          className="btn btn-info"
                           onClick={() => ChangeRequestApproval(request.id)}
                           disabled={loading}
                         >
@@ -102,7 +102,7 @@ const VacationRequest = () => {
                       <td>
                         {" "}
                         <button
-                          class="btn btn-secondary"
+                          className="btn btn-secondary"
                           onClick={() =>
                             navigate(`/vacationrequests/edit/${request.id}`)
                           }
@@ -114,7 +114,7 @@ const VacationRequest = () => {
                       <td>
                         {" "}
                         <button
-                          class="btn btn-warning"
+                          className="btn btn-warning"
                           onClick={() => DeleteRequest(request.id)}
                           disabled={loading}
                         >
@@ -128,12 +128,12 @@ const VacationRequest = () => {
             </table>
           </div>
         )}
-        
-        {loading && <div><Spinner/></div>}
+
+        {loading && <div><Spinner /></div>}
         {error && <div className={"error"}>{error ? error : ""}</div>}
         {message && <div className={"message"}>{message ? message : ""}</div>}
-        {!loading &&<button
-          class="btn btn-primary w-auto"
+        {!loading && <button
+          className="btn btn-primary w-auto"
           onClick={() => navigate("/vacationRequests/create")}
         >
           Add a new request

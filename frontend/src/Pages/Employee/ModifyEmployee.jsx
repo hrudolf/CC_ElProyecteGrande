@@ -120,11 +120,11 @@ const ModifyEmployee = () => {
 
   return (
     <div className="container bg-light w-50 p-3">
-      <h1 class="text-center">Change Employee Details</h1>
+      <h1 className="text-center">Change Employee Details</h1>
       <div className="container align-items-left w-75">
         {!message && (
           <form className="UserForm" onSubmit={patchemployee}>
-            <div class="row no-gutters w-100">
+            <div className="row no-gutters w-100">
               <Row>
                 <Col>
                   <label htmlFor="firstname">First Name:</label>
@@ -143,7 +143,7 @@ const ModifyEmployee = () => {
               </Row>
             </div>
 
-            <div class="row no-gutters w-100">
+            <div className="row no-gutters w-100">
               <Row>
                 <Col>
                   <label htmlFor="lastname">Last Name:</label>
@@ -162,7 +162,7 @@ const ModifyEmployee = () => {
               </Row>
             </div>
 
-            <div class="row no-gutters w-100">
+            <div className="row no-gutters w-100">
               <Row>
                 <Col>
                   <label htmlFor="birthdate">Date of birth:</label>
@@ -182,7 +182,7 @@ const ModifyEmployee = () => {
               </Row>
             </div>
 
-            <div class="row no-gutters w-100">
+            <div className="row no-gutters w-100">
               <Row>
                 {shiftList && (
                   <>
@@ -210,7 +210,7 @@ const ModifyEmployee = () => {
               </Row>
             </div>
 
-            <div class="row no-gutters w-100">
+            <div className="row no-gutters w-100">
               <Row>
                 <Col>
                   <label htmlFor="workdays">Workdays per month:</label>
@@ -229,7 +229,7 @@ const ModifyEmployee = () => {
               </Row>
             </div>
 
-            <div class="row no-gutters w-100">
+            <div className="row no-gutters w-100">
               <Row>
                 <Col>
                   <label htmlFor="vacation">Vacation days:</label>
@@ -248,7 +248,7 @@ const ModifyEmployee = () => {
               </Row>
             </div>
 
-            <div class="row no-gutters w-100">
+            <div className="row no-gutters w-100">
               <Row>
                 {employeeTypeList && (
                   <>
@@ -276,7 +276,7 @@ const ModifyEmployee = () => {
               </Row>
             </div>
 
-            <div class="row no-gutters w-100">
+            <div className="row no-gutters w-100">
               <Row>
                 <Col>
                   <label htmlFor="salary">Monthly Salary:</label>
@@ -298,7 +298,7 @@ const ModifyEmployee = () => {
             <div className="buttons">
               <button
                 type="submit"
-                class="btn btn-primary w-auto m-1"
+                className="btn btn-primary w-auto m-1"
                 disabled={loading}
               >
                 Update Employee Data
@@ -306,7 +306,7 @@ const ModifyEmployee = () => {
 
               <button
                 type="button"
-                class="btn btn-secondary w-auto m-1"
+                className="btn btn-secondary w-auto m-1"
                 onClick={() => navigate("/employees")}
               >
                 Cancel
@@ -315,12 +315,12 @@ const ModifyEmployee = () => {
           </form>
         )}
         {error && (
-          <div class="alert alert-danger" role="alert">
+          <div className="alert alert-danger" role="alert">
             {error ? error : ""}
           </div>
         )}
         {message && (
-          <div class="alert alert-success" role="alert">
+          <div className="alert alert-success" role="alert">
             {message ? message : ""}
           </div>
         )}

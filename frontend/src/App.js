@@ -9,6 +9,7 @@ import ModifyEmployee from "./Pages/Employee/ModifyEmployee";
 import VacationRequest from "./Pages/VacationRequests/VacationRequest";
 import CreateVacationRequest from "./Pages/VacationRequests/CreateVacationRequest";
 import ModifyVacationRequest from "./Pages/VacationRequests/ModifyVacationRequest";
+import Shifts from "./Pages/Shift/Shifts";
 
 
 function App() {
@@ -22,9 +23,8 @@ function App() {
             <Route path="create" element={<CreateEmployee />}></Route>
             <Route path="edit/:id" element={<ModifyEmployee />}></Route>
           </Route>
-          <Route path="/employeetypes">
-            <Route path="" element={<EmployeeTypes />} />
-          </Route>
+          <Route path="/employeetypes" element={<EmployeeTypes />} />
+          <Route path="/shifts" element={<Shifts />} />
           <Route path="/vacationrequests">
             <Route path="" element={<VacationRequest />} />
             <Route path="create" element={<CreateVacationRequest />}></Route>

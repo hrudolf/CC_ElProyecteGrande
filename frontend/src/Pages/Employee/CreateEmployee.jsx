@@ -102,11 +102,11 @@ const CreateEmployee = () => {
 
   return (
     <div className="container bg-light w-50 p-2">
-      <h1 class="text-center">Add Employee</h1>
+      <h1 className="text-center">Add Employee</h1>
       <div className="container align-items-left w-75">
         {!message && (
           <form className="UserForm" onSubmit={postemployee}>
-            <div class="row no-gutters w-100">
+            <div className="row no-gutters w-100">
               <Row>
                 <Col>
                   <label htmlFor="firstname">First Name:</label>
@@ -125,7 +125,7 @@ const CreateEmployee = () => {
               </Row>
             </div>
 
-            <div class="row no-gutters w-100">
+            <div className="row no-gutters w-100">
               <Row>
                 <Col>
                   <label htmlFor="lastname">Last Name:</label>
@@ -144,7 +144,7 @@ const CreateEmployee = () => {
               </Row>
             </div>
 
-            <div class="row no-gutters w-100">
+            <div className="row no-gutters w-100">
               <Row>
                 <Col>
                   <label htmlFor="birthdate">Date of birth:</label>
@@ -164,7 +164,7 @@ const CreateEmployee = () => {
               </Row>
             </div>
 
-            <div class="row no-gutters w-100">
+            <div className="row no-gutters w-100">
               <Row>
                 {shiftList && (
                   <>
@@ -192,7 +192,7 @@ const CreateEmployee = () => {
               </Row>
             </div>
 
-            <div class="row no-gutters w-100">
+            <div className="row no-gutters w-100">
               <Row>
                 <Col>
                   <label htmlFor="workdays">Workdays per week:</label>
@@ -211,7 +211,7 @@ const CreateEmployee = () => {
               </Row>
             </div>
 
-            <div class="row no-gutters w-100">
+            <div className="row no-gutters w-100">
               <Row>
                 <Col>
                   <label htmlFor="vacation">Vacation days:</label>
@@ -230,7 +230,7 @@ const CreateEmployee = () => {
               </Row>
             </div>
 
-            <div class="row no-gutters w-100">
+            <div className="row no-gutters w-100">
               <Row>
                 {employeeTypeList && (
                   <>
@@ -258,7 +258,7 @@ const CreateEmployee = () => {
               </Row>
             </div>
 
-            <div class="row no-gutters w-100">
+            <div className="row no-gutters w-100">
               <Row>
                 <Col>
                   <label htmlFor="salary">Monthly Salary:</label>
@@ -280,7 +280,7 @@ const CreateEmployee = () => {
             <div className="buttons">
               <button
                 type="submit"
-                class="btn btn-primary w-auto m-1"
+                className="btn btn-primary w-auto m-1"
                 disabled={loading}
               >
                 Create New Employee
@@ -288,7 +288,7 @@ const CreateEmployee = () => {
 
               <button
                 type="button"
-                class="btn btn-secondary w-auto m-1"
+                className="btn btn-secondary w-auto m-1"
                 onClick={() => navigate("/employees")}
               >
                 Cancel
@@ -297,12 +297,12 @@ const CreateEmployee = () => {
           </form>
         )}
         {error && (
-          <div class="alert alert-danger" role="alert">
+          <div className="alert alert-danger" role="alert">
             {error ? error : ""}
           </div>
         )}
         {message && (
-          <div class="alert alert-success" role="alert">
+          <div className="alert alert-success" role="alert">
             {message ? message : ""}
           </div>
         )}

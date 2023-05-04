@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CreateEmployee.css";
 import Spinner from "../Layout/Spinner";
-import Popup from "reactjs-popup";
 import RequestPopUp from "../VacationRequests/RequestPopUp";
 
 const Employee = () => {
@@ -55,13 +54,13 @@ const Employee = () => {
   }, []);
 
   return (
-    <div class="container align-items-center">
-      <h1 class="p-2 m-2">Employees</h1>
-      <div class="container align-items-center">
+    <div className="container align-items-center">
+      <h1 className="p-2 m-2">Employees</h1>
+      <div className="container align-items-center">
         {employeeList && (
           <div className="employeeTypes">
-            <table class="table table-light table-bordered table-striped table-responsive">
-              <thead class="p-2" style={{ verticalAlign: "middle" }}>
+            <table className="table table-light table-bordered table-striped table-responsive">
+              <thead className="p-2" style={{ verticalAlign: "middle" }}>
                 <tr>
                   <th scope="col">Id</th>
                   <th scope="col">First Name</th>
@@ -84,7 +83,7 @@ const Employee = () => {
                   <th scope="col">Monthly Salary</th>
                   <th scope="col" style={{ textAlign: "center" }}>
                     <button
-                      class="btn btn-primary w-auto"
+                      className="btn btn-primary w-auto"
                       onClick={() => navigate("/employees/create")}
                     >
                       Add a new employee
@@ -92,7 +91,7 @@ const Employee = () => {
                   </th>
                 </tr>
               </thead>
-              <tbody class="p-5">
+              <tbody className="p-5">
                 {employeeTypeList &&
                   employeeList.map((employee) => {
                     return (
@@ -126,7 +125,7 @@ const Employee = () => {
                             id={employee.id}
                           />{" "}
                           <button
-                            class="btn btn-secondary"
+                            className="btn btn-secondary"
                             onClick={() =>
                               navigate(`/employees/edit/${employee.id}`)
                             }
@@ -135,7 +134,7 @@ const Employee = () => {
                             Edit
                           </button>{" "}
                           <button
-                            class="btn btn-warning"
+                            className="btn btn-warning"
                             onClick={() => DeleteEmployee(employee.id)}
                             disabled={loading}
                           >
@@ -149,7 +148,7 @@ const Employee = () => {
             </table>
           </div>
         )}
-        {loading && <div className={"loading"}>Loading...</div>}
+        {loading && <div><Spinner /></div>}
         {error && <div className={"error"}>{error ? error : ""}</div>}
         {message && <div className={"message"}>{message ? message : ""}</div>}
       </div>

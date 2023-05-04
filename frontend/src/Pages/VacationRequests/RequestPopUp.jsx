@@ -5,7 +5,6 @@ import Modal from "react-bootstrap/Modal";
 function RequestPopUp(props) {
   const [show, setShow] = useState(false);
   const [requestList, setRequestList] = useState("");
-  const [error, setError] = useState("");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -18,8 +17,8 @@ function RequestPopUp(props) {
       .then((json) => {
         setRequestList(json);
       })
-      .catch((err) => setError(err));
-  }, []);
+      .catch((err) => console.log(err));
+  }, [props.id]);
 
   return (
     <>
@@ -39,7 +38,7 @@ function RequestPopUp(props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <table class="table-auto">
+          <table className="table-auto">
             <thead>
               <tr>
                 <th>Start Date</th>

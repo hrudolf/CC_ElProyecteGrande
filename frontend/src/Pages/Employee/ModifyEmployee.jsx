@@ -198,6 +198,7 @@ const ModifyEmployee = () => {
                         onChange={(e) => updateProperty(e.target.value, "preferredShift")}
                         required
                       >
+                        <option value="" disabled selected>Select preferred shift</option>
                         {shiftList.map((opt) => (
                           <option key={opt.id} value={opt.id}>
                             {opt.nameOfShift}
@@ -253,7 +254,7 @@ const ModifyEmployee = () => {
                 {employeeTypeList && (
                   <>
                     <Col>
-                      <label htmlFor="employeeType">Employee Type:</label>
+                      <label htmlFor="employeeType">Employee Role:</label>
                     </Col>
                     <Col>
                       <select
@@ -264,6 +265,7 @@ const ModifyEmployee = () => {
                         onChange={(e) => updateProperty(e.target.value, "employeeType")}
                         required
                       >
+                        <option value="" disabled selected>Select employee role</option>
                         {employeeTypeList.map((opt) => (
                           <option key={opt.id} value={opt.id}>
                             {opt.type}

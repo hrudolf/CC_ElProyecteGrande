@@ -14,7 +14,7 @@ const CreateEmployee = () => {
   const [employee, setEmployee] = useState({
     firstName: "",
     lastName: "",
-    dateOfBirth: "",
+    dateOfBirth: "2023-05-05",
     preferredShift: "",
     workingDays: 0,
     totalVacationDays: 0,
@@ -85,7 +85,7 @@ const CreateEmployee = () => {
 
   const updateProperty = (input, key) => {
     const employeeCopy = JSON.parse(JSON.stringify(employee));
-    
+
     if (key === "employeeType") {
       input = employeeTypeList.find(e => e.id === +input);
     }
@@ -156,7 +156,7 @@ const CreateEmployee = () => {
                     name="birthdate"
                     id="birthdate"
                     min="1920-01-01"
-                    max="2023-04-20"
+                    max="2023-05-05"
                     value={employee.dateOfBirth.slice(0, 10)}
                     onChange={(e) => updateProperty(e.target.value, "dateOfBirth")}
                   />
@@ -166,29 +166,26 @@ const CreateEmployee = () => {
 
             <div className="row no-gutters w-100">
               <Row>
-                {shiftList && (
-                  <>
-                    <Col>
-                      <label htmlFor="shift">Preferred shift:</label>
-                    </Col>
-                    <Col>
-                      <select
-                        name="shift"
-                        className="w-100"
-                        id="shift"
-                        value={employee.preferredShift.id}
-                        onChange={(e) => updateProperty(e.target.value, "preferredShift")}
-                        required
-                      >
-                        {shiftList.map((opt) => (
-                          <option key={opt.id} value={opt.id}>
-                            {opt.nameOfShift}
-                          </option>
-                        ))}
-                      </select>
-                    </Col>
-                  </>
-                )}
+                <Col>
+                  <label htmlFor="shift">Preferred shift:</label>
+                </Col>
+                <Col>
+                  <select
+                    name="shift"
+                    className="w-100"
+                    id="shift"
+                    value={employee.preferredShift.id}
+                    onChange={(e) => updateProperty(e.target.value, "preferredShift")}
+                    required
+                  >
+                    <option value="" disabled selected>Select preferred shift</option>
+                    {shiftList && shiftList.map((opt) => (
+                      <option key={opt.id} value={opt.id}>
+                        {opt.nameOfShift}
+                      </option>
+                    ))}
+                  </select>
+                </Col>
               </Row>
             </div>
 
@@ -232,29 +229,26 @@ const CreateEmployee = () => {
 
             <div className="row no-gutters w-100">
               <Row>
-                {employeeTypeList && (
-                  <>
-                    <Col>
-                      <label htmlFor="employeeType">Employee Type:</label>
-                    </Col>
-                    <Col>
-                      <select
-                        name="employeeType"
-                        className="w-100"
-                        id="employeeType"
-                        value={employee.employeeType.id}
-                        onChange={(e) => updateProperty(e.target.value, "employeeType")}
-                        required
-                      >
-                        {employeeTypeList.map((opt) => (
-                          <option key={opt.id} value={opt.id}>
-                            {opt.type}
-                          </option>
-                        ))}
-                      </select>
-                    </Col>
-                  </>
-                )}
+                <Col>
+                  <label htmlFor="employeeType">Employee Role:</label>
+                </Col>
+                <Col>
+                  <select
+                    name="employeeType"
+                    className="w-100"
+                    id="employeeType"
+                    value={employee.employeeType.id}
+                    onChange={(e) => updateProperty(e.target.value, "employeeType")}
+                    required
+                  >
+                    <option value="" disabled selected>Select employee role</option>
+                    {employeeTypeList && employeeTypeList.map((opt) => (
+                      <option key={opt.id} value={opt.id}>
+                        {opt.type}
+                      </option>
+                    ))}
+                  </select>
+                </Col>
               </Row>
             </div>
 

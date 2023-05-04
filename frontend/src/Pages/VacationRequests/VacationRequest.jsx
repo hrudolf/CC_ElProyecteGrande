@@ -36,7 +36,7 @@ const VacationRequest = () => {
         );
       })
       .catch((err) => setError(err));
-   /*  window.location.reload(false); */
+    /*  window.location.reload(false); */
   };
 
   useEffect(() => {
@@ -52,12 +52,16 @@ const VacationRequest = () => {
         setRequestList(json);
       })
       .catch((err) => setError(err));
-
   }, []);
 
   return (
     <div className="container align-items-center">
-      <h1 className="p-2 m-2">Vacation Requests</h1>
+      <h1
+        style={{ backgroundColor: "rgb(255, 255, 255,0.7)" }}
+        className="p-2 m-2"
+      >
+        Vacation Requests
+      </h1>
       <div className="container align-items-center">
         {requestList && (
           <div className="">
@@ -129,15 +133,21 @@ const VacationRequest = () => {
           </div>
         )}
 
-        {loading && <div><Spinner /></div>}
+        {loading && (
+          <div>
+            <Spinner />
+          </div>
+        )}
         {error && <div className={"error"}>{error ? error : ""}</div>}
         {message && <div className={"message"}>{message ? message : ""}</div>}
-        {!loading && <button
-          className="btn btn-primary w-auto"
-          onClick={() => navigate("/vacationRequests/create")}
-        >
-          Add a new request
-        </button>}
+        {!loading && (
+          <button
+            className="btn btn-primary w-auto"
+            onClick={() => navigate("/vacationRequests/create")}
+          >
+            Add a new request
+          </button>
+        )}
       </div>
     </div>
   );

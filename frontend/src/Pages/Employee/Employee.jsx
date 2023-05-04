@@ -44,7 +44,12 @@ const Employee = () => {
 
   return (
     <div className="container align-items-center">
-      <h1 className="p-2 m-2">Employees</h1>
+      <h1
+        style={{ backgroundColor: "rgb(255, 255, 255,0.7)" }}
+        className="p-2 m-2"
+      >
+        Employees
+      </h1>
       <div className="container align-items-center">
         {employeeList && (
           <div className="employeeTypes">

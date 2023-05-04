@@ -7,5 +7,13 @@ min-height: 100vh;
 height: auto;
 }
 
+.bg-light-opacity {
+    background-color: #f8f9fa!important;
+    opacity: .70;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 
   

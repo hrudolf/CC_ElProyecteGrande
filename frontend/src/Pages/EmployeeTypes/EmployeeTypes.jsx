@@ -103,7 +103,7 @@ const EmployeeTypes = () => {
                 {loading && <div><Spinner/></div>}
                 {error && <div className={"error"}>{error ? error : ""}</div>}
                 {message && <div className={"message"}>{message ? message : ""}</div>}
-                <button className="btn btn-primary w-auto" onClick={() => setNewRow(true)}>Add a new role</button>
+                {!loading &&<button className="btn btn-primary w-auto" onClick={() => setNewRow(true)}>Add a new role</button>}
             </div >
         </div>
     );

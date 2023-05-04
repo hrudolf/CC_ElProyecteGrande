@@ -20,14 +20,14 @@ namespace backend.Controllers
         }
 
         
-        [HttpGet("all-employees")]
+        [HttpGet]
         public List<Employee> GetAllEmployees()
         {
             return _service.GetAllEmployees();
         }
         
         
-        [HttpGet("all-active-employees")]
+        [HttpGet("active")]
         public List<Employee> GetAllActiveEmployees()
         {
             return _service.GetAllActiveEmployees();
@@ -43,14 +43,14 @@ namespace backend.Controllers
         }
 
         
-        [HttpPost("add-employee")]
+        [HttpPost]
         public IActionResult CreateEmployee([FromBody] UpdateEmployeeDto employeeDto)
         {
             return Ok(_service.CreateEmployee(employeeDto));
         }
 
         
-        [HttpDelete("permanent-delete/{id:int}")]
+        [HttpDelete("{id:int}")]
         public IActionResult DeleteEmployeePermanentlyById(int id)
         {
             Employee? employee = _service.DeleteEmployeePermanentlyById(id);
@@ -67,7 +67,7 @@ namespace backend.Controllers
         }
         
         
-        [HttpPut("update-employee/{id:int}")]
+        [HttpPatch("{id:int}")]
         public IActionResult UpdateEmployee(int id, [FromBody] UpdateEmployeeDto updatedEmployee)
         {
             Employee? employee = _service.UpdateEmployee(id, updatedEmployee);

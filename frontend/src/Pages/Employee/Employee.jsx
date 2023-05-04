@@ -80,8 +80,8 @@ const Employee = () => {
                         <td>{employee.firstName}</td>
                         <td>{employee.lastName}</td>
                         <td>{employee.dateOfBirth.slice(0, 10)}</td>
-                        <td>{employee.employeeType.type}</td>
-                        <td>{employee.preferredShift.nameOfShift}</td>
+                        <td>{employee.employeeType === null ? "N/A" : employee.employeeType.type}</td>
+                        <td>{employee.preferredShift === null ? "N/A" : employee.preferredShift.nameOfShift}</td>
                         <td style={{ textAlign: "right" }}>
                           {employee.workingDays}
                         </td>

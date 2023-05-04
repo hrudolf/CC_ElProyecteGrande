@@ -34,6 +34,8 @@ public class ShiftService : IShiftService
         Shift? shiftInDb = GetById(id);
         if (shiftInDb != null)
         {
+            //We have to load employees, to allow removal of Shifts (FK restraint)
+            var employees = _context.Employees.ToList();
             _context.Shifts.Remove(shiftInDb);
             _context.SaveChanges();
             return shiftInDb;

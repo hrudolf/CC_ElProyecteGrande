@@ -34,6 +34,8 @@ public class EmployeeTypeService : IEmployeeTypeService
         EmployeeType? employeeInDb = GetById(id);
         if (employeeInDb != null)
         {
+            //We have to load employees, to allow removal of EmployeeType (FK restraint)
+            var employees = _context.Employees.ToList();
             _context.EmployeeTypes.Remove(employeeInDb);
             _context.SaveChanges();
             return employeeInDb;

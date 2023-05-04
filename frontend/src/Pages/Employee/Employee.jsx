@@ -120,7 +120,10 @@ const Employee = () => {
                         </td>
                         <td>
                           {" "}
-                          <RequestPopUp />{" "}
+                          <RequestPopUp
+                            firstName={employee.firstName}
+                            lastName={employee.lastName}
+                          />{" "}
                           <button
                             class="btn btn-secondary"
                             onClick={() =>

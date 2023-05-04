@@ -9,6 +9,7 @@ const Employee = () => {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [employeeList, setEmployeeList] = useState("");
+  const [requestList, setRequestList] = useState("");
 
   const navigate = useNavigate();
 
@@ -40,6 +41,15 @@ const Employee = () => {
         setEmployeeList(json);
       })
       .catch((err) => setError(err));
+
+    fetch(`api/VacationRequest/`, {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        setRequestList(json);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   return (
@@ -77,7 +87,7 @@ const Employee = () => {
                 </tr>
               </thead>
               <tbody className="p-5">
-                {employeeList &&
+                {employeeList && requestList &&
                   employeeList.map((employee) => {
                     return (
                       <tr key={employee.id} style={{ verticalAlign: "middle" }}>
@@ -106,6 +116,7 @@ const Employee = () => {
                             lastName={employee.lastName}
                             id={employee.id}
                             vacationDays={employee.totalVacationDays}
+                            requests={requestList}
                           />{" "}
                           <button
                             className="btn btn-secondary"

@@ -1,44 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
 function RequestPopUp(props) {
   const [show, setShow] = useState(false);
-  const [requestList, setRequestList] = useState("");
-  const [vacationDaysUsed, setVacationDaysUsed] = useState(0);
-  const [vacationDaysPending, setVacationDaysPending] = useState(0);
+  const requestList = props.requests.filter(request => request.employee.id === props.id);
+  let vacationDaysUsed = 0;
+  let vacationDaysPending = 0;
+  if (requestList.length > 0) {
+    vacationDaysUsed = requestList.filter(req => req.isApproved === true).length;
+    vacationDaysPending = requestList.filter(req => req.isApproved === false).length;
+  }
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
-  useEffect(() => {
-    fetch(`api/VacationRequest/employee/${props.id}`, {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        setRequestList(json);
-      })
-      .catch((err) => console.log(err));
-
-    fetch(`api/VacationRequest/approved/${props.id}`, {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        setVacationDaysUsed(json);
-      })
-      .catch((err) => console.log(err));
-
-    fetch(`api/VacationRequest/pending/${props.id}`, {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        setVacationDaysPending(json);
-      })
-      .catch((err) => console.log(err));
-  }, [props.id]);
 
   return (
     <>

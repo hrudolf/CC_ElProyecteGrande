@@ -39,7 +39,7 @@ function RequestPopUp(props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <table class="table-auto">
+          <table className="table-auto">
             <thead>
               <tr>
                 <th>Start Date</th>

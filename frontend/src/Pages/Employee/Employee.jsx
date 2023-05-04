@@ -15,7 +15,7 @@ const Employee = () => {
 
   const DeleteEmployee = (employeeId) => {
     fetch(`/api/Employee/temporary-delete/${employeeId}`, {
-      method: "DELETE",
+      method: "PATCH",
     })
       .then((res) => res.json())
       .then((json) => {
@@ -32,23 +32,13 @@ const Employee = () => {
     setLoading(true);
     setMessage("");
     setError("");
-    fetch("/api/employee", {
+    fetch("/api/employee/active", {
       method: "GET",
     })
       .then((res) => res.json())
       .then((json) => {
         setLoading(false);
         setEmployeeList(json);
-      })
-      .catch((err) => setError(err));
-
-    fetch("/api/employeetype", {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        setLoading(false);
-        setEmployeeTypeList(json);
       })
       .catch((err) => setError(err));
   }, []);
@@ -92,7 +82,7 @@ const Employee = () => {
                 </tr>
               </thead>
               <tbody className="p-5">
-                {employeeTypeList &&
+                {employeeList &&
                   employeeList.map((employee) => {
                     return (
                       <tr key={employee.id} style={{ verticalAlign: "middle" }}>
@@ -148,7 +138,11 @@ const Employee = () => {
             </table>
           </div>
         )}
-        {loading && <div><Spinner /></div>}
+        {loading && (
+          <div>
+            <Spinner />
+          </div>
+        )}
         {error && <div className={"error"}>{error ? error : ""}</div>}
         {message && <div className={"message"}>{message ? message : ""}</div>}
       </div>

@@ -38,7 +38,6 @@ public class VacationRequestService : IVacationRequestService
     {
         return _context.VacationRequests
             .Include(request => request.Employee)
-            .Include(request => request.Employee)
             .ThenInclude(employee => employee.EmployeeType)
             .Include(request => request.Employee)
             .ThenInclude(employee => employee.PreferredShift);

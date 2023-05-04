@@ -4,7 +4,7 @@ import "./VacationRequest.css";
 import Spinner from "../Layout/Spinner";
 
 const VacationRequest = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [requestList, setRequestList] = useState("");
@@ -80,7 +80,7 @@ const VacationRequest = () => {
                       <td>{request.employee.employeeType.type}</td>
                       <td>{request.startDate}</td>
                       <td>{request.endDate}</td>
-                      <td>{request.isApproved}</td>
+                      <td>{request.isApproved ? "true" : "false"}</td>
                       <td>
                         {" "}
                         <button

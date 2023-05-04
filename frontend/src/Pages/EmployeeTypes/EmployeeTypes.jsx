@@ -81,11 +81,11 @@ const EmployeeTypes = () => {
     };
 
     return (
-        <div class="container align-items-center">
-            <h1 class="p-2 m-2">Employee Roles</h1>
-            <div class="container align-items-center">
+        <div className="container align-items-center">
+            <h1 className="p-2 m-2">Employee Roles</h1>
+            <div className="container align-items-center">
                 {employeeTypeList && <div className="employeeTypes">
-                    <table class="table table-light table-bordered table-striped table-responsive">
+                    <table className="table table-light table-bordered table-striped table-responsive">
                         <thead >
                             <tr>
                                 <th scope="col">Id</th>
@@ -102,7 +102,7 @@ const EmployeeTypes = () => {
                 {loading && <div className={"loading"}>Loading...</div>}
                 {error && <div className={"error"}>{error ? error : ""}</div>}
                 {message && <div className={"message"}>{message ? message : ""}</div>}
-                <button class="btn btn-primary w-auto" onClick={() => setNewRow(true)}>Add a new role</button>
+                <button className="btn btn-primary w-auto" onClick={() => setNewRow(true)}>Add a new role</button>
             </div >
         </div>
     );

@@ -89,7 +89,7 @@ const VacationRequest = () => {
                       <td>{request.employee.firstName}</td>
                       <td>{request.employee.lastName}</td>
                       <td>{request.employee.totalVacationDays}</td>
-                      <td>{request.employee.employeeType.type}</td>
+                      <td>{request.employee.employeeType === null ? "N/A" : request.employee.employeeType.type}</td>
                       <td>{request.startDate.slice(0, 10)}</td>
                       <td>{request.endDate.slice(0, 10)}</td>
                       <td>{request.isApproved ? "Yes" : "No"}</td>

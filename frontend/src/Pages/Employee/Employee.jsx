@@ -25,7 +25,6 @@ const Employee = () => {
         );
       })
       .catch((err) => setError(err));
-    window.location.reload(false);
   };
 
   useEffect(() => {

@@ -1,7 +1,5 @@
 using backend.Database;
 using backend.Database.Seed;
-using backend.Model;
-using backend.Repositories;
 using backend.Service;
 using Microsoft.EntityFrameworkCore;
 

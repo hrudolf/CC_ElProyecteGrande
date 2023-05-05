@@ -4,7 +4,7 @@ namespace backend.DTOs;
 
 public class UpdateEmployeeDto
 {
-    public string FirstName { get; set; } = null;
+    public string FirstName { get; set; } = String.Empty;
     public string LastName { get; set; } = String.Empty;
     public DateTime DateOfBirth { get; set; }
     public Shift? PreferredShift { get; set; }

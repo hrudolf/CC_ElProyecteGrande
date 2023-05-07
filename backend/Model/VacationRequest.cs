@@ -12,6 +12,11 @@ namespace backend.Model
         public Employee Employee { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+        
+        public int NoOfDays
+        {
+            get { return (this.EndDate - this.StartDate).Days + 1; }
+        }
         public bool IsApproved { get; private set; }
 
         /*public VacationRequest(Employee employee, DateTime startDate, DateTime endDate)

@@ -15,7 +15,7 @@ namespace backend.Model
         
         public int NoOfDays
         {
-            get { return (this.EndDate - this.StartDate).Days; }
+            get { return (this.EndDate - this.StartDate).Days + 1; }
         }
         public bool IsApproved { get; private set; }
 

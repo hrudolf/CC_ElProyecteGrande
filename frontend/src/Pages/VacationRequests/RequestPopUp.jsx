@@ -4,13 +4,18 @@ import Modal from "react-bootstrap/Modal";
 
 function RequestPopUp(props) {
   const [show, setShow] = useState(false);
-  const requestList = props.requests.filter(request => request.employee.id === props.id);
-  let vacationDaysUsed = 0;
-  let vacationDaysPending = 0;
-  if (requestList.length > 0) {
-    vacationDaysUsed = requestList.filter(req => req.isApproved === true).length;
-    vacationDaysPending = requestList.filter(req => req.isApproved === false).length;
-  }
+  const requestList = props.requests.filter(
+    (request) => request.employee.id === props.id
+  );
+
+  const totalRequestDaysByStatus = (listOfRequests, pendingOrApproved) => {
+    return listOfRequests
+      .filter((request) => request.isApproved === pendingOrApproved)
+      .map((request) => request.noOfDays)
+      .reduce((total, amount) => {
+        return total + amount;
+      }, 0);
+  };
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -38,6 +43,7 @@ function RequestPopUp(props) {
               <tr>
                 <th>Start Date</th>
                 <th>End Date</th>
+                <th>No of Days</th>
                 <th>Status</th>
               </tr>
             </thead>
@@ -52,6 +58,7 @@ function RequestPopUp(props) {
                       <td style={{ width: "100px" }}>
                         {request.endDate.slice(0, 10)}
                       </td>
+                      <td style={{ width: "100px" }}>{request.noOfDays}</td>
                       <td style={{ width: "100px" }}>
                         {request.isApproved ? "approved" : "pending"}
                       </td>
@@ -80,8 +87,15 @@ function RequestPopUp(props) {
               }}
             >
               <p>Total vacation days: {props.vacationDays}</p>
-              <p>Vacation days left: {props.vacationDays - vacationDaysUsed}</p>
-              <p>Pending vacation days: {vacationDaysPending}</p>
+              <p>
+                Vacation days left:{" "}
+                {props.vacationDays -
+                  totalRequestDaysByStatus(requestList, true)}
+              </p>
+              <p>
+                Pending vacation days:{" "}
+                {totalRequestDaysByStatus(requestList, false)}
+              </p>
             </div>
             <div
               style={{

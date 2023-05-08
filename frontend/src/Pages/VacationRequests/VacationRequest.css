@@ -6,3 +6,5 @@
     align-items: center;
     justify-content: space-between;
 }
+.tableFixHead          { overflow-y: scroll; max-height: 600px; }
+.tableFixHead thead th { position: sticky; top: 0; z-index: 1; }

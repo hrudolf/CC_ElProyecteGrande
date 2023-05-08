@@ -64,7 +64,7 @@ const VacationRequest = () => {
       </h1>
       <div className="container align-items-center">
         {requestList && (
-          <div className="">
+          <div className="tableFixHead align-items-center">
             <table className="table table-light table-bordered table-striped table-responsive">
               <thead className="p-2">
                 <tr>
@@ -133,22 +133,21 @@ const VacationRequest = () => {
           </div>
         )}
 
-        {loading && (
-          <div>
-            <Spinner />
-          </div>
-        )}
-        {error && <div className={"error"}>{error ? error : ""}</div>}
-        {message && <div className={"message"}>{message ? message : ""}</div>}
-        {!loading && (
           <button
-            className="btn btn-primary w-auto"
-            onClick={() => navigate("/vacationRequests/create")}
+          className="btn btn-primary w-auto mt-2"
+          onClick={() => navigate("/vacationRequests/create")}
+          disabled={loading}
           >
             Add a new request
           </button>
-        )}
       </div>
+      {loading && (
+        <div>
+          <Spinner />
+        </div>
+      )}
+      {error && <div className={"error"}>{error ? error : ""}</div>}
+      {message && <div className={"message"}>{message ? message : ""}</div>}
     </div>
   );
 };

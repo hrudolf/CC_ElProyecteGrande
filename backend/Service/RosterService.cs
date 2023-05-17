@@ -76,4 +76,81 @@ public class RosterService : IRosterService
 
         return null;
     }
+
+    public bool GenerateWeeklyRoster(DateTime firstDayOfWeek)
+    {
+        if (firstDayOfWeek.DayOfWeek != DayOfWeek.Monday) return false;
+
+        int numberOfDays = 7;
+        int dayCounter = 1;
+        DateTime currentDay = firstDayOfWeek;
+        IEnumerable<Shift> shifts = _context.Shifts;
+        // hard coded
+        IEnumerable<Employee> employees = _context.Employees
+            .Where(employee => employee.EmployeeType.Type != "Accountant");
+        IEnumerable<VacationRequest> vacationRequests = _context.VacationRequests
+            .Where(request => request.IsApproved == true);
+        //var lastShifts = _context.Rosters.Distinct();
+
+        while (dayCounter <= numberOfDays)
+        {
+            // filter employees who are not on a holiday on current day
+            var todaysVacationRequests = vacationRequests
+                .Where(request => request.StartDate <= currentDay && request.EndDate >= currentDay);
+
+           List<Employee> employeesNotOnHoliday = employees
+                .Where(employee => todaysVacationRequests.All(request => request.Employee.Id != employee.Id)).ToList();
+            
+           
+            foreach (var shift in shifts)
+            {
+                // filter employees available for shift by their preferred shift
+                List<Employee> availableForShift = employeesNotOnHoliday
+                    .Where(employee => employee.PreferredShift != null && employee.PreferredShift.Id == shift.Id)
+                    .ToList();
+                
+
+            }
+
+            currentDay.AddDays(1);
+            dayCounter++;
+        }
+        
+        
+        return true;
+    }
+    /*
+     * Conditions for generating a weekly roster
+     *  + only employees who are not on a vacation can be taken into consideration
+     *  + employees can only be added after set rest time TODO add int RequiredRestTime property to Shift model
+     *  + there has to be one shift leader in each shift
+     *    - if there are now shift leaders available the program issues a warning TODO warning string proprety in roster
+     *  + 
+     *
+     * Process of roster generation
+     *  + ask for input: first day of the week
+     *    - verify if that day is a monday
+     *    - is not a monday, send error message
+     *  + start loop for creating roster items
+     *    - filter available employees
+     *        - who are not on a holiday
+     *        - who's preferred shift matches current shift
+     *        - TODO who are after required rest time
+     *        - TODO order them by their last shift ascending
+     *        - TODO check working days
+     *    - choose shift leader,
+     *        - if no shift leader is available issue a warning
+     *        - if a shift leader is available
+     *             - save employee to Roster
+     *             - remove employee from available employees
+     *    - choose nurses for the rest of the required slots
+     *         - if no suitable employee is found issue a warning
+     *         - if a suitable employee is found save employee to Roster
+     *             - save employee to Roster
+     *             - remove employee from available employees
+     *    - once complete move on to next shift
+     * 
+     */
+
+    
 }

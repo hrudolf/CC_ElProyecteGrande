@@ -8,6 +8,7 @@ const Roster = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
+  const [date, setDate] = useState();
 
   const ChangeAttendance = (rosterId) => {
     fetch(`/api/Roster/${rosterId}`, {
@@ -56,7 +57,19 @@ const Roster = () => {
         className="p-2 m-2"
       >
         Roster
-      </h1>
+      </h1>{" "}
+      <div style={{ backgroundColor: "rgb(255, 255, 255,0.7)" }}>
+        <button className="btn btn-info" onClick={(e) => console.log(date)}>
+          Generate roster
+        </button>{" "}
+        <input
+          style={{ border: "none" }}
+          type="date"
+          name=""
+          id=""
+          onChange={(e) => setDate(e.target.value)}
+        />
+      </div>
       <table className="table table-light table-bordered table-striped table-responsive">
         <thead className="p-2" style={{ verticalAlign: "middle" }}>
           <tr>

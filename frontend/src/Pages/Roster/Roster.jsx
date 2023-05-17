@@ -22,6 +22,27 @@ const Roster = () => {
       .catch((err) => setError(err));
   };
 
+  const GenerateWeeklyRoster = (rosterStartDate) => {
+    setLoading(true);
+    fetch(`/api/Roster/GenerateWeeklyRoster`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(date),
+    }).then(() => {
+      console.log("Roster created");
+    });
+
+    fetch("/api/Roster", {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        setLoading(false);
+        setRosterList(json);
+      })
+      .catch((err) => setError(err));
+  };
+
   const DeleteRosterItem = (rosterId) => {
     fetch(`/api/Roster/${rosterId}`, {
       method: "DELETE",
@@ -32,7 +53,6 @@ const Roster = () => {
         setRosterList(rosterList.filter((roster) => roster.id !== rosterId));
       })
       .catch((err) => setError(err));
-    /*  window.location.reload(false); */
   };
 
   useEffect(() => {
@@ -58,11 +78,22 @@ const Roster = () => {
       >
         Roster
       </h1>{" "}
-      <div style={{ backgroundColor: "rgb(255, 255, 255,0.7)" }}>
-        <button className="btn btn-info" onClick={(e) => console.log(date)}>
+      <div
+        className="container align-items-center"
+        style={{
+          backgroundColor: "rgb(232,232,232)",
+          verticalAlign: "middle",
+          textAlign: "center",
+        }}
+      >
+        <button
+          className="btn btn-warning m-2"
+          onClick={(e) => GenerateWeeklyRoster(date)}
+        >
           Generate roster
         </button>{" "}
         <input
+          className="p-1 m-1"
           style={{ border: "none" }}
           type="date"
           name=""

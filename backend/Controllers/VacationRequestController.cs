@@ -37,9 +37,9 @@ public class VacationRequestController : ControllerBase
     [HttpGet("employee/{id:int}")]
     public ActionResult<IEnumerable<VacationRequest>> GetVacationRequestsByEmployee(int id)
     {
-        IEnumerable<VacationRequest> vacationRequests = _service.GetAll();
+        IEnumerable<VacationRequest> vacationRequests = _service.GetVacationRequestsByEmployee(id);
 
-        return Ok(vacationRequests.Where(request => request.Employee.Id == id));
+        return Ok(vacationRequests);
     }
 
     [HttpGet("approved/{id:int}")]

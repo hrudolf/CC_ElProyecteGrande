@@ -1,16 +1,18 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router";
 import "./VacationRequest.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { UserContext } from "../../App";
 
 const CreateVacationRequest = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
+  const { user } = useContext(UserContext);
 
   const [request, setRequest] = useState({
-    employeeId: "",
+    employeeId: user === null ? "" : user.id,
     startDate: "",
     endDate: ""
   });

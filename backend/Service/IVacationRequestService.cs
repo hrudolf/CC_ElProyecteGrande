@@ -11,4 +11,5 @@ public interface IVacationRequestService: IService<VacationRequest>
     public int GetVacationDaysApproved(int id);
 
     public int GetVacationDaysPending(int id);
+    public IEnumerable<VacationRequest> GetVacationRequestsByEmployee(int id);
 }

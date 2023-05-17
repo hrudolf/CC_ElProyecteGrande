@@ -8,18 +8,18 @@ using Microsoft.AspNetCore.Mvc;
 namespace backend.Controllers;
 
 [ApiController]
-[Route("login")]
 public class AuthController : ControllerBase
 {
     private readonly IAuthService _service;
-    private readonly IUserService _userService;
+    private readonly IEmployeeService _employeeService;
 
-    public AuthController(IAuthService service, IUserService userService)
+    public AuthController(IAuthService service, IEmployeeService employeeService)
     {
         _service = service;
-        _userService = userService;
+        _employeeService = employeeService;
     }
 
+    [Route("login")]
     [HttpPost]
     public async Task<IActionResult> Login(UserLoginDto userLoginDto)
     {
@@ -31,12 +31,12 @@ public class AuthController : ControllerBase
         catch (Exception e)
         {
             Console.WriteLine(e);
-            return Unauthorized(e.Message);
+            return Unauthorized("{\"message\": " + "\"" + $"{e.Message}" + "\"}");
         }
 
         var claims = new List<Claim>
         {
-            new Claim(ClaimTypes.Name, user.LoginName)
+            new Claim(ClaimTypes.Name, user.Username)
         };
         //TODO: add role list as claims
 
@@ -47,7 +47,29 @@ public class AuthController : ControllerBase
         {
             IsPersistent = true
         });
-        
-        return Ok("Here should come all the data that we want to return");
+
+        Employee? employee = user.Employee;
+        return Ok(employee);
+    }
+
+    [Route("login")]
+    [HttpGet]
+    public IActionResult Login()
+    {
+        if (HttpContext.User.Identity != null && HttpContext.User.Identity.IsAuthenticated && HttpContext.User.Identity.Name != null)
+        {
+            User user = _service.FindByUsername(HttpContext.User.Identity.Name);
+            Employee? employee = user.Employee;
+            return Ok(employee);
+        }
+        return Unauthorized("{\"message\": " + "\"" + "User not found" + "\"}");
+    }
+
+    [Route("logout")]
+    [HttpGet]
+    public async Task<IActionResult> Logout()
+    {
+        await HttpContext.SignOutAsync();
+        return Ok();
     }
 }

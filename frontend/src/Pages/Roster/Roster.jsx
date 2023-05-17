@@ -64,8 +64,10 @@ const Roster = () => {
             <th scope="col">Shift</th>
             <th scope="col">Employee</th>
             <th scope="col">Warning</th>
-            <th scope="col">Attendance</th>
-            <th scope="col">Attendance</th>
+            <th scope="col" colspan="2">
+              Attendance
+            </th>
+
             <th scope="col"></th>
           </tr>
         </thead>

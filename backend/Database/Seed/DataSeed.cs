@@ -93,10 +93,21 @@ public class DataSeed
     private void CreateUsers()
     {
         //TODO add more users and connect them to employees
-        var admin = new User()
+        Employee adminEmployee = new Employee()
+        {
+            FirstName = "Mr.",
+            LastName = "Admin",
+            DateOfBirth = GetRandomDate().Date,
+            EmployeeType = GetRandomEmployeeType()
+        };
+        _context.Employees.Add(adminEmployee);
+        _context.SaveChanges();
+        
+        var admin = new User
         {
             LoginName = "admin",
-            Password = "admin"
+            Password = "admin",
+            Employee = adminEmployee
         };
         _context.Users.Add(admin);
         _context.SaveChanges();

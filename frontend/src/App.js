@@ -10,7 +10,7 @@ import VacationRequest from "./Pages/VacationRequests/VacationRequest";
 import CreateVacationRequest from "./Pages/VacationRequests/CreateVacationRequest";
 import ModifyVacationRequest from "./Pages/VacationRequests/ModifyVacationRequest";
 import Shifts from "./Pages/Shift/Shifts";
-
+import Roster from "./Pages/Roster/Roster";
 
 function App() {
   return (
@@ -25,12 +25,13 @@ function App() {
           </Route>
           <Route path="/employeetypes" element={<EmployeeTypes />} />
           <Route path="/shifts" element={<Shifts />} />
+          <Route path="/roster" element={<Roster />} />
           <Route path="/vacationrequests">
             <Route path="" element={<VacationRequest />} />
             <Route path="create" element={<CreateVacationRequest />}></Route>
             <Route path="edit/:id" element={<ModifyVacationRequest />}></Route>
           </Route>
-        <Route path="*" element={<NotFoundPage />}></Route>
+          <Route path="*" element={<NotFoundPage />}></Route>
         </Route>
       </Routes>
     </div>

@@ -8,11 +8,17 @@ const Layout = () => (
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
           <li className="nav-item">
-            <Link 
-            to="/" 
-            className="nav-link active h5" 
-            aria-current="page">
+            <Link to="/" className="nav-link active h5" aria-current="page">
               Home
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link
+              to="/roster"
+              className="nav-link active h5"
+              aria-current="page"
+            >
+              Roster
             </Link>
           </li>
           <li className="nav-item">
@@ -34,27 +40,32 @@ const Layout = () => (
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/shifts" 
-            className="nav-link active h5" 
-            aria-current="page">
+            <Link
+              to="/shifts"
+              className="nav-link active h5"
+              aria-current="page"
+            >
               Shift types
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/vacationrequests" 
-            className="nav-link active h5" 
-            aria-current="page">
+            <Link
+              to="/vacationrequests"
+              className="nav-link active h5"
+              aria-current="page"
+            >
               Vacation Requests
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/login" 
-            className="nav-link active h5" 
-            aria-current="page">
+            <Link
+              to="/login"
+              className="nav-link active h5"
+              aria-current="page"
+            >
               Login
             </Link>
           </li>
-
         </ul>
       </div>
     </nav>

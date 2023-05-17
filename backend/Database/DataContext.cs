@@ -10,6 +10,7 @@ public class DataContext : DbContext
     public DbSet<Roster> Rosters { get; set; }
     public DbSet<Shift> Shifts { get; set; }
     public DbSet<VacationRequest> VacationRequests { get; set; }
+    public DbSet<User> Users { get; set; }
 
     public DataContext(DbContextOptions<DataContext> options) : base(options)
     {

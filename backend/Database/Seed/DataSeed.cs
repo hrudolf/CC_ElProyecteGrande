@@ -17,6 +17,7 @@ public class DataSeed
         CreateEmployeeTypes();
         CreateEmployees(numberOfEmployees);
         CreateVacationRequests(5);
+        CreateUsers();
     }
 
     public void CreateShifts()
@@ -68,6 +69,7 @@ public class DataSeed
         var counter = 0;
         while (counter < numberOfEmployees)
         {
+            //TODO add User classes to Employees
             Employee newEmployee = new Employee
             {
                 FirstName = firstNames[Random.Shared.Next(firstNames.Count)],
@@ -86,6 +88,18 @@ public class DataSeed
 
             counter++;
         }
+    }
+    
+    private void CreateUsers()
+    {
+        //TODO add more users and connect them to employees
+        var admin = new User()
+        {
+            LoginName = "admin",
+            Password = "admin"
+        };
+        _context.Users.Add(admin);
+        _context.SaveChanges();
     }
 
     public void CreateVacationRequests(int numberOfRequests)
@@ -130,10 +144,10 @@ public class DataSeed
         return employeeTypes[Random.Shared.Next(employeeTypes.Count)];
     }
     
-    private Employee? GetRandomEmployee()
+    private Employee GetRandomEmployee()
     {
         List<Employee> employees = _context.Employees.ToList();
-        if (employees.Count == 0) return null;
+        if (employees.Count == 0) throw new Exception("Employee list is empty");
         return employees[Random.Shared.Next(employees.Count)];
     }
     

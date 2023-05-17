@@ -1,9 +1,6 @@
-﻿using System.Diagnostics;
-using backend.Database;
+﻿using backend.Database;
 using backend.DTOs;
 using backend.Model;
-using backend.Repositories;
-using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Service;

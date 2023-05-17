@@ -12,10 +12,18 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddAuthentication("MyCookieAuth").AddCookie("MyCookieAuth", options =>
+{
+    options.Cookie.Name = "MyCookieAuth";
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+});
+
 builder.Services.AddTransient<IEmployeeTypeService, EmployeeTypeService>();
 builder.Services.AddTransient<IEmployeeService, EmployeeService>();
 builder.Services.AddTransient<IShiftService, ShiftService>();
 builder.Services.AddTransient<IRosterService, RosterService>();
+builder.Services.AddTransient<IAuthService, AuthService>();
+builder.Services.AddTransient<IUserService, UserService>();
 
 builder.Services.AddCors();
 builder.Services.AddTransient<IVacationRequestService, VacationRequestService>();
@@ -42,6 +50,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

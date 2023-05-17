@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import './HomePage.css'
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { UserContext } from "../App";
 
 const LoginPage = () => {
     const [loading, setLoading] = useState(false);
@@ -9,6 +10,7 @@ const LoginPage = () => {
     const [message, setMessage] = useState("");
     const [loginname, setLoginname] = useState('');
     const [password, setPassword] = useState('');
+    const {setUser} = useContext(UserContext);
 
     const postRequest = async (e) => {
         e.preventDefault();
@@ -36,24 +38,8 @@ const LoginPage = () => {
             setError('');
             setLoading(false);
             setMessage('Successful login');
-        }
-    }
-
-    const postLogout = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-        setMessage("");
-        setError("");
-
-        const response = await fetch("/logout", {
-            method: "GET"
-        })
-        if (!response.ok) {
-            setLoading(false);
-            setMessage('');
-        } else {
-            setLoading(false);
-            setMessage('Successful logout');
+            setUser(json);
+            console.log(json);
         }
     }
 
@@ -112,14 +98,6 @@ const LoginPage = () => {
                 </form>
                 <div>Message: {message}</div>
                 <div>Error: {error}</div>
-                <button
-                    type="logout"
-                    className="btn btn-primary w-auto m-1"
-                    disabled={loading}
-                    onClick={postLogout}
-                >
-                    Logout
-                </button>
             </div>
         </div>
     )

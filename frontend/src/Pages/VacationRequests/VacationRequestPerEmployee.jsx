@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./VacationRequest.css";
 import Spinner from "../Layout/Spinner";
+import { UserContext } from "../../App";
 
 const VacationRequestPerEmployee = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [requestList, setRequestList] = useState("");
+  const { user } = useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -41,7 +43,7 @@ const VacationRequestPerEmployee = () => {
     setLoading(true);
     setMessage("");
     setError("");
-    fetch(`/api/VacationRequest/employee/${1}`, {
+    fetch(`/api/VacationRequest/employee/${user.id}`, {
       method: "GET",
     })
       .then((res) => res.json())
@@ -58,7 +60,7 @@ const VacationRequestPerEmployee = () => {
         style={{ backgroundColor: "rgb(255, 255, 255,0.7)" }}
         className="p-2 m-2"
       >
-        Vacation Requests Per Employee
+        Vacation Requests For {`${user.firstName} ${user.lastName}`}
       </h1>
       <div className="container align-items-center">
         {requestList && (

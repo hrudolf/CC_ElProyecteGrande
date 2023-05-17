@@ -4,11 +4,11 @@ using backend.Model;
 using backend.Service;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Protocol;
 
 namespace backend.Controllers;
 
 [ApiController]
-[Route("login")]
 public class AuthController : ControllerBase
 {
     private readonly IAuthService _service;
@@ -19,7 +19,8 @@ public class AuthController : ControllerBase
         _service = service;
         _userService = userService;
     }
-
+    
+    [Route("login")]
     [HttpPost]
     public async Task<IActionResult> Login(UserLoginDto userLoginDto)
     {
@@ -31,7 +32,7 @@ public class AuthController : ControllerBase
         catch (Exception e)
         {
             Console.WriteLine(e);
-            return Unauthorized(e.Message);
+            return Unauthorized("{\"message\": " + "\"" + $"{e.Message}" + "\"}");
         }
 
         var claims = new List<Claim>
@@ -47,7 +48,16 @@ public class AuthController : ControllerBase
         {
             IsPersistent = true
         });
-        
-        return Ok("Here should come all the data that we want to return");
+        //Return the employee
+        user.Password = "";
+        return Ok(user.ToJson());
+    }
+    
+    [Route("logout")]
+    [HttpGet]
+    public async Task<IActionResult> Logout()
+    {
+        await HttpContext.SignOutAsync();
+        return Ok();
     }
 }

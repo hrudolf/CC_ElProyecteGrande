@@ -14,11 +14,12 @@ public class RosterService : IRosterService
     {
         _context = context;
     }
+
     public Roster? ConvertFromDto(RosterDto rosterData)
     {
-        var employeeInDb = _context.Employees.FirstOrDefault(employee=>employee.Id==rosterData.EmployeeId);
+        var employeeInDb = _context.Employees.FirstOrDefault(employee => employee.Id == rosterData.EmployeeId);
         if (employeeInDb == null) return null;
-        var shiftInDb = _context.Shifts.FirstOrDefault(shift=>shift.Id==rosterData.ShiftId);
+        var shiftInDb = _context.Shifts.FirstOrDefault(shift => shift.Id == rosterData.ShiftId);
         if (shiftInDb == null) return null;
 
         return new Roster
@@ -38,11 +39,11 @@ public class RosterService : IRosterService
 
     public IEnumerable<Roster> GetAll() =>
         _context.Rosters
-        .Include(roster=>roster.Employee)
-        .Include(roster=>roster.Shift)
-        .Include(roster=>roster.Employee.EmployeeType)
-        .ToList()
-        .Where(roster => roster.GetIsActive() == true);
+            .Include(roster => roster.Employee)
+            .Include(roster => roster.Shift)
+            .Include(roster => roster.Employee.EmployeeType)
+            .ToList()
+            .Where(roster => roster.GetIsActive() == true);
 
     public Roster? GetById(int id) => GetAll().FirstOrDefault(roster => roster.Id == id);
 
@@ -51,9 +52,9 @@ public class RosterService : IRosterService
         Roster? rosterInDb = GetById(id);
         if (rosterInDb != null && rosterInDb.GetIsActive())
         {
-            rosterInDb.ChangeIsActive();
-             _context.SaveChanges();
-             return rosterInDb;
+            _context.Rosters.Remove(rosterInDb);
+            _context.SaveChanges();
+            return rosterInDb;
         }
 
         return null;
@@ -72,13 +73,14 @@ public class RosterService : IRosterService
             {
                 rosterInDb.ChangeIsActive();
             }
+
             _context.SaveChanges();
             return rosterInDb;
         }
 
         return null;
     }
-    
+
     public Roster? ChangeAttendance(int id)
     {
         Roster? requestInDb = GetById(id);
@@ -87,6 +89,7 @@ public class RosterService : IRosterService
             requestInDb.Attendance = !requestInDb.Attendance;
             _context.SaveChanges();
         }
+
         return requestInDb;
     }
 
@@ -111,18 +114,18 @@ public class RosterService : IRosterService
             var todaysVacationRequests = vacationRequests
                 .Where(request => request.StartDate <= currentDay && request.EndDate >= currentDay);
 
-           List<Employee> employeesNotOnHoliday = employees
+            List<Employee> employeesNotOnHoliday = employees
                 .Where(employee => todaysVacationRequests.All(request => request.Employee.Id != employee.Id)).ToList();
-            
-           
+
+
             foreach (var shift in shifts)
             {
                 // filter employees available for shift by their preferred shift
                 List<Employee> availableForShift = employeesNotOnHoliday
                     .Where(employee => employee.PreferredShift != null && employee.PreferredShift.Id == shift.Id)
                     .ToList();
-                
-                
+
+
                 // Choose shift leader for shift
 
                 Employee? shiftLeader = availableForShift
@@ -131,7 +134,9 @@ public class RosterService : IRosterService
                 if (shiftLeader == null)
                 {
                     Create(new Roster
-                        { Date = currentDay, Shift = shift, Attendance = false, Warning = "No shift leader scheduled"});
+                    {
+                        Date = currentDay, Shift = shift, Attendance = false, Warning = "No shift leader scheduled"
+                    });
                 }
                 else
                 {
@@ -146,29 +151,29 @@ public class RosterService : IRosterService
                 {
                     Employee? employee =
                         availableForShift.FirstOrDefault(employee => employee.EmployeeType != employeeTypes[2]);
-                    
+
                     if (employee == null)
                     {
                         Create(new Roster
-                            { Date = currentDay, Shift = shift, Attendance = false, Warning = "No nurse scheduled"});
+                            { Date = currentDay, Shift = shift, Attendance = false, Warning = "No nurse scheduled" });
                     }
                     else
                     {
-                        Create(new Roster { Date = currentDay, Shift = shift, Employee = employee, Attendance = false });
+                        Create(new Roster
+                            { Date = currentDay, Shift = shift, Employee = employee, Attendance = false });
                         availableForShift.Remove(employee);
                     }
-                    
+
 
                     counter++;
                 }
-
             }
 
             currentDay = currentDay.AddDays(1);
             dayCounter++;
         }
-        
-        
+
+
         return true;
     }
     /*
@@ -203,6 +208,4 @@ public class RosterService : IRosterService
      *    - once complete move on to next shift
      * 
      */
-
-    
 }

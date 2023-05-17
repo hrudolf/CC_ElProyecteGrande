@@ -21,6 +21,19 @@ const Roster = () => {
       .catch((err) => setError(err));
   };
 
+  const DeleteRosterItem = (rosterId) => {
+    fetch(`/api/Roster/${rosterId}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        setLoading(false);
+        setRosterList(rosterList.filter((roster) => roster.id !== rosterId));
+      })
+      .catch((err) => setError(err));
+    /*  window.location.reload(false); */
+  };
+
   useEffect(() => {
     setLoading(true);
     setMessage("");
@@ -94,7 +107,11 @@ const Roster = () => {
                     <button className="btn btn-secondary" disabled={loading}>
                       Edit
                     </button>{" "}
-                    <button className="btn btn-warning" disabled={loading}>
+                    <button
+                      className="btn btn-warning"
+                      onClick={() => DeleteRosterItem(rosterItem.id)}
+                      disabled={loading}
+                    >
                       Delete
                     </button>{" "}
                   </td>

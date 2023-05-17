@@ -123,10 +123,30 @@ public class RosterService : IRosterService
                 else
                 {
                     Create(new Roster { Date = currentDay, Shift = shift, Employee = shiftLeader, Attendance = false });
+                    availableForShift.Remove(shiftLeader);
                 }
-                
 
+                var nursesRequiredForShift = shift.NursesRequiredForShift - 1;
+                var counter = 1;
+                while (counter <= nursesRequiredForShift)
+                {
+                    Employee? employee =
+                        availableForShift.FirstOrDefault(employee => employee.EmployeeType.Type != "Shift lead nurse");
+                    
+                    if (employee == null)
+                    {
+                        Create(new Roster
+                            { Date = currentDay, Shift = shift, Attendance = false, Warning = "No nurse scheduled"});
+                    }
+                    else
+                    {
+                        Create(new Roster { Date = currentDay, Shift = shift, Employee = shiftLeader, Attendance = false });
+                        availableForShift.Remove(employee);
+                    }
+                    
 
+                    counter++;
+                }
 
             }
 

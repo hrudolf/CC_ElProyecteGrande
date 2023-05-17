@@ -8,7 +8,6 @@ const VacationRequestPerEmployee = () => {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [requestList, setRequestList] = useState("");
-  const user = useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -42,7 +41,7 @@ const VacationRequestPerEmployee = () => {
     setLoading(true);
     setMessage("");
     setError("");
-    fetch(`/api/VacationRequest/employee/${user.id}`, {
+    fetch(`/api/VacationRequest/employee/${1}`, {
       method: "GET",
     })
       .then((res) => res.json())
@@ -59,7 +58,7 @@ const VacationRequestPerEmployee = () => {
         style={{ backgroundColor: "rgb(255, 255, 255,0.7)" }}
         className="p-2 m-2"
       >
-        Vacation Requests
+        Vacation Requests Per Employee
       </h1>
       <div className="container align-items-center">
         {requestList && (

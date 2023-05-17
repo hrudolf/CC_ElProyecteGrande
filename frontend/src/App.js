@@ -7,7 +7,7 @@ import Employee from "./Pages/Employee/Employee";
 import CreateEmployee from "./Pages/Employee/CreateEmployee";
 import ModifyEmployee from "./Pages/Employee/ModifyEmployee";
 import VacationRequest from "./Pages/VacationRequests/VacationRequest";
-import VacationRequestPerEmployee from "./Pages/VacationRequests/VacationRequest";
+import VacationRequestPerEmployee from "./Pages/VacationRequests/VacationRequestPerEmployee";
 import CreateVacationRequest from "./Pages/VacationRequests/CreateVacationRequest";
 import ModifyVacationRequest from "./Pages/VacationRequests/ModifyVacationRequest";
 import Shifts from "./Pages/Shift/Shifts";

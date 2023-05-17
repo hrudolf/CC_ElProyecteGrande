@@ -32,6 +32,42 @@ const Roster = () => {
       >
         Roster
       </h1>
+      <table className="table table-light table-bordered table-striped table-responsive">
+        <thead className="p-2" style={{ verticalAlign: "middle" }}>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Shift</th>
+            <th scope="col">Employee</th>
+            <th scope="col">Warning</th>
+            <th scope="col">Attendance</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody className="p-5">
+          {rosterList &&
+            rosterList.map((rosterItem) => {
+              return (
+                <tr>
+                  <td>{rosterItem.date.slice(0, 10)}</td>
+                  <td>{rosterItem.shift.nameOfShift}</td>
+                  <td>
+                    {rosterItem.employee == null
+                      ? ""
+                      : rosterItem.employee.firstName +
+                        " " +
+                        rosterItem.employee.lastName}
+                  </td>
+                  <td>{rosterItem.warning}</td>
+                  <td>{rosterItem.attendance}</td>
+                  <td>
+                    <button />
+                  </td>
+                </tr>
+              );
+            })}
+          ;
+        </tbody>
+      </table>
     </div>
   );
 };

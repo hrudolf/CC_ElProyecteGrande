@@ -109,6 +109,24 @@ public class RosterService : IRosterService
                     .Where(employee => employee.PreferredShift != null && employee.PreferredShift.Id == shift.Id)
                     .ToList();
                 
+                
+                // Choose shift leader for shift
+
+                Employee? shiftLeader = availableForShift
+                    .FirstOrDefault(employee => employee.EmployeeType.Type == "Shift lead nurse");
+
+                if (shiftLeader == null)
+                {
+                    Create(new Roster
+                        { Date = currentDay, Shift = shift, Attendance = false, Warning = "No shift leader scheduled"});
+                }
+                else
+                {
+                    Create(new Roster { Date = currentDay, Shift = shift, Employee = shiftLeader, Attendance = false });
+                }
+                
+
+
 
             }
 

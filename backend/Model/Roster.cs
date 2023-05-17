@@ -9,8 +9,9 @@ public class Roster
     public int Id { get; set; }
     public DateTime Date { get; set; }
     public Shift? Shift { get; set; }
-    public Employee Employee { get; set; }
+    public Employee? Employee { get; set; }
     public bool Attendance { get; set; }
+    public string? Warning { get; set; }
     private bool _isActive = true;
 
     /*public Roster(DateTime date, Shift shift, Employee employee, bool attendance)

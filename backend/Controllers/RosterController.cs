@@ -34,6 +34,14 @@ namespace backend.Controllers
             return NotFound();
         }
 
+
+        [HttpPost("GenerateWeeklyRoster")]
+        public List<Roster> GenerateWeeklyRoster([FromBody] DateTime date)
+        {
+            _service.GenerateWeeklyRoster(date);
+            return _service.GetAll().ToList();
+        }
+        
         [HttpPost]
         public ActionResult<Roster> CreateRosterItem([FromBody] RosterDto rosterItem)
         {

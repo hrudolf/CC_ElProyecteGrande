@@ -84,13 +84,13 @@ public class RosterService : IRosterService
         int numberOfDays = 7;
         int dayCounter = 1;
         DateTime currentDay = firstDayOfWeek;
-        IEnumerable<Shift> shifts = _context.Shifts;
+        List<Shift> shifts = _context.Shifts.ToList();
         // hard coded
         IEnumerable<Employee> employees = _context.Employees
             .Where(employee => employee.EmployeeType.Type != "Accountant");
         IEnumerable<VacationRequest> vacationRequests = _context.VacationRequests
             .Where(request => request.IsApproved == true);
-        //var lastShifts = _context.Rosters.Distinct();
+        List<EmployeeType> employeeTypes = _context.EmployeeTypes.ToList();
 
         while (dayCounter <= numberOfDays)
         {
@@ -113,7 +113,7 @@ public class RosterService : IRosterService
                 // Choose shift leader for shift
 
                 Employee? shiftLeader = availableForShift
-                    .FirstOrDefault(employee => employee.EmployeeType.Type == "Shift lead nurse");
+                    .FirstOrDefault(employee => employee.EmployeeType == employeeTypes[2]);
 
                 if (shiftLeader == null)
                 {
@@ -131,7 +131,7 @@ public class RosterService : IRosterService
                 while (counter <= nursesRequiredForShift)
                 {
                     Employee? employee =
-                        availableForShift.FirstOrDefault(employee => employee.EmployeeType.Type != "Shift lead nurse");
+                        availableForShift.FirstOrDefault(employee => employee.EmployeeType == employeeTypes[2]);
                     
                     if (employee == null)
                     {
@@ -140,7 +140,7 @@ public class RosterService : IRosterService
                     }
                     else
                     {
-                        Create(new Roster { Date = currentDay, Shift = shift, Employee = shiftLeader, Attendance = false });
+                        Create(new Roster { Date = currentDay, Shift = shift, Employee = employee, Attendance = false });
                         availableForShift.Remove(employee);
                     }
                     
@@ -162,7 +162,7 @@ public class RosterService : IRosterService
      *  + only employees who are not on a vacation can be taken into consideration
      *  + employees can only be added after set rest time TODO add int RequiredRestTime property to Shift model
      *  + there has to be one shift leader in each shift
-     *    - if there are now shift leaders available the program issues a warning TODO warning string proprety in roster
+     *    - if there are now shift leaders available the program issues a warning 
      *  + 
      *
      * Process of roster generation

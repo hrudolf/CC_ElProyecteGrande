@@ -21,6 +21,15 @@ const Layout = () => {
               </Link>
             </li>
             <li className="nav-item">
+            <Link
+              to="/roster"
+              className="nav-link active h5"
+              aria-current="page"
+            >
+              Roster
+            </Link>
+            </li>
+            <li className="nav-item">
               <Link
                 to="/employees"
                 className="nav-link active h5"
@@ -67,5 +76,6 @@ const Layout = () => {
     </div>
   )
 };
+
 
 export default Layout;

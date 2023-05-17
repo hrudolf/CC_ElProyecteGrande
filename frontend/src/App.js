@@ -11,11 +11,13 @@ import VacationRequestPerEmployee from "./Pages/VacationRequests/VacationRequest
 import CreateVacationRequest from "./Pages/VacationRequests/CreateVacationRequest";
 import ModifyVacationRequest from "./Pages/VacationRequests/ModifyVacationRequest";
 import Shifts from "./Pages/Shift/Shifts";
+import Roster from "./Pages/Roster/Roster";
 import LoginPage from "./Pages/LoginPage";
 import { useState, createContext, useEffect } from "react";
 import Spinner from "./Pages/Layout/Spinner";
 
 export const UserContext = createContext("user");
+
 
 function App() {
 
@@ -61,6 +63,7 @@ function App() {
             </Route>
             <Route path="/employeetypes" element={<EmployeeTypes />} />
             <Route path="/shifts" element={<Shifts />} />
+            <Route path="/roster" element={<Roster />} />
             <Route path="/vacationrequests">
               <Route path="" element={<VacationRequest />} />
               <Route path="create" element={<CreateVacationRequest />}></Route>
@@ -77,6 +80,7 @@ function App() {
         </Routes>
       </UserContext.Provider>}
       {loading && <Spinner />}
+
     </div>
   );
 }

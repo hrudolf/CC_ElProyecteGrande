@@ -49,9 +49,9 @@ public class UserService : IUserService
         User? userInDb = GetById(updatedData.Id);
         if (userInDb != null)
         {
-            if (updatedData.LoginName != String.Empty)
+            if (updatedData.Username != String.Empty)
             {
-                userInDb.LoginName = updatedData.LoginName;
+                userInDb.Username = updatedData.Username;
             }
 
             if (updatedData.Password != String.Empty)

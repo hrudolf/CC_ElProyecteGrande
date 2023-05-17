@@ -83,6 +83,13 @@ public class DataSeed
                 EmploymentStatus = true,
                 MonthlyGrossSalary = Random.Shared.Next(45000, 60000)
             };
+            var admin = new User
+            {
+                Username = $"admin{counter}",
+                Password = "admin",
+                Employee = newEmployee
+            };
+            _context.Users.Add(admin);
             _context.Add(newEmployee);
             _context.SaveChanges();
 
@@ -105,7 +112,7 @@ public class DataSeed
         
         var admin = new User
         {
-            LoginName = "admin",
+            Username = "admin",
             Password = "admin",
             Employee = adminEmployee
         };

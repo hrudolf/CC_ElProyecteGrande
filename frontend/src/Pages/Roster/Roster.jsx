@@ -56,6 +56,12 @@ const Roster = () => {
                       : rosterItem.employee.firstName +
                         " " +
                         rosterItem.employee.lastName}
+                    {rosterItem.employee == null
+                      ? ""
+                      : rosterItem.employee.employeeType.type ===
+                        "Shift lead nurse"
+                      ? " (Shift lead)"
+                      : ""}
                   </td>
                   <td>{rosterItem.warning}</td>
                   <td>{rosterItem.attendance}</td>

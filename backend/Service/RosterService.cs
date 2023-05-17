@@ -39,6 +39,7 @@ public class RosterService : IRosterService
         _context.Rosters
         .Include(roster=>roster.Employee)
         .Include(roster=>roster.Shift)
+        .Include(roster=>roster.Employee.EmployeeType)
         .ToList()
         .Where(roster => roster.GetIsActive() == true);
 
@@ -150,7 +151,7 @@ public class RosterService : IRosterService
 
             }
 
-            currentDay.AddDays(1);
+            currentDay = currentDay.AddDays(1);
             dayCounter++;
         }
         

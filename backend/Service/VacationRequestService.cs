@@ -43,6 +43,14 @@ public class VacationRequestService : IVacationRequestService
             .ThenInclude(employee => employee.PreferredShift);
     }
 
+    public IEnumerable<VacationRequest> GetVacationRequestsByEmployee(int id)
+    {
+        return _context.VacationRequests.Where(request => request.Employee.Id == id)
+            .Include(request => request.Employee)
+            .ThenInclude(employee => employee.EmployeeType)
+            .Include(request => request.Employee)
+            .ThenInclude(employee => employee.PreferredShift);
+    }
     public VacationRequest? GetById(int id)
     {
         return GetAll().FirstOrDefault(request => request.Id == id);

@@ -7,4 +7,5 @@ public interface IRosterService : IService<Roster>
 {
     Roster? ConvertFromDto(RosterDto rosterData);
     bool GenerateWeeklyRoster(DateTime firstDayOfWeek);
+    public Roster? ChangeAttendance(int id);
 }

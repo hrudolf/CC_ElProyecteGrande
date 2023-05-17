@@ -9,6 +9,18 @@ const Roster = () => {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
 
+  const ChangeAttendance = (rosterId) => {
+    fetch(`/api/Roster/${rosterId}`, {
+      method: "PATCH",
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        setLoading(false);
+        setRosterList(json);
+      })
+      .catch((err) => setError(err));
+  };
+
   useEffect(() => {
     setLoading(true);
     setMessage("");
@@ -40,10 +52,11 @@ const Roster = () => {
             <th scope="col">Employee</th>
             <th scope="col">Warning</th>
             <th scope="col">Attendance</th>
+            <th scope="col">Attendance</th>
             <th scope="col"></th>
           </tr>
         </thead>
-        <tbody className="p-5">
+        <tbody className="p-5" style={{ verticalAlign: "middle" }}>
           {rosterList &&
             rosterList.map((rosterItem) => {
               return (
@@ -63,10 +76,27 @@ const Roster = () => {
                       ? " (Shift lead)"
                       : ""}
                   </td>
-                  <td>{rosterItem.warning}</td>
-                  <td>{rosterItem.attendance}</td>
+                  <td className="text-danger fw-bold">{rosterItem.warning}</td>
                   <td>
-                    <button />
+                    {rosterItem.attendance === false ? "none" : "confirmed"}{" "}
+                  </td>
+                  <td>
+                    {" "}
+                    <button
+                      className="btn btn-info"
+                      onClick={() => ChangeAttendance(rosterItem.id)}
+                      disabled={loading}
+                    >
+                      Confirm
+                    </button>{" "}
+                  </td>
+                  <td>
+                    <button className="btn btn-secondary" disabled={loading}>
+                      Edit
+                    </button>{" "}
+                    <button className="btn btn-warning" disabled={loading}>
+                      Delete
+                    </button>{" "}
                   </td>
                 </tr>
               );

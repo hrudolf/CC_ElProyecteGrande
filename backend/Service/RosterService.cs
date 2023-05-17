@@ -2,6 +2,7 @@
 using backend.DTOs;
 using backend.Model;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 
 namespace backend.Service;
 
@@ -77,6 +78,17 @@ public class RosterService : IRosterService
 
         return null;
     }
+    
+    public Roster? ChangeAttendance(int id)
+    {
+        Roster? requestInDb = GetById(id);
+        if (requestInDb != null)
+        {
+            requestInDb.Attendance = !requestInDb.Attendance;
+            _context.SaveChanges();
+        }
+        return requestInDb;
+    }
 
     public bool GenerateWeeklyRoster(DateTime firstDayOfWeek)
     {
@@ -127,12 +139,13 @@ public class RosterService : IRosterService
                     availableForShift.Remove(shiftLeader);
                 }
 
+                // add nurses 
                 var nursesRequiredForShift = shift.NursesRequiredForShift - 1;
                 var counter = 1;
                 while (counter <= nursesRequiredForShift)
                 {
                     Employee? employee =
-                        availableForShift.FirstOrDefault(employee => employee.EmployeeType == employeeTypes[2]);
+                        availableForShift.FirstOrDefault(employee => employee.EmployeeType != employeeTypes[2]);
                     
                     if (employee == null)
                     {

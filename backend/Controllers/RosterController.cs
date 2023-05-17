@@ -73,5 +73,18 @@ namespace backend.Controllers
 
             return NotFound();
         }
+        
+        [HttpPatch("{id:int}")]
+        public ActionResult<IEnumerable<Roster>> ChangeAttendance(int id)
+        {
+            Roster? attendance = _service.ChangeAttendance(id);
+            if (attendance != null)
+            {
+                return Ok(_service.GetAll());
+            }
+
+            return NotFound();
+        }
+        
     }
 }

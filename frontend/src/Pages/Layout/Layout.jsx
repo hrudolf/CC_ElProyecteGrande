@@ -44,7 +44,14 @@ const Layout = () => (
             <Link to="/vacationrequests" 
             className="nav-link active h5" 
             aria-current="page">
-              Vacation Requests
+              Vacation Requests All
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/vacationrequests/employee" 
+            className="nav-link active h5" 
+            aria-current="page">
+              Vacation Requests per Employee
             </Link>
           </li>
           <li className="nav-item">

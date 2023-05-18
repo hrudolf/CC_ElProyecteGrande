@@ -51,8 +51,15 @@ public class AuthController : ControllerBase
             IsPersistent = true
         });
 
-        Employee? employee = user.Employee;
-        return Ok(employee);
+        UserLoginResponseDto responseData = new UserLoginResponseDto()
+        {
+            UserId = user.Id,
+            EmployeeId = user.Employee.Id,
+            FirstName = user.Employee.FirstName,
+            LastName = user.Employee.LastName,
+            Roles = user.Roles
+        };
+        return Ok(responseData);
     }
 
     [Route("login")]
@@ -62,8 +69,15 @@ public class AuthController : ControllerBase
         if (HttpContext.User.Identity != null && HttpContext.User.Identity.IsAuthenticated && HttpContext.User.Identity.Name != null)
         {
             User user = _service.FindByUsername(HttpContext.User.Identity.Name);
-            Employee? employee = user.Employee;
-            return Ok(employee);
+            UserLoginResponseDto responseData = new UserLoginResponseDto()
+            {
+                UserId = user.Id,
+                EmployeeId = user.Employee.Id,
+                FirstName = user.Employee.FirstName,
+                LastName = user.Employee.LastName,
+                Roles = user.Roles
+            };
+            return Ok(responseData);
         }
         return Unauthorized("{\"message\": " + "\"" + "User not found" + "\"}");
     }

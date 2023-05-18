@@ -49,7 +49,7 @@ public class RosterService : IRosterService
 
     public IEnumerable<Roster> GetRostersByEmployeeId(int id)
     {
-        return GetAll().Where(roster => roster.Employee.Id == id);
+        return GetAll().Where(roster => roster.Employee != null && roster.Employee.Id == id);
     }
 
     public Roster? Delete(int id)
@@ -155,7 +155,8 @@ public class RosterService : IRosterService
                 while (counter <= nursesRequiredForShift)
                 {
                     Employee? employee =
-                        availableForShift.Where(employee => employee.EmployeeType != employeeTypes[2]).MinBy(x => Random.Shared.Next());
+                        availableForShift.Where(employee => employee.EmployeeType != employeeTypes[2])
+                            .MinBy(x => Random.Shared.Next());
 
                     if (employee == null)
                     {

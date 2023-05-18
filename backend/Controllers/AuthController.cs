@@ -49,13 +49,21 @@ public class AuthController : ControllerBase
             IsPersistent = true
         });
 
+        if (user.Employee == null)
+            return Ok(new UserLoginResponseDto()
+            {
+                Id = 0,
+                FirstName = user.Username,
+                LastName = "",
+                Role = user.Role.ToString()
+            });
+
         UserLoginResponseDto responseData = new UserLoginResponseDto()
         {
-            UserId = user.Id,
-            EmployeeId = user.Employee.Id,
+            Id = user.Employee.Id,
             FirstName = user.Employee.FirstName,
             LastName = user.Employee.LastName,
-            Role = user.Role
+            Role = user.Role.ToString()
         };
         return Ok(responseData);
     }
@@ -69,11 +77,10 @@ public class AuthController : ControllerBase
             User user = _service.FindByUsername(HttpContext.User.Identity.Name);
             UserLoginResponseDto responseData = new UserLoginResponseDto()
             {
-                UserId = user.Id,
-                EmployeeId = user.Employee.Id,
+                Id = user.Employee.Id,
                 FirstName = user.Employee.FirstName,
                 LastName = user.Employee.LastName,
-                Role = user.Role
+                Role = user.Role.ToString()
             };
             return Ok(responseData);
         }

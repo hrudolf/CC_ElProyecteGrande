@@ -41,7 +41,7 @@ const CreateVacationRequest = () => {
       setError(json.error);
     } else {
       setMessage("Saved, you will be redirected.");
-      setTimeout(() => navigate("/vacationRequests"), 1000);
+      setTimeout(() => navigate("/vacationrequests"), 1000);
     }
   };
 
@@ -127,7 +127,7 @@ const CreateVacationRequest = () => {
               <button
                 type="button"
                 className="btn btn-secondary w-auto m-1"
-                onClick={() => navigate("/vacationRequests")}
+                onClick={() => navigate("/vacationrequests")}
               >
                 Cancel
               </button>

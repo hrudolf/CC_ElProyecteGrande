@@ -135,7 +135,7 @@ const VacationRequest = () => {
 
           <button
           className="btn btn-primary w-auto mt-2"
-          onClick={() => navigate("/vacationRequests/create")}
+          onClick={() => navigate("/vacationrequests/create")}
           disabled={loading}
           >
             Add a new request

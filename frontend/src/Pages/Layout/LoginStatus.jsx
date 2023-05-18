@@ -7,20 +7,13 @@ const LoginStatus = () => {
 
     const postLogout = async (e) => {
         e.preventDefault();
-        /* setLoading(true);
-        setMessage("");
-        setError(""); */
 
         const response = await fetch("/logout", {
             method: "GET"
         })
         if (!response.ok) {
-            /* setLoading(false);
-            setMessage(''); */
         } else {
-            /* setLoading(false);
-            setMessage('Successful logout'); */
-            setUser(null);
+            setTimeout(() => setUser(null), 300);
         }
     }
 

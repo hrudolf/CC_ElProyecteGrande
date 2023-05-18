@@ -37,8 +37,8 @@ const LoginPage = () => {
         } else {
             setError('');
             setLoading(false);
-            setMessage('Successful login');
-            setUser(json);
+            setMessage('Successful login, you will be redirected');
+            setTimeout(() => setUser(json), 500);
             console.log(json);
         }
     }

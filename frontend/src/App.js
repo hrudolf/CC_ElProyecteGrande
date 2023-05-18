@@ -103,7 +103,7 @@ const App = () => {
                                            <ModifyVacationRequest/>) || <Navigate to="/"/>}/>
                             </Route>
 
-                            <Route path="/login" element={<LoginPage/>}/>
+                            <Route path="/login" element={user === null ? <LoginPage/> : <Navigate to="/"/>}/>
                             <Route path="*" element={<NotFoundPage/>}/>
                         </Route>
                     </Routes>

@@ -7,6 +7,6 @@ public enum UserRole : byte
     Admin,
     Basic,
     ShiftLead,
-    SuperVisor,
+    Supervisor,
     Accountant
 }

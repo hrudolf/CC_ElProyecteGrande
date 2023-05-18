@@ -83,17 +83,19 @@ const Shifts = () => {
       }),
     });
 
-    const json = await response.json();
-    if (response.ok) {
+    if (!response.ok) {
+      setLoading(false);
+      setError(
+        "Oops, something happened, please refresh the page and try again later."
+      );
+      setNewRow(false);
+    } else {
+      const json = await response.json();
       setLoading(false);
       const shiftListCopy = JSON.parse(JSON.stringify(shiftList));
       shiftListCopy.push(json);
       setShiftList(shiftListCopy);
       setNewRow(false);
-    } else {
-      setError(
-        "Oops, something happened, please refresh the page and try again later."
-      );
     }
   };
 

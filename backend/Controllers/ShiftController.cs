@@ -1,6 +1,7 @@
 using backend.DTOs;
 using backend.Model;
 using backend.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
@@ -35,6 +36,7 @@ namespace backend.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult<Shift> CreateShift(ShiftDto shift)
         {
             return Ok(_service.Create(new Shift

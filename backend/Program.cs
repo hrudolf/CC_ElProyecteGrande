@@ -16,6 +16,12 @@ builder.Services.AddAuthentication("MyCookieAuth").AddCookie("MyCookieAuth", opt
 {
     options.Cookie.Name = "MyCookieAuth";
     options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+    options.Events.OnRedirectToAccessDenied =
+        options.Events.OnRedirectToLogin = c =>
+        {
+            c.Response.StatusCode = StatusCodes.Status401Unauthorized;
+            return Task.FromResult<object>(null);
+        };
 });
 
 builder.Services.AddTransient<IEmployeeTypeService, EmployeeTypeService>();

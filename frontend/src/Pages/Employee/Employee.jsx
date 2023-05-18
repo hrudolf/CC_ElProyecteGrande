@@ -61,7 +61,7 @@ const Employee = () => {
       </h1>
       <div className="container align-items-center">
         {employeeList && (
-          <div className="employeeTypes">
+          <div className="employee">
             <table className="table table-light table-bordered table-striped table-responsive">
               <thead className="p-2" style={{ verticalAlign: "middle" }}>
                 <tr>
@@ -86,7 +86,8 @@ const Employee = () => {
                 </tr>
               </thead>
               <tbody className="p-5">
-                {employeeList && requestList &&
+                {employeeList &&
+                  requestList &&
                   employeeList.map((employee) => {
                     return (
                       <tr key={employee.id} style={{ verticalAlign: "middle" }}>
@@ -94,8 +95,16 @@ const Employee = () => {
                         <td>{employee.firstName}</td>
                         <td>{employee.lastName}</td>
                         <td>{employee.dateOfBirth.slice(0, 10)}</td>
-                        <td>{employee.employeeType === null ? "N/A" : employee.employeeType.type}</td>
-                        <td>{employee.preferredShift === null ? "N/A" : employee.preferredShift.nameOfShift}</td>
+                        <td>
+                          {employee.employeeType === null
+                            ? "N/A"
+                            : employee.employeeType.type}
+                        </td>
+                        <td>
+                          {employee.preferredShift === null
+                            ? "N/A"
+                            : employee.preferredShift.nameOfShift}
+                        </td>
                         <td style={{ textAlign: "right" }}>
                           {employee.workingDays}
                         </td>

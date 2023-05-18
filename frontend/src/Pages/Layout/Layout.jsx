@@ -12,6 +12,7 @@ const Layout = () => {
   const navBarList = [
     { path: "/", title: "Home" },
     { path: "/about", title: "About" },
+    { path: "/myshifts", title: "My Shifts", roles: ["Admin", "Basic", "ShiftLead", "Supervisor"] },
     { path: "/roster", title: "Roster", roles: ["Admin", "ShiftLead", "Supervisor"] },
     { path: "/employees", title: "Employees", roles: ["Admin", "Supervisor", "Accountant"] },
     { path: "/employeetypes", title: "Employee Roles", roles: ["Admin"] },

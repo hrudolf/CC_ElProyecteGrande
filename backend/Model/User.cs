@@ -11,4 +11,5 @@ public class User
     public string Username { get; set; } = String.Empty;
     public string Password { get; set; } = String.Empty;
     public virtual Employee? Employee { get; set; }
+    public UserRole Role { get; set; } = UserRole.Basic;
 }

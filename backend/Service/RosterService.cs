@@ -47,6 +47,11 @@ public class RosterService : IRosterService
 
     public Roster? GetById(int id) => GetAll().FirstOrDefault(roster => roster.Id == id);
 
+    public IEnumerable<Roster> GetRostersByEmployeeId(int id)
+    {
+        return GetAll().Where(roster => roster.Employee.Id == id);
+    }
+
     public Roster? Delete(int id)
     {
         Roster? rosterInDb = GetById(id);
@@ -129,7 +134,7 @@ public class RosterService : IRosterService
                 // Choose shift leader for shift
 
                 Employee? shiftLeader = availableForShift
-                    .FirstOrDefault(employee => employee.EmployeeType == employeeTypes[2]);
+                    .Where(employee => employee.EmployeeType == employeeTypes[2]).MinBy(x => Random.Shared.Next());
 
                 if (shiftLeader == null)
                 {
@@ -150,7 +155,7 @@ public class RosterService : IRosterService
                 while (counter <= nursesRequiredForShift)
                 {
                     Employee? employee =
-                        availableForShift.FirstOrDefault(employee => employee.EmployeeType != employeeTypes[2]);
+                        availableForShift.Where(employee => employee.EmployeeType != employeeTypes[2]).MinBy(x => Random.Shared.Next());
 
                     if (employee == null)
                     {

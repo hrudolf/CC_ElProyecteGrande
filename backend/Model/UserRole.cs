@@ -1,6 +1,8 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace backend.Model;
 
-public enum UserRole
+public enum UserRole : byte
 {
     Admin,
     Basic,

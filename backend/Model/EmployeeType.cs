@@ -12,4 +12,5 @@ public class EmployeeType
     [Required] public string Type { get; set; } = String.Empty;
 
     [JsonIgnore] public List<Employee> EmployeeList { get; set; } = new();
+    [JsonIgnore] public UserRole UserRole { get; set; } = UserRole.Basic;
 }

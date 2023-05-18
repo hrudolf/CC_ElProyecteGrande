@@ -41,11 +41,11 @@ public class DataSeed
     {
         var employeeTypeList = new List<EmployeeType>
         {
-            new EmployeeType { Type = "Accountant" },
-            new EmployeeType { Type = "Head Nurse" },
-            new EmployeeType { Type = "Shift lead nurse" },
-            new EmployeeType { Type = "Nurse" },
-            new EmployeeType { Type = "Nursing intern" }
+            new EmployeeType { Type = "Accountant", UserRole = UserRole.Accountant},
+            new EmployeeType { Type = "Head Nurse", UserRole = UserRole.Supervisor },
+            new EmployeeType { Type = "Shift lead nurse", UserRole = UserRole.ShiftLead },
+            new EmployeeType { Type = "Nurse", UserRole = UserRole.Basic },
+            new EmployeeType { Type = "Nursing intern", UserRole = UserRole.Basic }
         };
 
         foreach (var employeeType in employeeTypeList)
@@ -83,13 +83,14 @@ public class DataSeed
                 EmploymentStatus = true,
                 MonthlyGrossSalary = Random.Shared.Next(45000, 60000)
             };
-            var admin = new User
+            var user = new User
             {
-                Username = $"admin{counter}",
-                Password = "admin",
-                Employee = newEmployee
+                Username = $"user{counter + 1}",
+                Password = "password",
+                Employee = newEmployee,
+                Role = newEmployee.EmployeeType.UserRole
             };
-            _context.Users.Add(admin);
+            _context.Users.Add(user);
             _context.Add(newEmployee);
             _context.SaveChanges();
 
@@ -114,6 +115,7 @@ public class DataSeed
         {
             Username = "admin",
             Password = "admin",
+            Role = UserRole.Admin,
             Employee = adminEmployee
         };
         _context.Users.Add(admin);

@@ -33,6 +33,14 @@ namespace backend.Controllers
 
             return NotFound();
         }
+        
+        [HttpGet("employee/{id:int}")]
+        public ActionResult<IEnumerable<Roster>> GetRostersByEmployeeId(int id)
+        {
+            IEnumerable<Roster>? roster = _service.GetRostersByEmployeeId(id);
+            return Ok(roster);
+
+        }
 
 
         [HttpPost("GenerateWeeklyRoster")]

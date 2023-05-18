@@ -47,6 +47,11 @@ public class RosterService : IRosterService
 
     public Roster? GetById(int id) => GetAll().FirstOrDefault(roster => roster.Id == id);
 
+    public IEnumerable<Roster> GetRostersByEmployeeId(int id)
+    {
+        return GetAll().Where(roster => roster.Employee.Id == id);
+    }
+
     public Roster? Delete(int id)
     {
         Roster? rosterInDb = GetById(id);

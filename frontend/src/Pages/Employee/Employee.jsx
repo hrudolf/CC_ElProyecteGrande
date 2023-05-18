@@ -41,7 +41,7 @@ const Employee = () => {
       })
       .catch((err) => setError(err));
 
-    fetch(`api/VacationRequest/`, {
+    fetch(`/api/VacationRequest/`, {
       method: "GET",
     })
       .then((res) => res.json())

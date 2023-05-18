@@ -11,4 +11,6 @@ public class User
     public string Username { get; set; } = String.Empty;
     public string Password { get; set; } = String.Empty;
     public virtual Employee? Employee { get; set; }
+
+    public List<UserRole> Roles { get; set; } = new List<UserRole>() { UserRole.Basic };
 }

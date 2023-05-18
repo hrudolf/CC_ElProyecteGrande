@@ -38,7 +38,10 @@ public class AuthController : ControllerBase
         {
             new Claim(ClaimTypes.Name, user.Username)
         };
-        //TODO: add role list as claims
+        foreach (var role in user.Roles)
+        {
+            claims.Add(new Claim(ClaimTypes.Role, role.ToString()));
+        }
 
         var identity = new ClaimsIdentity(claims, "MyCookieAuth");
         var principal = new ClaimsPrincipal(identity);

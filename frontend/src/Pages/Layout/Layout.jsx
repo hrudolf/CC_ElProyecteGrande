@@ -9,19 +9,18 @@ const Layout = () => {
   const { user } = useContext(UserContext);
   const [navbarFiltered, setNavbarFiltered] = useState(null);
 
-  const navBarList = [
-    { path: "/", title: "Home" },
-    { path: "/about", title: "About" },
-    { path: "/myshifts", title: "My Shifts", roles: ["Admin", "Basic", "ShiftLead", "Supervisor"] },
-    { path: "/roster", title: "Roster", roles: ["Admin", "ShiftLead", "Supervisor"] },
-    { path: "/employees", title: "Employees", roles: ["Admin", "Supervisor", "Accountant"] },
-    { path: "/employeetypes", title: "Employee Roles", roles: ["Admin"] },
-    { path: "/shifts", title: "Shift types", roles: ["Admin", "Supervisor"] },
-    { path: "/vacationrequests", title: "All Vacation Request", roles: ["Admin", "Supervisor"] },
-    { path: "/vacationrequests/employee", title: "My Vacation Requests", roles: ["Admin", "ShiftLead", "Basic", "Supervisor"] }
-  ]
-
   useEffect(() => {
+    const navBarList = [
+      { path: "/", title: "Home" },
+      { path: "/about", title: "About" },
+      { path: "/myshifts", title: "My Shifts", roles: ["Admin", "Basic", "ShiftLead", "Supervisor"] },
+      { path: "/roster", title: "Roster", roles: ["Admin", "ShiftLead", "Supervisor"] },
+      { path: "/employees", title: "Employees", roles: ["Admin", "Supervisor", "Accountant", "Basic", "ShiftLead"] },
+      { path: "/employeetypes", title: "Employee Roles", roles: ["Admin"] },
+      { path: "/shifts", title: "Shift types", roles: ["Admin", "Supervisor"] },
+      { path: "/vacationrequests", title: "All Vacation Request", roles: ["Admin", "Supervisor"] },
+      { path: "/vacationrequests/employee", title: "My Vacation Requests", roles: ["Admin", "ShiftLead", "Basic", "Supervisor"] }
+    ]
     if (user === null) {
       let filteredNavbar = navBarList.filter(item => !('roles' in item));
       setNavbarFiltered(filteredNavbar);

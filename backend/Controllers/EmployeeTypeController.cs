@@ -1,6 +1,7 @@
 ﻿using backend.DTOs;
 using backend.Model;
 using backend.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers;
@@ -16,12 +17,14 @@ public class EmployeeTypeController : ControllerBase
         _service = service;
     }
 
+    [Authorize(Roles = "Admin, Accountant")]
     [HttpGet]
     public ActionResult<List<EmployeeType>> GetAllEmployeeTypes()
     {
         return Ok(_service.GetAll());
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpGet("{id:int}")]
     public ActionResult<EmployeeType> GetEmployeeTypeById(int id)
     {
@@ -34,12 +37,14 @@ public class EmployeeTypeController : ControllerBase
         return NotFound($"EmployeeType with id #{id} could not be found.");
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public ActionResult<EmployeeType> CreateEmployeeType(EmployeeTypeDto employeeType)
     {
         return Ok(_service.Create(new EmployeeType { Type = employeeType.Type }));
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{id:int}")]
     public ActionResult<EmployeeType> DeleteEmployeeTypeById(int id)
     {
@@ -52,6 +57,7 @@ public class EmployeeTypeController : ControllerBase
         return NotFound($"EmployeeType with id #{id} could not be found.");
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPut]
     public ActionResult<EmployeeType> UpdateEmployeeType([FromBody] EmployeeType updatedEmployeeType)
     {

@@ -17,12 +17,14 @@ namespace backend.Controllers
             _service = service;
         }
 
+        [Authorize(Roles = "Admin, Supervisor, Accountant")]
         [HttpGet]
         public ActionResult<List<Shift>> GetAllShifts()
         {
             return Ok(_service.GetAll());
         }
 
+        [Authorize(Roles = "Admin, Supervisor")]
         [HttpGet("{id:int}")]
         public ActionResult<Shift> GetShiftById(int id)
         {
@@ -35,8 +37,8 @@ namespace backend.Controllers
             return NotFound($"Shift with id #{id} could not be found.");
         }
 
+        [Authorize(Roles = "Admin, Supervisor")]
         [HttpPost]
-        [Authorize(Roles = "Admin")]
         public ActionResult<Shift> CreateShift(ShiftDto shift)
         {
             return Ok(_service.Create(new Shift
@@ -47,6 +49,7 @@ namespace backend.Controllers
             }));
         }
 
+        [Authorize(Roles = "Admin, Supervisor")]
         [HttpDelete("{id:int}")]
         public ActionResult<Shift> DeleteShiftById(int id)
         {
@@ -59,6 +62,7 @@ namespace backend.Controllers
             return NotFound($"Shift with id #{id} could not be found.");
         }
 
+        [Authorize(Roles = "Admin, Supervisor")]
         [HttpPut]
         public ActionResult<Shift> UpdateShift([FromBody] Shift updatedShift)
         {

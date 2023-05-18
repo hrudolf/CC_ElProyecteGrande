@@ -2,6 +2,7 @@ using backend.Database;
 using backend.DTOs;
 using backend.Model;
 using backend.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
@@ -19,27 +20,28 @@ namespace backend.Controllers
             _context = context;
         }
 
-        
+        [Authorize(Roles = "Admin, Supervisor, ShiftLead")]
         [HttpGet]
         public List<Employee> GetAllEmployees()
         {
             return _service.GetAllEmployees();
         }
         
-        
+        [Authorize(Roles = "Admin, Supervisor, ShiftLead")]
         [HttpGet("active")]
         public List<Employee> GetAllActiveEmployees()
         {
             return _service.GetAllActiveEmployees();
         }
         
+        [Authorize(Roles = "Admin, Supervisor, ShiftLead, Basic")]
         [HttpGet("public")]
         public List<Employee> GetAllActiveEmployeesWithPublicData()
         {
             return _service.GetAllActiveEmployeesWithPublicData();
         }
 
-        
+        [Authorize(Roles = "Admin, Supervisor, Accountant")]
         [HttpGet("{id:int}")]
         public IActionResult GetEmployeeById(int id)
         {
@@ -48,14 +50,14 @@ namespace backend.Controllers
             
         }
 
-        
+        [Authorize(Roles = "Admin, Supervisor, Accountant")]
         [HttpPost]
         public IActionResult CreateEmployee([FromBody] UpdateEmployeeDto employeeDto)
         {
             return Ok(_service.CreateEmployee(employeeDto));
         }
 
-        
+        [Authorize(Roles = "Admin, Supervisor, Accountant")]
         [HttpDelete("{id:int}")]
         public IActionResult DeleteEmployeePermanentlyById(int id)
         {
@@ -64,7 +66,7 @@ namespace backend.Controllers
         }
 
         
-        
+        [Authorize(Roles = "Admin, Supervisor, Accountant")]
         [HttpPatch("temporary-delete/{id:int}")]
         public IActionResult DeleteEmployeeTemporarilyById(int id)
         {
@@ -72,7 +74,7 @@ namespace backend.Controllers
             return employee != null ? Ok(employee) : NotFound("User not found");
         }
         
-        
+        [Authorize(Roles = "Admin, Supervisor, Accountant")]
         [HttpPatch("{id:int}")]
         public IActionResult UpdateEmployee(int id, [FromBody] UpdateEmployeeDto updatedEmployee)
         {

@@ -28,7 +28,7 @@ const Layout = () => {
     } else {
       let filteredNavbar = navBarList.filter(item => {
         if ('roles' in item) {
-          const intersection = item.roles.filter(element => user.lastName === element);
+          const intersection = item.roles.filter(element => user.role === element);
           if (intersection.length > 0) return true;
           return false;
         } else {

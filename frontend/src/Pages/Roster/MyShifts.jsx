@@ -5,7 +5,7 @@ import Spinner from "../Layout/Spinner";
 import { UserContext } from "../../App";
 
 const MyShifts = () => {
-  const [rosterList, setRosterList] = useState("");
+  const [rosterList, setRosterList] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
@@ -21,6 +21,7 @@ const MyShifts = () => {
       .then((res) => res.json())
       .then((json) => {
         setLoading(false);
+        console.log(json);
         setRosterList(json);
       })
       .catch((err) => setError(err));
@@ -49,7 +50,7 @@ const MyShifts = () => {
           {rosterList &&
             rosterList.map((rosterItem) => {
               return (
-                <tr>
+                <tr key={rosterItem.id}>
                   <td>{rosterItem.date.slice(0, 10)}</td>
                   <td>{rosterItem.shift.nameOfShift}</td>
                   <td>

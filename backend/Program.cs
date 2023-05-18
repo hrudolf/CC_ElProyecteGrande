@@ -45,7 +45,7 @@ using (var serviceScope = app.Services.CreateScope())
     context.Database.EnsureCreated();
     //Seed data
     DataSeed dataSeed = new DataSeed(context);
-    dataSeed.CreateAll(25);
+    dataSeed.CreateAll(30);
 }
 
 // Configure the HTTP request pipeline.

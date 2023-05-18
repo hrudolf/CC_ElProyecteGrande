@@ -13,18 +13,6 @@ const VacationRequestPerEmployee = () => {
 
   const navigate = useNavigate();
 
-  const ChangeRequestApproval = (requestId) => {
-    fetch(`/api/VacationRequest/${requestId}`, {
-      method: "PATCH",
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        setLoading(false);
-        setRequestList(json);
-      })
-      .catch((err) => setError(err));
-  };
-
   const DeleteRequest = (requestId) => {
     fetch(`/api/VacationRequest/${requestId}`, {
       method: "DELETE",

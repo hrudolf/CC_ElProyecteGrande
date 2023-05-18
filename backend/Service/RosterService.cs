@@ -108,71 +108,24 @@ public class RosterService : IRosterService
         List<Shift> shifts = _context.Shifts.ToList();
         // hard coded
         IEnumerable<Employee> employees = _context.Employees
-            .Where(employee => employee.EmployeeType.Type != "Accountant");
+            .Where(employee => employee.EmployeeType.Type != "Accountant" && employee.IsActive == true);
         IEnumerable<VacationRequest> vacationRequests = _context.VacationRequests
             .Where(request => request.IsApproved == true);
         List<EmployeeType> employeeTypes = _context.EmployeeTypes.ToList();
 
         while (dayCounter <= numberOfDays)
         {
-            // filter employees who are not on a holiday on current day
-            var todaysVacationRequests = vacationRequests
-                .Where(request => request.StartDate <= currentDay && request.EndDate >= currentDay);
-
-            List<Employee> employeesNotOnHoliday = employees
-                .Where(employee => todaysVacationRequests.All(request => request.Employee.Id != employee.Id)).ToList();
-
+            List<Employee> employeesNotOnHoliday = EmployeesNotOnHolidayToday(vacationRequests, currentDay, employees);
 
             foreach (var shift in shifts)
             {
-                // filter employees available for shift by their preferred shift
-                List<Employee> availableForShift = employeesNotOnHoliday
+               List<Employee> availableForShift = employeesNotOnHoliday
                     .Where(employee => employee.PreferredShift != null && employee.PreferredShift.Id == shift.Id)
                     .ToList();
 
+                ChooseShiftLeader(availableForShift, currentDay, shift, employeeTypes);
 
-                // Choose shift leader for shift
-
-                Employee? shiftLeader = availableForShift
-                    .Where(employee => employee.EmployeeType == employeeTypes[2]).MinBy(x => Random.Shared.Next());
-
-                if (shiftLeader == null)
-                {
-                    Create(new Roster
-                    {
-                        Date = currentDay, Shift = shift, Attendance = false, Warning = "No shift leader scheduled"
-                    });
-                }
-                else
-                {
-                    Create(new Roster { Date = currentDay, Shift = shift, Employee = shiftLeader, Attendance = false });
-                    availableForShift.Remove(shiftLeader);
-                }
-
-                // add nurses 
-                var nursesRequiredForShift = shift.NursesRequiredForShift - 1;
-                var counter = 1;
-                while (counter <= nursesRequiredForShift)
-                {
-                    Employee? employee =
-                        availableForShift.Where(employee => employee.EmployeeType != employeeTypes[2])
-                            .MinBy(x => Random.Shared.Next());
-
-                    if (employee == null)
-                    {
-                        Create(new Roster
-                            { Date = currentDay, Shift = shift, Attendance = false, Warning = "No nurse scheduled" });
-                    }
-                    else
-                    {
-                        Create(new Roster
-                            { Date = currentDay, Shift = shift, Employee = employee, Attendance = false });
-                        availableForShift.Remove(employee);
-                    }
-
-
-                    counter++;
-                }
+                AddNursesToRoster(availableForShift, currentDay, shift, employeeTypes);
             }
 
             currentDay = currentDay.AddDays(1);
@@ -181,6 +134,64 @@ public class RosterService : IRosterService
 
 
         return true;
+    }
+
+    public void ChooseShiftLeader(List<Employee> availableForShift, DateTime currentDay, Shift shift,
+        List<EmployeeType> employeeTypes)
+    {
+        Employee? shiftLeader = availableForShift
+            .Where(employee => employee.EmployeeType == employeeTypes[2]).MinBy(x => Random.Shared.Next());
+
+        if (shiftLeader == null)
+        {
+            Create(new Roster
+            {
+                Date = currentDay, Shift = shift, Attendance = false, Warning = "No shift leader scheduled"
+            });
+        }
+        else
+        {
+            Create(new Roster { Date = currentDay, Shift = shift, Employee = shiftLeader, Attendance = false });
+            availableForShift.Remove(shiftLeader);
+        }
+    }
+
+    public void AddNursesToRoster(List<Employee> availableForShift, DateTime currentDay, Shift shift,
+        List<EmployeeType> employeeTypes)
+    {
+        var nursesRequiredForShift = shift.NursesRequiredForShift - 1;
+        var counter = 1;
+        while (counter <= nursesRequiredForShift)
+        {
+            Employee? employee =
+                availableForShift.Where(employee => employee.EmployeeType != employeeTypes[2])
+                    .MinBy(x => Random.Shared.Next());
+
+            if (employee == null)
+            {
+                Create(new Roster
+                    { Date = currentDay, Shift = shift, Attendance = false, Warning = "No nurse scheduled" });
+            }
+            else
+            {
+                Create(new Roster
+                    { Date = currentDay, Shift = shift, Employee = employee, Attendance = false });
+                availableForShift.Remove(employee);
+            }
+
+
+            counter++;
+        }
+    }
+
+    public List<Employee> EmployeesNotOnHolidayToday(IEnumerable<VacationRequest> vacationRequests,
+        DateTime currentDay, IEnumerable<Employee> employees)
+    {
+        var todaysVacationRequests = vacationRequests
+            .Where(request => request.StartDate <= currentDay && request.EndDate >= currentDay);
+
+        return employees
+            .Where(employee => todaysVacationRequests.All(request => request.Employee.Id != employee.Id)).ToList();
     }
     /*
      * Conditions for generating a weekly roster

@@ -1,4 +1,3 @@
-import { Outlet } from "react-router-dom";
 import './HomePage.css'
 
 const HomePage = () => (
@@ -14,7 +13,6 @@ const HomePage = () => (
         ROSTERING | ATTENDANCE | VACATION REQUEST | PAYROLL FORECAST
       </h6>
     </div>
-    <Outlet />
   </div>
 );
 

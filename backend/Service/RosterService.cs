@@ -131,34 +131,10 @@ public class RosterService : IRosterService
                     .ToList();
 
 
-                // Choose shift leader for shift
                 ChooseShiftLeader(availableForShift, currentDay, shift, employeeTypes);
 
+                AddNursesToRoster(availableForShift, currentDay, shift, employeeTypes);
                 
-                // add nurses 
-                var nursesRequiredForShift = shift.NursesRequiredForShift - 1;
-                var counter = 1;
-                while (counter <= nursesRequiredForShift)
-                {
-                    Employee? employee =
-                        availableForShift.Where(employee => employee.EmployeeType != employeeTypes[2])
-                            .MinBy(x => Random.Shared.Next());
-
-                    if (employee == null)
-                    {
-                        Create(new Roster
-                            { Date = currentDay, Shift = shift, Attendance = false, Warning = "No nurse scheduled" });
-                    }
-                    else
-                    {
-                        Create(new Roster
-                            { Date = currentDay, Shift = shift, Employee = employee, Attendance = false });
-                        availableForShift.Remove(employee);
-                    }
-
-
-                    counter++;
-                }
             }
 
             currentDay = currentDay.AddDays(1);
@@ -185,6 +161,34 @@ public class RosterService : IRosterService
         {
             Create(new Roster { Date = currentDay, Shift = shift, Employee = shiftLeader, Attendance = false });
             availableForShift.Remove(shiftLeader);
+        }
+    }
+
+    public void AddNursesToRoster(List<Employee> availableForShift, DateTime currentDay, Shift shift,
+        List<EmployeeType> employeeTypes)
+    {
+        var nursesRequiredForShift = shift.NursesRequiredForShift - 1;
+        var counter = 1;
+        while (counter <= nursesRequiredForShift)
+        {
+            Employee? employee =
+                availableForShift.Where(employee => employee.EmployeeType != employeeTypes[2])
+                    .MinBy(x => Random.Shared.Next());
+
+            if (employee == null)
+            {
+                Create(new Roster
+                    { Date = currentDay, Shift = shift, Attendance = false, Warning = "No nurse scheduled" });
+            }
+            else
+            {
+                Create(new Roster
+                    { Date = currentDay, Shift = shift, Employee = employee, Attendance = false });
+                availableForShift.Remove(employee);
+            }
+
+
+            counter++;
         }
     }
     /*

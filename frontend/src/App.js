@@ -17,6 +17,7 @@ import Shifts from "./Pages/Shift/Shifts";
 import MyShifts from "./Pages/Roster/MyShifts";
 import Roster from "./Pages/Roster/Roster";
 import LoginPage from "./Pages/LoginPage";
+import EmployeePublic from "./Pages/Employee/EmployeePublic";
 
 export const UserContext = createContext("user");
 
@@ -46,6 +47,14 @@ const App = () => {
         fetchData();
     }, []);
 
+    const isAuthenticated = (allowedRoles) => {
+        if (user === null) return false;
+        if (allowedRoles.filter(element => user.role === element).length > 0) {
+            return true;
+        }
+        return false;
+    }
+
     return (
         <div className="App">
             {!loading &&
@@ -57,27 +66,41 @@ const App = () => {
                             <Route path="/about" element={<About/>}></Route>
 
                             <Route path="/employees">
-                                <Route path="" element={<Employee/>}/>
-                                <Route path="create" element={<CreateEmployee/>}></Route>
-                                <Route path="edit/:id" element={<ModifyEmployee/>}></Route>
+                                <Route path="" element={(isAuthenticated(["Admin", "Supervisor", "Accountant"]) &&
+                                    <Employee/>) || (isAuthenticated(["Admin", "Basic", "ShiftLead", "Supervisor", "Accountant"]) &&
+                                    <EmployeePublic/>) || <Navigate to="/"/>}/>
+                                <Route path="create" element={(isAuthenticated(["Admin", "Supervisor", "Accountant"]) &&
+                                    <CreateEmployee/>) || <Navigate to="/"/>}/>
+                                <Route path="edit/:id"
+                                       element={(isAuthenticated(["Admin", "Supervisor", "Accountant"]) &&
+                                           <ModifyEmployee/>) || <Navigate to="/"/>}/>
                             </Route>
 
-                            <Route path="/employeetypes" element={<EmployeeTypes/>}/>
-                            <Route path="/shifts" element={<Shifts/>}/>
-                            <Route path="/myshifts" element={<MyShifts/>}/>
-                            <Route path="/roster" element={<Roster/>}/>
+                            <Route path="/employeetypes"
+                                   element={(isAuthenticated(["Admin"]) && <EmployeeTypes/>) || <Navigate to="/"/>}/>
+                            <Route path="/shifts" element={(isAuthenticated(["Admin", "Supervisor"]) && <Shifts/>) ||
+                                <Navigate to="/"/>}/>
+                            <Route path="/myshifts"
+                                   element={(isAuthenticated(["Admin", "Basic", "ShiftLead", "Supervisor"]) &&
+                                       <MyShifts/>) || <Navigate to="/"/>}/>
+                            <Route path="/roster"
+                                   element={(isAuthenticated(["Admin", "Basic", "ShiftLead", "Supervisor"]) &&
+                                       <Roster/>) || <Navigate to="/"/>}/>
 
                             <Route path="/vacationrequests">
-                                <Route path="" element={<VacationRequest/>}/>
-                                <Route path="create" element={<CreateVacationRequest/>}/>
-                                <Route path="edit/:id" element={<ModifyVacationRequest/>}/>
-                            </Route>
-
-                            <Route path="/vacationrequests/employee">
-                                <Route path="" element={user !== null ? <VacationRequestPerEmployee/> :
-                                    <Navigate to="/login"/>}/>
-                                <Route path="create" element={<CreateVacationRequest/>}/>
-                                <Route path="edit/:id" element={<ModifyVacationRequest/>}/>
+                                <Route path=""
+                                       element={(isAuthenticated(["Admin", "Supervisor"]) && <VacationRequest/>) ||
+                                           <Navigate to="/vacationrequests/employee"/>}/>
+                                <Route path="employee"
+                                       element={(isAuthenticated(["Admin", "Basic", "ShiftLead", "Supervisor"]) &&
+                                               <VacationRequestPerEmployee/>) ||
+                                           <Navigate to="/"/>}/>
+                                <Route path="create"
+                                       element={(isAuthenticated(["Admin", "Basic", "ShiftLead", "Supervisor"]) &&
+                                           <CreateVacationRequest/>) || <Navigate to="/"/>}/>
+                                <Route path="edit/:id"
+                                       element={(isAuthenticated(["Admin", "Basic", "ShiftLead", "Supervisor"]) &&
+                                           <ModifyVacationRequest/>) || <Navigate to="/"/>}/>
                             </Route>
 
                             <Route path="/login" element={<LoginPage/>}/>

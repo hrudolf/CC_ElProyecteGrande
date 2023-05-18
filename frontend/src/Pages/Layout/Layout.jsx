@@ -14,7 +14,7 @@ const Layout = () => {
       { path: "/", title: "Home" },
       { path: "/about", title: "About" },
       { path: "/myshifts", title: "My Shifts", roles: ["Admin", "Basic", "ShiftLead", "Supervisor"] },
-      { path: "/roster", title: "Roster", roles: ["Admin", "ShiftLead", "Supervisor"] },
+      { path: "/roster", title: "Roster", roles: ["Admin", "Basic", "ShiftLead", "Supervisor"] },
       { path: "/employees", title: "Employees", roles: ["Admin", "Supervisor", "Accountant", "Basic", "ShiftLead"] },
       { path: "/employeetypes", title: "Employee Roles", roles: ["Admin"] },
       { path: "/shifts", title: "Shift types", roles: ["Admin", "Supervisor"] },

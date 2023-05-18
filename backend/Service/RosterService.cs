@@ -132,23 +132,9 @@ public class RosterService : IRosterService
 
 
                 // Choose shift leader for shift
+                ChooseShiftLeader(availableForShift, currentDay, shift, employeeTypes);
 
-                Employee? shiftLeader = availableForShift
-                    .Where(employee => employee.EmployeeType == employeeTypes[2]).MinBy(x => Random.Shared.Next());
-
-                if (shiftLeader == null)
-                {
-                    Create(new Roster
-                    {
-                        Date = currentDay, Shift = shift, Attendance = false, Warning = "No shift leader scheduled"
-                    });
-                }
-                else
-                {
-                    Create(new Roster { Date = currentDay, Shift = shift, Employee = shiftLeader, Attendance = false });
-                    availableForShift.Remove(shiftLeader);
-                }
-
+                
                 // add nurses 
                 var nursesRequiredForShift = shift.NursesRequiredForShift - 1;
                 var counter = 1;
@@ -181,6 +167,25 @@ public class RosterService : IRosterService
 
 
         return true;
+    }
+
+    public void ChooseShiftLeader(List<Employee> availableForShift, DateTime currentDay, Shift shift, List<EmployeeType> employeeTypes)
+    {
+        Employee? shiftLeader = availableForShift
+            .Where(employee => employee.EmployeeType == employeeTypes[2]).MinBy(x => Random.Shared.Next());
+
+        if (shiftLeader == null)
+        {
+            Create(new Roster
+            {
+                Date = currentDay, Shift = shift, Attendance = false, Warning = "No shift leader scheduled"
+            });
+        }
+        else
+        {
+            Create(new Roster { Date = currentDay, Shift = shift, Employee = shiftLeader, Attendance = false });
+            availableForShift.Remove(shiftLeader);
+        }
     }
     /*
      * Conditions for generating a weekly roster

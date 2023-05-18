@@ -18,6 +18,7 @@ import MyShifts from "./Pages/Roster/MyShifts";
 import Roster from "./Pages/Roster/Roster";
 import LoginPage from "./Pages/LoginPage";
 import EmployeePublic from "./Pages/Employee/EmployeePublic";
+import RosterPublic from "./Pages/Roster/RosterPublic";
 
 export const UserContext = createContext("user");
 
@@ -84,8 +85,9 @@ const App = () => {
                                    element={(isAuthenticated(["Admin", "Basic", "ShiftLead", "Supervisor"]) &&
                                        <MyShifts/>) || <Navigate to="/"/>}/>
                             <Route path="/roster"
-                                   element={(isAuthenticated(["Admin", "Basic", "ShiftLead", "Supervisor"]) &&
-                                       <Roster/>) || <Navigate to="/"/>}/>
+                                   element={(isAuthenticated(["Admin", "ShiftLead", "Supervisor"]) &&
+                                       <Roster/>) || (isAuthenticated(["Admin", "Basic", "ShiftLead", "Supervisor"]) &&
+                                       <RosterPublic />) ||<Navigate to="/"/>}/>
 
                             <Route path="/vacationrequests">
                                 <Route path=""

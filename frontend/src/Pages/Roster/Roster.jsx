@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Roster.css";
 import Spinner from "../Layout/Spinner";
+import { UserContext } from "../../App";
 
 const Roster = () => {
   const [rosterList, setRosterList] = useState("");
@@ -9,6 +10,7 @@ const Roster = () => {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [date, setDate] = useState();
+  const { user } = useContext(UserContext);
 
   const ChangeAttendance = (rosterId) => {
     fetch(`/api/Roster/${rosterId}`, {
@@ -165,7 +167,7 @@ const Roster = () => {
                 </tr>
               );
             })}
-            <tr></tr>
+          <tr></tr>
         </tbody>
       </table>
     </div>

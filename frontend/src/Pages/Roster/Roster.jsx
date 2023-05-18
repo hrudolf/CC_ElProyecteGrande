@@ -32,6 +32,9 @@ const Roster = () => {
       console.log("Roster created");
     });
 
+    setLoading(true);
+    setMessage("");
+    setError("");
     fetch("/api/Roster", {
       method: "GET",
     })
@@ -41,6 +44,7 @@ const Roster = () => {
         setRosterList(json);
       })
       .catch((err) => setError(err));
+    window.location.reload(false);
   };
 
   const DeleteRosterItem = (rosterId) => {
@@ -119,7 +123,7 @@ const Roster = () => {
           {rosterList &&
             rosterList.map((rosterItem) => {
               return (
-                <tr>
+                <tr key={rosterItem.id}>
                   <td>{rosterItem.date.slice(0, 10)}</td>
                   <td>{rosterItem.shift.nameOfShift}</td>
                   <td>

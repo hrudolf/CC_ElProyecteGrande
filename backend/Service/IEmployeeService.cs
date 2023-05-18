@@ -18,4 +18,5 @@ public interface IEmployeeService
     Employee? DeleteEmployeeTemporarilyById(int id);
 
     Employee CreateEmployee(UpdateEmployeeDto updateEmployeeDto);
+    List<Employee> GetAllActiveEmployeesWithPublicData();
 }

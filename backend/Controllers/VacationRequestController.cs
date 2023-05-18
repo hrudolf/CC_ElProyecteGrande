@@ -21,6 +21,18 @@ public class VacationRequestController : ControllerBase
     {
         return Ok(_service.GetAll());
     }
+    
+    [HttpGet("public")]
+    public ActionResult<List<VacationRequest>> GetAllVacationRequestsPublic()
+    {
+        var vacationList = _service.GetAll().Select(vac =>
+        {
+            vac.Employee.MonthlyGrossSalary = 0;
+            return vac;
+        });
+        return Ok(vacationList);
+    }
+
 
     [HttpGet("{id:int}")]
     public ActionResult<VacationRequest> GetVacationRequestById(int id)

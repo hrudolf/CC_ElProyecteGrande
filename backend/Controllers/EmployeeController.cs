@@ -32,6 +32,12 @@ namespace backend.Controllers
         {
             return _service.GetAllActiveEmployees();
         }
+        
+        [HttpGet("public")]
+        public List<Employee> GetAllActiveEmployeesWithPublicData()
+        {
+            return _service.GetAllActiveEmployeesWithPublicData();
+        }
 
         
         [HttpGet("{id:int}")]

@@ -31,7 +31,8 @@ builder.Services.AddTransient<IRosterService, RosterService>();
 builder.Services.AddTransient<IAuthService, AuthService>();
 builder.Services.AddTransient<IUserService, UserService>();
 
-builder.Services.AddCors();
+/*builder.Services.AddCors();*/
+
 builder.Services.AddTransient<IVacationRequestService, VacationRequestService>();
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -55,6 +56,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+/*app.UseCors(x =>
+{
+    x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000").AllowCredentials();
+});*/
+//problem: CORS EATS OUR COOKIE
 
 app.UseAuthentication();
 app.UseAuthorization();

@@ -14,6 +14,7 @@ public class UserService : IUserService
     }
     public User Create(User item)
     {
+        item.Password = PasswordService.HashPass(item.Password);
         _context.Users.Add(item);
         _context.SaveChanges();
         return item;
@@ -56,8 +57,7 @@ public class UserService : IUserService
 
             if (updatedData.Password != String.Empty)
             {
-                //TODO hash password
-                userInDb.Password = updatedData.Password;
+                userInDb.Password = PasswordService.HashPass(updatedData.Password);
             }
 
             _context.SaveChanges();

@@ -18,7 +18,7 @@ public class AuthService : IAuthService
             .Include(user => user.Employee)
             .FirstOrDefault(user => user.Username == userName);
         if (userInDb == null) throw new Exception("Invalid username");
-        if (userInDb.Password != password) throw new Exception("Incorrect password");
+        if (!PasswordService.VerifyPass(userInDb.Password, password)) throw new Exception("Incorrect password");
         return userInDb;
     }
 

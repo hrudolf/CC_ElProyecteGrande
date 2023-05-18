@@ -8,10 +8,12 @@ namespace backend.Service;
 public class EmployeeService : IEmployeeService
 {
     private readonly DataContext _context;
+    private IUserService _userService;
 
-    public EmployeeService(DataContext context)
+    public EmployeeService(DataContext context, IUserService userService)
     {
         _context = context;
+        _userService = userService;
     }
 
     
@@ -132,6 +134,14 @@ public class EmployeeService : IEmployeeService
 
         _context.Employees.Add(newEmployee);
         _context.SaveChanges();
+
+        _userService.Create(new User()
+        {
+            Employee = newEmployee,
+            Username = $"user{newEmployee.Id}",
+            Password = PasswordService.HashPass($"user{newEmployee.Id}"),
+            Role = newEmployee.EmployeeType?.UserRole ?? UserRole.Basic
+        });
                 
         return newEmployee; 
     }

@@ -1,4 +1,5 @@
 ﻿using backend.Model;
+using backend.Service;
 
 namespace backend.Database.Seed;
 
@@ -69,7 +70,6 @@ public class DataSeed
         var counter = 0;
         while (counter < numberOfEmployees)
         {
-            //TODO add User classes to Employees
             Employee newEmployee = new Employee
             {
                 FirstName = firstNames[Random.Shared.Next(firstNames.Count)],
@@ -86,7 +86,7 @@ public class DataSeed
             var user = new User
             {
                 Username = $"user{counter + 1}",
-                Password = "password",
+                Password = PasswordService.HashPass($"user{counter + 1}"),
                 Employee = newEmployee,
                 Role = newEmployee.EmployeeType.UserRole
             };
@@ -108,16 +108,15 @@ public class DataSeed
             DateOfBirth = GetRandomDate().Date,
             EmployeeType = GetRandomEmployeeType()
         };
-        _context.Employees.Add(adminEmployee);
-        _context.SaveChanges();
         
         var admin = new User
         {
             Username = "admin",
-            Password = "admin",
+            Password = PasswordService.HashPass($"admin"),
             Role = UserRole.Admin,
             Employee = adminEmployee
         };
+        _context.Employees.Add(adminEmployee);
         _context.Users.Add(admin);
         _context.SaveChanges();
     }

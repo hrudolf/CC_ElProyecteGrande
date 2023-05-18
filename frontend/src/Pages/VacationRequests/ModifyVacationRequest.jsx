@@ -1,15 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router";
 import { useParams } from "react-router-dom";
 import "./VacationRequest.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { UserContext } from "../../App";
 
 const ModifyVacationRequest = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
+  const { user } = useContext(UserContext);
   
+  const navigate = useNavigate();
   const { id } = useParams();
 
   const [request, setRequest] = useState({
@@ -18,8 +21,7 @@ const ModifyVacationRequest = () => {
     endDate: ""
   });
 
-  const navigate = useNavigate();
-  
+
   useEffect(() => {
     setLoading(true);
     setMessage("");
@@ -28,13 +30,17 @@ const ModifyVacationRequest = () => {
     fetch(`/api/VacationRequest/${id}`, {
       method: "GET",
     })
-    .then((res) => res.json())
-    .then((json) => {
-      setRequest(json);
+      .then((res) => res.json())
+      .then((json) => {
+        if (user.id === json.employee.id) {
+          setRequest(json);
+        } else {
+          navigate("/vacationrequests");
+        }
       })
-    .then(setLoading(false))
-    .catch((err) => setError(err));
-  }, [id]);
+      .then(setLoading(false))
+      .catch((err) => setError(err));
+  }, [id, user.id, navigate]);
 
   const putRequest = async (e) => {
     e.preventDefault();
@@ -58,7 +64,7 @@ const ModifyVacationRequest = () => {
       setError(json.error);
     } else {
       setMessage("Saved, you will be redirected.");
-      setTimeout(() => navigate("/vacationRequests"), 1000);
+      setTimeout(() => navigate("/vacationrequests"), 1000);
     }
   };
 
@@ -86,7 +92,7 @@ const ModifyVacationRequest = () => {
                     type="date"
                     name="startDate"
                     id="startDate"
-                    value={request.startDate.slice(0,10)}
+                    value={request.startDate.slice(0, 10)}
                     onChange={(e) => updateProperty(e.target.value, "startDate")}
                     required
                   />
@@ -107,7 +113,7 @@ const ModifyVacationRequest = () => {
                     id="endDate"
                     min="2023-05-03"
                     max="2025-12-31"
-                    value={request.endDate.slice(0,10)}
+                    value={request.endDate.slice(0, 10)}
                     onChange={(e) => updateProperty(e.target.value, "endDate")}
                   />
                 </Col>
@@ -127,7 +133,7 @@ const ModifyVacationRequest = () => {
               <button
                 type="button"
                 className="btn btn-secondary w-auto m-1"
-                onClick={() => navigate("/vacationRequests")}
+                onClick={() => navigate("/vacationrequests")}
               >
                 Cancel
               </button>

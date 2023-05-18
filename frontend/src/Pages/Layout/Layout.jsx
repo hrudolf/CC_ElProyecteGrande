@@ -1,73 +1,49 @@
-import { Outlet, Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import "./Layout.css";
 import LoginStatus from "./LoginStatus";
 import { UserContext } from "../../App";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import Navbaritem from "./Navbaritem";
 
 const Layout = () => {
   const { user } = useContext(UserContext);
+  const [navbarFiltered, setNavbarFiltered] = useState(null);
+
+  const navBarList = [
+    { path: "/", title: "Home" },
+    { path: "/about", title: "About" },
+    { path: "/roster", title: "Roster", roles: ["Admin", "ShiftLead", "Supervisor"] },
+    { path: "/employees", title: "Employees", roles: ["Admin", "Supervisor", "Accountant"] },
+    { path: "/employeetypes", title: "Employee Roles", roles: ["Admin"] },
+    { path: "/shifts", title: "Shift types", roles: ["Admin", "Supervisor"] },
+    { path: "/vacationrequests", title: "All Vacation Request", roles: ["Admin", "Supervisor"] },
+    { path: "/vacationrequests/employee", title: "My Vacation Requests", roles: ["Admin", "ShiftLead", "Basic", "Supervisor"] }
+  ]
+
+  useEffect(() => {
+    if (user === null) {
+      let filteredNavbar = navBarList.filter(item => !('roles' in item));
+      setNavbarFiltered(filteredNavbar);
+    } else {
+      let filteredNavbar = navBarList.filter(item => {
+        if ('roles' in item) {
+          const intersection = item.roles.filter(element => user.lastName === element);
+          if (intersection.length > 0) return true;
+          return false;
+        } else {
+          return true;
+        }
+      });
+      setNavbarFiltered(filteredNavbar);
+    }
+  }, [user])
 
   return (
     <div className="Layout">
       <nav className="navbar navbar-expand-sm navbar-light bg-light navbar-responsive sticky-top">
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <Link
-                to="/"
-                className="nav-link active h5"
-                aria-current="page">
-                Home
-              </Link>
-            </li>
-            <li className="nav-item">
-            <Link
-              to="/roster"
-              className="nav-link active h5"
-              aria-current="page"
-            >
-              Roster
-            </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                to="/employees"
-                className="nav-link active h5"
-                aria-current="page"
-              >
-                Employees
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                to="/employeetypes"
-                className="nav-link active h5"
-                aria-current="page"
-              >
-                Employee Roles
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/shifts"
-                className="nav-link active h5"
-                aria-current="page">
-                Shift types
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/vacationrequests"
-                className="nav-link active h5"
-                aria-current="page">
-                Vacation Requests All
-              </Link>
-            </li>
-            {user !== null && <li className="nav-item">
-              <Link to="/vacationrequests/employee"
-                className="nav-link active h5"
-                aria-current="page">
-                My Vacation Requests
-              </Link>
-            </li>}
+            {navbarFiltered && navbarFiltered.map((item, idx) => <Navbaritem key={idx} item={item}></Navbaritem>)}
           </ul>
         </div>
         <LoginStatus />

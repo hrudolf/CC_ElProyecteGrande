@@ -15,7 +15,7 @@ const MyShifts = () => {
     setLoading(true);
     setMessage("");
     setError("");
-    fetch(`/api/Roster/employee/4`, {
+    fetch(`/api/Roster/employee/${user.id}`, {
       method: "GET",
     })
       .then((res) => res.json())
@@ -34,7 +34,10 @@ const MyShifts = () => {
       >
         My Shifts
       </h1>{" "}
-      <table className="table table-light table-bordered table-striped table-responsive">
+      <table
+        className="table table-light table-bordered table-striped table-responsive"
+        style={{ maxWidth: "500px" }}
+      >
         <thead className="p-2" style={{ verticalAlign: "middle" }}>
           <tr>
             <th scope="col">Date</th>

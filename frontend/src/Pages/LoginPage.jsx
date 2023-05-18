@@ -31,7 +31,7 @@ const LoginPage = () => {
         const json = await response.json();
         console.log(json)
         if (!response.ok) {
-            setError(json.Message);
+            setError(json.message);
             setLoading(false);
             setMessage('');
         } else {

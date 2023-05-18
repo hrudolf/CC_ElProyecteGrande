@@ -6,7 +6,7 @@ public class UserLoginResponseDto
 {
     public int UserId { get; set;}
     
-    public List<UserRole>? Roles { get; set; }
+    public UserRole Role { get; set; }
     
     public int EmployeeId { get; set;}
 

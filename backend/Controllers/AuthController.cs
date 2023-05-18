@@ -38,10 +38,8 @@ public class AuthController : ControllerBase
         {
             new Claim(ClaimTypes.Name, user.Username)
         };
-        foreach (var role in user.Roles)
-        {
-            claims.Add(new Claim(ClaimTypes.Role, role.ToString()));
-        }
+        
+        claims.Add(new Claim(ClaimTypes.Role, user.Role.ToString()));
 
         var identity = new ClaimsIdentity(claims, "MyCookieAuth");
         var principal = new ClaimsPrincipal(identity);
@@ -57,7 +55,7 @@ public class AuthController : ControllerBase
             EmployeeId = user.Employee.Id,
             FirstName = user.Employee.FirstName,
             LastName = user.Employee.LastName,
-            Roles = user.Roles
+            Role = user.Role
         };
         return Ok(responseData);
     }
@@ -75,7 +73,7 @@ public class AuthController : ControllerBase
                 EmployeeId = user.Employee.Id,
                 FirstName = user.Employee.FirstName,
                 LastName = user.Employee.LastName,
-                Roles = user.Roles
+                Role = user.Role
             };
             return Ok(responseData);
         }

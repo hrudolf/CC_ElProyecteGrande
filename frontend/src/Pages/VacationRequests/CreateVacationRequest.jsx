@@ -57,7 +57,7 @@ const CreateVacationRequest = () => {
       <div className="container align-items-left w-75">
         {!message && (
           <form className="UserForm" onSubmit={postRequest}>
-            <div className="row no-gutters w-100">
+            {user !== null && ["Admin", "Supervisor"].includes(user.role) && <div className="row no-gutters w-100">
               <Row>
                 <Col>
                   <label htmlFor="employeeId">Employee Id:</label>
@@ -74,7 +74,7 @@ const CreateVacationRequest = () => {
                   />
                 </Col>
               </Row>
-            </div>
+            </div>}
 
             <div className="row no-gutters w-100">
               <Row>

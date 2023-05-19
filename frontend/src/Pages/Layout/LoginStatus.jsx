@@ -8,8 +8,9 @@ const LoginStatus = () => {
     const postLogout = async (e) => {
         e.preventDefault();
 
-        const response = await fetch("/logout", {
-            method: "GET"
+        const response = await fetch("https://localhost:44353/logout", {
+            method: "GET",
+            credentials: "include"
         })
         if (!response.ok) {
         } else {

@@ -12,8 +12,9 @@ const VacationRequest = () => {
   const navigate = useNavigate();
 
   const ChangeRequestApproval = (requestId) => {
-    fetch(`/api/VacationRequest/${requestId}`, {
+    fetch(`https://localhost:44353/api/VacationRequest/${requestId}`, {
       method: "PATCH",
+      credentials: "include",
     })
       .then((res) => res.json())
       .then((json) => {
@@ -25,8 +26,9 @@ const VacationRequest = () => {
   };
 
   const DeleteRequest = (requestId) => {
-    fetch(`/api/VacationRequest/${requestId}`, {
+    fetch(`https://localhost:44353/api/VacationRequest/${requestId}`, {
       method: "DELETE",
+      credentials: "include",
     })
       .then((res) => res.json())
       .then((json) => {
@@ -43,8 +45,9 @@ const VacationRequest = () => {
     setLoading(true);
     setMessage("");
     setError("");
-    fetch("/api/VacationRequest", {
+    fetch("https://localhost:44353/api/VacationRequest", {
       method: "GET",
+      credentials: "include",
     })
       .then((res) => res.json())
       .then((json) => {

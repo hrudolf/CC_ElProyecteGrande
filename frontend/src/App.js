@@ -31,8 +31,9 @@ const App = () => {
         setLoading(true);
 
         async function fetchData() {
-            const response = await fetch("/login", {
-                method: "GET"
+            const response = await fetch("https://localhost:44353/login", {
+                method: "GET",
+                credentials: "include"
             });
             const json = await response.json();
             console.log(json);

@@ -14,8 +14,9 @@ const Employee = () => {
   const navigate = useNavigate();
 
   const DeleteEmployee = (employeeId) => {
-    fetch(`/api/Employee/temporary-delete/${employeeId}`, {
+    fetch(`https://localhost:44353/api/Employee/temporary-delete/${employeeId}`, {
       method: "PATCH",
+      credentials: "include"
     })
       .then((res) => res.json())
       .then((json) => {
@@ -31,8 +32,9 @@ const Employee = () => {
     setLoading(true);
     setMessage("");
     setError("");
-    fetch("/api/employee/active", {
+    fetch("https://localhost:44353/api/employee/active", {
       method: "GET",
+      credentials: "include"
     })
       .then((res) => res.json())
       .then((json) => {
@@ -41,8 +43,9 @@ const Employee = () => {
       })
       .catch((err) => setError(err));
 
-    fetch(`/api/VacationRequest/`, {
+    fetch(`https://localhost:44353/api/VacationRequest/`, {
       method: "GET",
+      credentials: "include"
     })
       .then((res) => res.json())
       .then((json) => {

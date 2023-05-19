@@ -13,8 +13,9 @@ const Roster = () => {
   const { user } = useContext(UserContext);
 
   const ChangeAttendance = (rosterId) => {
-    fetch(`/api/Roster/${rosterId}`, {
+    fetch(`https://localhost:44353/api/Roster/${rosterId}`, {
       method: "PATCH",
+      credentials: "include"
     })
       .then((res) => res.json())
       .then((json) => {
@@ -26,8 +27,9 @@ const Roster = () => {
 
   const GenerateWeeklyRoster = (rosterStartDate) => {
     setLoading(true);
-    fetch(`/api/Roster/GenerateWeeklyRoster`, {
+    fetch(`https://localhost:44353/api/Roster/GenerateWeeklyRoster`, {
       method: "POST",
+      credentials: "include",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(date),
     }).then(() => {
@@ -37,8 +39,9 @@ const Roster = () => {
     setLoading(true);
     setMessage("");
     setError("");
-    fetch("/api/Roster", {
+    fetch("https://localhost:44353/api/Roster", {
       method: "GET",
+      credentials: "include"
     })
       .then((res) => res.json())
       .then((json) => {
@@ -50,8 +53,9 @@ const Roster = () => {
   };
 
   const DeleteRosterItem = (rosterId) => {
-    fetch(`/api/Roster/${rosterId}`, {
+    fetch(`https://localhost:44353/api/Roster/${rosterId}`, {
       method: "DELETE",
+      credentials: "include"
     })
       .then((res) => res.json())
       .then((json) => {
@@ -65,8 +69,9 @@ const Roster = () => {
     setLoading(true);
     setMessage("");
     setError("");
-    fetch("/api/Roster", {
+    fetch("https://localhost:44353/api/Roster", {
       method: "GET",
+      credentials: "include"
     })
       .then((res) => res.json())
       .then((json) => {

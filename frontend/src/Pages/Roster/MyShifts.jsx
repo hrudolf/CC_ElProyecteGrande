@@ -15,8 +15,9 @@ const MyShifts = () => {
     setLoading(true);
     setMessage("");
     setError("");
-    fetch(`/api/Roster/employee/${user.id}`, {
+    fetch(`https://localhost:44353/api/Roster/employee/${user.id}`, {
       method: "GET",
+      credentials: "include"
     })
       .then((res) => res.json())
       .then((json) => {

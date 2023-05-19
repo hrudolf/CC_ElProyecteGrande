@@ -23,8 +23,9 @@ const LoginPage = () => {
             loginName: loginname,
             password: password
         };
-        const response = await fetch("/login", {
+        const response = await fetch("https://localhost:44353/login", {
             method: "POST",
+            credentials: "include",
             headers: headers,
             body: JSON.stringify(body),
         })

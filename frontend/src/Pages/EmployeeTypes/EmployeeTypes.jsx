@@ -15,8 +15,9 @@ const EmployeeTypes = () => {
     setLoading(true);
     setMessage("");
     setError("");
-    fetch("/api/employeetype", {
+    fetch("https://localhost:44353/api/employeetype", {
       method: "GET",
+      credentials: "include"
     })
       .then((res) => res.json())
       .then((json) => {
@@ -27,8 +28,9 @@ const EmployeeTypes = () => {
   }, []);
 
   const DeleteEmployee = (employeeTypeId) => {
-    fetch(`/api/employeetype/${employeeTypeId}`, {
+    fetch(`https://localhost:44353/api/employeetype/${employeeTypeId}`, {
       method: "DELETE",
+      credentials: "include"
     })
       .then((res) => res.json())
       .then((json) => {
@@ -49,8 +51,9 @@ const EmployeeTypes = () => {
 
   const HandleUpdate = async (id, input) => {
     setLoading(true);
-    const response = await fetch(`/api/employeetype/`, {
+    const response = await fetch(`https://localhost:44353/api/employeetype/`, {
       method: "PUT",
+      credentials: "include",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id: id, type: input }),
     });
@@ -69,8 +72,9 @@ const EmployeeTypes = () => {
 
   const HandlePost = async (input) => {
     setLoading(true);
-    const response = await fetch(`/api/employeetype/`, {
+    const response = await fetch(`https://localhost:44353/api/employeetype/`, {
       method: "POST",
+      credentials: "include",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ type: input }),
     });

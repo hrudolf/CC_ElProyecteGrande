@@ -16,6 +16,7 @@ builder.Services.AddAuthentication("MyCookieAuth").AddCookie("MyCookieAuth", opt
 {
     options.Cookie.Name = "MyCookieAuth";
     options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+    options.Cookie.SameSite = SameSiteMode.None;
     options.Events.OnRedirectToAccessDenied =
         options.Events.OnRedirectToLogin = c =>
         {
@@ -31,7 +32,7 @@ builder.Services.AddTransient<IRosterService, RosterService>();
 builder.Services.AddTransient<IAuthService, AuthService>();
 builder.Services.AddTransient<IUserService, UserService>();
 
-/*builder.Services.AddCors();*/
+builder.Services.AddCors();
 
 builder.Services.AddTransient<IVacationRequestService, VacationRequestService>();
 builder.Services.AddDbContext<DataContext>(options =>
@@ -57,10 +58,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-/*app.UseCors(x =>
+app.UseCors(x =>
 {
     x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000").AllowCredentials();
-});*/
+});
 //problem: CORS EATS OUR COOKIE
 
 app.UseAuthentication();

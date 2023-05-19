@@ -14,8 +14,9 @@ const EmployeePublic = () => {
     setLoading(true);
     setMessage("");
     setError("");
-    fetch("/api/employee/public", {
+    fetch("https://localhost:44353/api/employee/public", {
       method: "GET",
+      credentials: "include"
     })
       .then((res) => res.json())
       .then((json) => {
@@ -25,8 +26,9 @@ const EmployeePublic = () => {
       })
       .catch((err) => setError(err));
 
-    fetch(`/api/VacationRequest/public`, {
+    fetch(`https://localhost:44353/api/VacationRequest/public`, {
       method: "GET",
+      credentials: "include"
     })
       .then((res) => res.json())
       .then((json) => {

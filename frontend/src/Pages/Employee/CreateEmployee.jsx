@@ -30,8 +30,9 @@ const CreateEmployee = () => {
     setMessage("");
     setError("");
 
-    fetch("/api/employeetype", {
+    fetch("https://localhost:44353/api/employeetype", {
       method: "GET",
+      credentials: "include"
     })
       .then((res) => res.json())
       .then((json) => {
@@ -46,8 +47,9 @@ const CreateEmployee = () => {
     setMessage("");
     setError("");
 
-    fetch("/api/Shift", {
+    fetch("https://localhost:44353/api/Shift", {
       method: "GET",
+      credentials: "include"
     })
       .then((res) => res.json())
       .then((json) => {
@@ -63,12 +65,13 @@ const CreateEmployee = () => {
     setMessage("");
     setError("");
 
-    const url = "/api/Employee";
+    const url = "https://localhost:44353/api/Employee";
     const fetchMethod = "POST";
     const headers = { "Content-Type": "application/json" };
     console.log(employee);
     const response = await fetch(url, {
       method: fetchMethod,
+      credentials: "include",
       headers: headers,
       body: JSON.stringify(employee),
     });

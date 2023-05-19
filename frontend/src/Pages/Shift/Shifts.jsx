@@ -15,8 +15,9 @@ const Shifts = () => {
     setLoading(true);
     setMessage("");
     setError("");
-    fetch("/api/Shift", {
+    fetch("https://localhost:44353/api/Shift", {
       method: "GET",
+      credentials: "include"
     })
       .then((res) => res.json())
       .then((json) => {
@@ -27,8 +28,9 @@ const Shifts = () => {
   }, []);
 
   const DeleteShift = (shiftId) => {
-    fetch(`/api/Shift/${shiftId}`, {
+    fetch(`https://localhost:44353/api/Shift/${shiftId}`, {
       method: "DELETE",
+      credentials: "include"
     })
       .then((res) => res.json())
       .then((json) => {
@@ -48,8 +50,9 @@ const Shifts = () => {
     setLoading(true);
     console.log("HandleUpdate:");
     console.log(shift);
-    const response = await fetch(`/api/Shift/`, {
+    const response = await fetch(`https://localhost:44353/api/Shift/`, {
       method: "PUT",
+      credentials: "include",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         id: shift.id,
@@ -73,8 +76,9 @@ const Shifts = () => {
 
   const HandlePost = async (shift) => {
     setLoading(true);
-    const response = await fetch(`/api/Shift/`, {
+    const response = await fetch(`https://localhost:44353/api/Shift/`, {
       method: "POST",
+      credentials: "include",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         nameOfShift: shift.nameOfShift,

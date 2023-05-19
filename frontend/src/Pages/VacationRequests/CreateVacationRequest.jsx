@@ -25,12 +25,13 @@ const CreateVacationRequest = () => {
     setMessage("");
     setError("");
 
-    const url = "/api/VacationRequest";
+    const url = "https://localhost:44353/api/VacationRequest";
     const fetchMethod = "POST";
     const headers = { "Content-Type": "application/json" };
     console.log(request);
     const response = await fetch(url, {
       method: fetchMethod,
+      credentials: "include",
       headers: headers,
       body: JSON.stringify(request),
     });

@@ -5,8 +5,9 @@ const RosterPublic = () => {
   const [rosterList, setRosterList] = useState("");
 
   useEffect(() => {
-    fetch("/api/Roster", {
+    fetch("https://localhost:44353/api/Roster", {
       method: "GET",
+      credentials: "include"
     })
       .then((res) => res.json())
       .then((json) => {

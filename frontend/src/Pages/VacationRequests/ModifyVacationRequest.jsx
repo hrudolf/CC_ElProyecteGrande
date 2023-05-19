@@ -32,7 +32,7 @@ const ModifyVacationRequest = () => {
     })
       .then((res) => res.json())
       .then((json) => {
-        if (user.id === json.employee.id) {
+        if (user.id === json.employee.id || ["Admin", "Accountant", "Supervisor"].includes(user.role)) {
           setRequest(json);
         } else {
           navigate("/vacationrequests");
@@ -40,7 +40,7 @@ const ModifyVacationRequest = () => {
       })
       .then(setLoading(false))
       .catch((err) => setError(err));
-  }, [id, user.id, navigate]);
+  }, [id, user.id, navigate, user.role]);
 
   const putRequest = async (e) => {
     e.preventDefault();

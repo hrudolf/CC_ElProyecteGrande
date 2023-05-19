@@ -61,11 +61,18 @@ public class DataSeed
     {
         List<string> firstNames = new List<string>()
         {
-            "Danny", "Sandra", "Angela", "Cecilia", "Catherine", "Tiffany", "Catherine", "Cristina", "Carol", "John"
+            "Danny", "Sandra", "Angela", "Cecilia", "Catherine", "Tiffany", "Catherine", "Cristina", "Carol", "John",
+            "Laura", "Terry", "Sandra", "Linda", "Mary", "Jen", "Monica", "Lisa", "Nancy", "Betty", "Helen", "Doris",
+            "Brittany", "Alexis", "Lori", "Claudia", "Charlotte", "Amber", "Logan", "Alan", "Randy", "Vincent"
+
         };
 
         List<string> lastNames = new List<string>()
-            { "Smith", "McClure", "Glenn", "Coles", "Metcalfe", "Ross", "Marks", "Fowles", "Green", "Garcia" };
+        {
+            "Smith", "McClure", "Glenn", "Coles", "Metcalfe", "Ross", "Marks", "Fowles", "Green", "Garcia",
+            "Johnson", "Williams", "Miller", "Davis", "Rodrigez", "Anderson", "Moore", "O'Reily", "Jackson",
+            "Young", "Walker", "King", "Scott", "Hill", "Carter", "Roberts"
+        };
 
         var counter = 0;
         while (counter < numberOfEmployees)

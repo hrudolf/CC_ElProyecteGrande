@@ -48,10 +48,14 @@ namespace backend.Controllers
 
         [Authorize(Roles = "Admin, ShiftLead, Supervisor")]
         [HttpPost("GenerateWeeklyRoster")]
-        public List<Roster> GenerateWeeklyRoster([FromBody] DateTime date)
+        public IActionResult GenerateWeeklyRoster([FromBody] DateTime date)
         {
-            _service.GenerateWeeklyRoster(date);
-            return _service.GetAll().ToList();
+            if (_service.GenerateWeeklyRoster(date))
+            {
+                return Ok(_service.GetAll().ToList());
+            }
+
+            return Problem("Please choose a Monday for weekly roster generation");
         }
         
         [Authorize(Roles = "Admin, ShiftLead, Supervisor")]

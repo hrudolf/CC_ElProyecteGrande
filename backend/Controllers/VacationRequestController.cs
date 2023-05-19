@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class VacationRequestController : ControllerBase
@@ -36,7 +37,7 @@ public class VacationRequestController : ControllerBase
         return Ok(vacationList);
     }
 
-    [Authorize(Roles = "Admin, Supervisor, ShiftLead, Basic")]
+    [Authorize(Roles = "Admin, Basic, ShiftLead, Supervisor")]
     [HttpGet("{id:int}")]
     public ActionResult<VacationRequest> GetVacationRequestById(int id)
     {
@@ -49,7 +50,7 @@ public class VacationRequestController : ControllerBase
         return NotFound();
     }
     
-    [Authorize(Roles = "Admin, Supervisor, ShiftLead, Basic")]
+    [Authorize(Roles = "Admin, Basic, ShiftLead, Supervisor")]
     [HttpGet("employee/{id:int}")]
     public ActionResult<IEnumerable<VacationRequest>> GetVacationRequestsByEmployee(int id)
     {
@@ -72,7 +73,7 @@ public class VacationRequestController : ControllerBase
         return _service.GetVacationDaysPending(id);
     }
 
-    [Authorize(Roles = "Admin, Supervisor, ShiftLead, Basic")]
+    [Authorize(Roles = "Admin, Basic, ShiftLead, Supervisor")]
     [HttpPost]
     public ActionResult<VacationRequest> CreateVacationRequest([FromBody] VacationRequestDto vacationRequest)
     {
@@ -81,7 +82,7 @@ public class VacationRequestController : ControllerBase
         return Ok(_service.Create(request));
     }
 
-    [Authorize(Roles = "Admin, Supervisor, ShiftLead, Basic")]
+    [Authorize(Roles = "Admin, Basic, ShiftLead, Supervisor")]
     [HttpDelete("{id:int}")]
     public ActionResult<VacationRequest> DeleteVacationRequest(int id)
     {
@@ -94,7 +95,7 @@ public class VacationRequestController : ControllerBase
         return NotFound();
     }
 
-    [Authorize(Roles = "Admin, Supervisor, ShiftLead, Basic")]
+    [Authorize(Roles = "Admin, Basic, ShiftLead, Supervisor")]
     [HttpPut]
     public ActionResult<VacationRequest> UpDateVacationRequest([FromBody] VacationRequest updatedVacationRequest)
     {

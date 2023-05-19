@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class EmployeeController : ControllerBase
@@ -20,21 +21,21 @@ namespace backend.Controllers
             _context = context;
         }
 
-        [Authorize(Roles = "Admin, Supervisor, ShiftLead")]
+        [Authorize(Roles = "Admin, Supervisor, Accountant")]
         [HttpGet]
         public List<Employee> GetAllEmployees()
         {
             return _service.GetAllEmployees();
         }
         
-        [Authorize(Roles = "Admin, Supervisor, ShiftLead")]
+        [Authorize(Roles = "Admin, Supervisor, Accountant")]
         [HttpGet("active")]
         public List<Employee> GetAllActiveEmployees()
         {
             return _service.GetAllActiveEmployees();
         }
         
-        [Authorize(Roles = "Admin, Supervisor, ShiftLead, Basic")]
+        [Authorize]
         [HttpGet("public")]
         public List<Employee> GetAllActiveEmployeesWithPublicData()
         {
@@ -57,7 +58,7 @@ namespace backend.Controllers
             return Ok(_service.CreateEmployee(employeeDto));
         }
 
-        [Authorize(Roles = "Admin, Supervisor, Accountant")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id:int}")]
         public IActionResult DeleteEmployeePermanentlyById(int id)
         {

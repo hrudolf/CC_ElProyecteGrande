@@ -45,7 +45,8 @@ const LoginPage = () => {
 
     return (
         <div>
-            <div className="container bg-light w-50 p-2">
+            <br></br>
+            <div className="container bg-light w-50 p-3">
                 <h1 className="text-center">Log in</h1>
                 <form className="UserForm" onSubmit={postRequest}>
                     <div className="row no-gutters w-100">

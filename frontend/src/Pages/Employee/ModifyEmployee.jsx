@@ -38,6 +38,7 @@ const ModifyEmployee = () => {
     })
       .then((res) => res.json())
       .then((json) => {
+        console.log(json);
         setEmployee(json);
       })
       .catch((err) => setError(err));
@@ -194,7 +195,7 @@ const ModifyEmployee = () => {
                         name="shift"
                         className="w-100"
                         id="shift"
-                        value={employee.preferredShift.id}
+                        value={employee.preferredShift !== null ? employee.preferredShift.id : ""}
                         onChange={(e) => updateProperty(e.target.value, "preferredShift")}
                         required
                       >
@@ -261,7 +262,7 @@ const ModifyEmployee = () => {
                         name="employeeType"
                         className="w-100"
                         id="employeeType"
-                        value={employee.employeeType.id}
+                        value={employee.employeeType !== null ? employee.employeeType.id : ""}
                         onChange={(e) => updateProperty(e.target.value, "employeeType")}
                         required
                       >

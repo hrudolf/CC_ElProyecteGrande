@@ -1,10 +1,11 @@
 using backend.DTOs;
 using backend.Model;
 using backend.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
 namespace backend.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class RosterController : ControllerBase
@@ -15,13 +16,15 @@ namespace backend.Controllers
         {
             _service = service;
         }
-
+        
+        [Authorize(Roles = "Admin, Basic, ShiftLead, Supervisor")]
         [HttpGet]
         public ActionResult<List<Roster>> GetAllRoster()
         {
             return Ok(_service.GetAll());
         }
 
+        [Authorize(Roles = "Admin, ShiftLead, Supervisor")]
         [HttpGet("{id:int}")]
         public ActionResult<Roster> GetRosterById(int id)
         {
@@ -34,6 +37,7 @@ namespace backend.Controllers
             return NotFound();
         }
         
+        [Authorize(Roles = "Admin, Basic, ShiftLead, Supervisor")]
         [HttpGet("employee/{id:int}")]
         public ActionResult<IEnumerable<Roster>> GetRostersByEmployeeId(int id)
         {
@@ -42,7 +46,7 @@ namespace backend.Controllers
 
         }
 
-
+        [Authorize(Roles = "Admin, ShiftLead, Supervisor")]
         [HttpPost("GenerateWeeklyRoster")]
         public List<Roster> GenerateWeeklyRoster([FromBody] DateTime date)
         {
@@ -50,6 +54,7 @@ namespace backend.Controllers
             return _service.GetAll().ToList();
         }
         
+        [Authorize(Roles = "Admin, ShiftLead, Supervisor")]
         [HttpPost]
         public ActionResult<Roster> CreateRosterItem([FromBody] RosterDto rosterItem)
         {
@@ -58,6 +63,7 @@ namespace backend.Controllers
             return Ok(_service.Create(roster));
         }
 
+        [Authorize(Roles = "Admin, ShiftLead, Supervisor")]
         [HttpDelete("{id:int}")]
         public ActionResult<Roster> DeleteRosterItemById(int id)
         {
@@ -70,6 +76,7 @@ namespace backend.Controllers
             return NotFound();
         }
 
+        [Authorize(Roles = "Admin, ShiftLead, Supervisor")]
         [HttpPut]
         public ActionResult<Roster> UpdateRosterItem([FromBody] Roster updatedRosterItem)
         {
@@ -82,6 +89,7 @@ namespace backend.Controllers
             return NotFound();
         }
         
+        [Authorize(Roles = "Admin, ShiftLead, Supervisor")]
         [HttpPatch("{id:int}")]
         public ActionResult<IEnumerable<Roster>> ChangeAttendance(int id)
         {

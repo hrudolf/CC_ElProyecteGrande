@@ -323,6 +323,27 @@ public class InMemoryRosterServiceTests
         Assert.NotNull(newRosterItem.Warning);
     }
 
+    [Fact]
+    public async void RosterService_ChooseShiftLeader_ShiftLeaderNotNull()
+    {
+        // Arrange
+        var dbContext = await Context.GetDbContext();
+        RosterService rosterService = new RosterService(dbContext);
+
+        List<Employee> availableForShift = dbContext.Employees.ToList();
+        DateTime currentDay = DateTime.Now;
+        Shift shift = dbContext.Shifts.First();
+        List<EmployeeType> employeeTypes = dbContext.EmployeeTypes.ToList();
+        
+        // Act
+        rosterService.ChooseShiftLeader(availableForShift, currentDay, shift, employeeTypes);
+        Roster newRosterItem = dbContext.Rosters.Last();
+        
+        // Assert
+        Assert.Null(newRosterItem.Warning);
+
+    }
+
     public Roster NewRosterItem(DataContext dbContext, Employee employee)
           {
               return new Roster()

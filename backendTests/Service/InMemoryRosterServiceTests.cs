@@ -156,9 +156,38 @@ public class InMemoryRosterServiceTests
         
         // Assert
         Assert.Equal(updatedRosterItem, originalRosterItem);
+        
+    }
 
-    } 
-    
+    [Fact]
+    public async void RosterService_Update_IsActive()
+    {
+        // Arrange
+        var dbContext = await Context.GetDbContext();
+        var employee = dbContext.Employees.First();
+        var newRosterItem = NewRosterItem(dbContext, employee);
+        RosterService rosterService = new RosterService(dbContext);
+        rosterService.Create(newRosterItem);
+
+        var originalRosterItem = dbContext.Rosters.Last();
+        var updatedRosterItem = new Roster()
+        {
+            Id = 1,
+            Date = DateTime.Now,
+            Shift = dbContext.Shifts.FirstOrDefault(),
+            Attendance = false,
+            Employee = employee,
+            Warning = null,
+            _isActive = false
+        };
+
+        // Act
+        rosterService.Update(updatedRosterItem);
+
+        // Assert
+        Assert.Equal(updatedRosterItem._isActive, originalRosterItem._isActive);
+    }
+
     [Fact]
     public async void RosterService_Update_ReturnNull()
     {
@@ -384,6 +413,45 @@ public class InMemoryRosterServiceTests
         Assert.Null(newRosterItem.Warning);
     }
 
+    [Fact]
+    public async void RosterService_EmployeesNotOnHolidayToday()
+    {
+        // Arrange
+        var dbContext = await Context.GetDbContext();
+        RosterService rosterService = new RosterService(dbContext);
+        VacationRequestService vacationRequestService = new VacationRequestService(dbContext);
+
+        IEnumerable<VacationRequest> vacationRequests = dbContext.VacationRequests;
+        DateTime currentDay = DateTime.Now;
+        IEnumerable<Employee> employees = dbContext.Employees;
+
+        Employee employee = employees.First();
+
+        VacationRequest newRequest = new VacationRequest()
+        {
+            Employee = employee,
+            StartDate = DateTime.Now.AddDays(-1),
+            EndDate = DateTime.Now.AddDays(1),
+        };
+
+        vacationRequestService.Create(newRequest);
+        
+        // Act
+        List<Employee> notOnHoliday = 
+            rosterService.EmployeesNotOnHolidayToday(vacationRequests, currentDay, employees);
+
+        Employee? result = notOnHoliday
+            .FirstOrDefault(e => 
+                e.FirstName == employee.FirstName && 
+                e.LastName == employee.LastName && 
+                e.Id == employee.Id);
+        
+        // Assert
+        Assert.Null(result);
+        
+
+    }
+
     public Roster NewRosterItem(DataContext dbContext, Employee employee)
           {
               return new Roster()
@@ -392,7 +460,8 @@ public class InMemoryRosterServiceTests
                   Shift = dbContext.Shifts.FirstOrDefault(),
                   Attendance = false,
                   Employee = employee,
-                  Warning = null
+                  Warning = null,
+                  _isActive = true
               };
           }
 }

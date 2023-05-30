@@ -157,6 +157,24 @@ public class InMemoryRosterServiceTests
         Assert.Equal(updatedRosterItem, originalRosterItem);
 
     } 
+    
+    [Fact]
+    public async void RosterService_Update_ReturnNull()
+    {
+        // Arrange
+        var dbContext = await Context.GetDbContext();
+        RosterService rosterService = new RosterService(dbContext);
+        var employee = dbContext.Employees.First();
+        Roster newRosterItem = NewRosterItem(dbContext, employee);
+        
+        // Act
+        Roster? rosterItem = rosterService.Update(newRosterItem);
+        
+        // Assert
+        Assert.Null(rosterItem);
+        
+    }
+    
     public Roster NewRosterItem(DataContext dbContext, Employee employee)
           {
               return new Roster()

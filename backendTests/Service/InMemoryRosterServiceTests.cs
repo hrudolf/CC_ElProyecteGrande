@@ -149,7 +149,7 @@ public class InMemoryRosterServiceTests
         var originalRosterItem = dbContext.Rosters.Last();
         var updatedRosterItem = dbContext.Rosters.Last();
         updatedRosterItem.Date = DateTime.Now.AddDays(1);
-
+        
         // Act
         rosterService.Update(updatedRosterItem);
         
@@ -174,7 +174,41 @@ public class InMemoryRosterServiceTests
         Assert.Null(rosterItem);
         
     }
-    
+
+    [Fact]
+    public async void RosterService_ChangeAttendance()
+    {
+        // Arrange
+        var dbContext = await Context.GetDbContext();
+        RosterService rosterService = new RosterService(dbContext);
+        var employee = dbContext.Employees.First();
+        Roster rosterItem = NewRosterItem(dbContext, employee);
+        rosterService.Create(rosterItem);
+        
+        // Act
+        rosterService.ChangeAttendance(1);
+        
+        // Assert
+        Assert.True(rosterService.GetById(1)!.Attendance);
+    }
+
+
+    [Fact]
+    public async void RosterService_ChangeAttendance_ReturnNull()
+    {
+        // Arrange
+        var dbContext = await Context.GetDbContext();
+        RosterService rosterService = new RosterService(dbContext);
+        
+        // Act
+        Roster? rosterItem = rosterService.ChangeAttendance(1);
+        
+        // Assert
+        Assert.Null(rosterItem);
+    }
+
+
+
     public Roster NewRosterItem(DataContext dbContext, Employee employee)
           {
               return new Roster()

@@ -12,7 +12,7 @@ public class Roster
     public Employee? Employee { get; set; }
     public bool Attendance { get; set; }
     public string? Warning { get; set; }
-    private bool _isActive = true;
+    public bool _isActive = true;
 
     /*public Roster(DateTime date, Shift shift, Employee employee, bool attendance)
     {

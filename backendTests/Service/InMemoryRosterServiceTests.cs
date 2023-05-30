@@ -156,9 +156,38 @@ public class InMemoryRosterServiceTests
         
         // Assert
         Assert.Equal(updatedRosterItem, originalRosterItem);
+        
+    }
 
-    } 
-    
+    [Fact]
+    public async void RosterService_Update_IsActive()
+    {
+        // Arrange
+        var dbContext = await Context.GetDbContext();
+        var employee = dbContext.Employees.First();
+        var newRosterItem = NewRosterItem(dbContext, employee);
+        RosterService rosterService = new RosterService(dbContext);
+        rosterService.Create(newRosterItem);
+
+        var originalRosterItem = dbContext.Rosters.Last();
+        var updatedRosterItem = new Roster()
+        {
+            Id = 1,
+            Date = DateTime.Now,
+            Shift = dbContext.Shifts.FirstOrDefault(),
+            Attendance = false,
+            Employee = employee,
+            Warning = null,
+            _isActive = false
+        };
+
+        // Act
+        rosterService.Update(updatedRosterItem);
+
+        // Assert
+        Assert.Equal(updatedRosterItem._isActive, originalRosterItem._isActive);
+    }
+
     [Fact]
     public async void RosterService_Update_ReturnNull()
     {
@@ -431,7 +460,8 @@ public class InMemoryRosterServiceTests
                   Shift = dbContext.Shifts.FirstOrDefault(),
                   Attendance = false,
                   Employee = employee,
-                  Warning = null
+                  Warning = null,
+                  _isActive = true
               };
           }
 }

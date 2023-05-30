@@ -1,30 +1,14 @@
-using backend.Database;
-using backend.Database.Seed;
 using backend.DTOs;
-using backend.Model;
 using backend.Service;
-using Microsoft.EntityFrameworkCore;
 
 namespace backendTests.Service;
 
 public class InMemoryEmployeeServiceTests
 {
-    private async Task<DataContext> GetDbContext()
-        {
-            var options = new DbContextOptionsBuilder<DataContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-                .Options;
-            var databaseContext = new DataContext(options);
-            databaseContext.Database.EnsureCreated();
-            DataSeed dataSeed = new DataSeed(databaseContext);
-            dataSeed.CreateAll();
-            return databaseContext;
-        }
-
         [Fact]
         public async void EmployeeRepository_Add()
         {
-            var dbContext = await GetDbContext();
+            var dbContext = await Context.GetDbContext();
 
             //Arrange
             var newEmployee = new UpdateEmployeeDto()

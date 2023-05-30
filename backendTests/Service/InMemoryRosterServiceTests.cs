@@ -104,7 +104,6 @@ public class InMemoryRosterServiceTests
         rosterService.Create(newRosterItem1);
         rosterService.Create(newRosterItem2);
         rosterService.Create(newRosterItem3);
-
         IEnumerable<Roster> rosterItems = new List<Roster>()
         {
             newRosterItem1,

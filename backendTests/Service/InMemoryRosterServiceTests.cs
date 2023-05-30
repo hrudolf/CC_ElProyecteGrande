@@ -1,4 +1,5 @@
 ﻿using backend.Database;
+using backend.DTOs;
 using backend.Model;
 using backend.Service;
 
@@ -207,7 +208,26 @@ public class InMemoryRosterServiceTests
         Assert.Null(rosterItem);
     }
 
+    [Fact]
+    public async void RosterService_ConvertFromDto_ReturnRoster()
+    {
+        // Arrange
+        var dbContext = await Context.GetDbContext();
+        RosterService rosterService = new RosterService(dbContext);
 
+        RosterDto rosterDto = new RosterDto()
+        {
+            Date = DateTime.Now,
+            ShiftId = dbContext.Shifts.First().Id,
+            EmployeeId = dbContext.Employees.First().Id
+        };
+        
+        // Act
+        Roster? newRosterItem = rosterService.ConvertFromDto(rosterDto);
+        
+        // Assert
+        Assert.NotNull(newRosterItem);
+    }
 
     public Roster NewRosterItem(DataContext dbContext, Employee employee)
           {

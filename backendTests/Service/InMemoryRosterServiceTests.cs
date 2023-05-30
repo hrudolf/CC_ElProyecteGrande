@@ -28,6 +28,35 @@ public class InMemoryRosterServiceTests
         int rosterItemsAfterCreate = dbContext.Rosters.Count();
 
         // Assert
-        Assert.Equal(numberOfRosterItems + 1, rosterItemsAfterCreate);
+        Assert.Equal(dbContext.Rosters.Last(), newRosterItem);
+    }
+
+    [Fact]
+    public async void RosterService_GetById_ReturnRoster()
+    {
+        var dbContext = await Context.GetDbContext();
+        
+        // Arrange
+        var newRosterItem = new Roster()
+        {
+            Date = DateTime.Now,
+            Shift = dbContext.Shifts.FirstOrDefault(),
+            Attendance = false,
+            Employee = dbContext.Employees.FirstOrDefault(),
+            Warning = null
+        };
+
+        
+        RosterService rosterService = new RosterService(dbContext);
+        rosterService.Create(newRosterItem);
+        var id = dbContext.Rosters.Last().Id;
+        
+        // Act
+        var rosterById = rosterService.GetById(id);
+        
+        // Assert
+        
+        Assert.Equal(newRosterItem, rosterById);
+
     }
 }

@@ -271,7 +271,22 @@ public class InMemoryRosterServiceTests
         Assert.Null(newRosterItem);
     }
 
-    
+    [Fact]
+    public async void RosterService_GenerateWeeklyRoster_ReturnFalse()
+    {
+        // Arrange
+        var dbContext = await Context.GetDbContext();
+        RosterService rosterService = new RosterService(dbContext);
+        DateTime date = new DateTime(2023, 05, 30);
+        
+        // Act
+        bool result = rosterService.GenerateWeeklyRoster(date);
+
+        // Assert
+        Assert.False(result);
+        
+    }
+
     public Roster NewRosterItem(DataContext dbContext, Employee employee)
           {
               return new Roster()

@@ -58,5 +58,35 @@ public class InMemoryRosterServiceTests
         
         Assert.Equal(newRosterItem, rosterById);
 
+        
+    }
+    
+    [Fact]
+    public async void RosterService_Delete()
+    {
+        var dbContext = await Context.GetDbContext();
+        
+        // Arrange
+        var newRosterItem = new Roster()
+        {
+            Date = DateTime.Now,
+            Shift = dbContext.Shifts.FirstOrDefault(),
+            Attendance = false,
+            Employee = dbContext.Employees.FirstOrDefault(),
+            Warning = null
+        };
+
+        
+        RosterService rosterService = new RosterService(dbContext);
+        rosterService.Create(newRosterItem);
+        var id = dbContext.Rosters.Last().Id;
+        
+        // Act
+        rosterService.Delete(id);
+        Roster? result = rosterService.GetById(id);
+        
+        // Assert
+        Assert.Null(result);
+
     }
 }

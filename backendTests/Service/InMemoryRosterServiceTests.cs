@@ -1,4 +1,5 @@
-﻿using backend.Model;
+﻿using backend.Database;
+using backend.Model;
 using backend.Service;
 
 namespace backendTests.Service;
@@ -88,5 +89,46 @@ public class InMemoryRosterServiceTests
         // Assert
         Assert.Null(result);
 
+    }
+
+    [Fact]
+    public async void RosterService_GetRostersByEmployeeId_ReturnRosters()
+    {
+        var dbContext = await Context.GetDbContext();
+        // Arrange
+        var employee = dbContext.Employees.First();
+        var newRosterItem1 = NewRosterItem(dbContext, employee);
+        var newRosterItem2 = NewRosterItem(dbContext, employee);
+        var newRosterItem3 = NewRosterItem(dbContext, employee);
+        RosterService rosterService = new RosterService(dbContext);
+        rosterService.Create(newRosterItem1);
+        rosterService.Create(newRosterItem2);
+        rosterService.Create(newRosterItem3);
+
+        IEnumerable<Roster> rosterItems = new List<Roster>()
+        {
+            newRosterItem1,
+            newRosterItem2,
+            newRosterItem3
+        };
+
+        // Act
+        var employeeRosterItems = rosterService.GetRostersByEmployeeId(employee.Id);
+        
+        // Assert
+        Assert.Equivalent(employeeRosterItems, rosterItems);
+
+    }
+
+    public Roster NewRosterItem(DataContext dbContext, Employee employee)
+    {
+        return new Roster()
+        {
+            Date = DateTime.Now,
+            Shift = dbContext.Shifts.FirstOrDefault(),
+            Attendance = false,
+            Employee = employee,
+            Warning = null
+        };
     }
 }

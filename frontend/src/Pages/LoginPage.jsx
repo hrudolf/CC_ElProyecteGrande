@@ -8,9 +8,9 @@ const LoginPage = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [message, setMessage] = useState("");
-    const [loginname, setLoginname] = useState('');
+    const [loginName, setLoginName] = useState('');
     const [password, setPassword] = useState('');
-    const {setUser} = useContext(UserContext);
+    const { setUser } = useContext(UserContext);
 
     const postRequest = async (e) => {
         e.preventDefault();
@@ -19,10 +19,7 @@ const LoginPage = () => {
         setError("");
 
         const headers = { "Content-Type": "application/json" };
-        const body = {
-            loginName: loginname,
-            password: password
-        };
+        const body = { loginName, password };
         const response = await fetch("https://localhost:44353/login", {
             method: "POST",
             credentials: "include",
@@ -61,8 +58,8 @@ const LoginPage = () => {
                                     type="int"
                                     name="loginname"
                                     id="loginname"
-                                    value={loginname}
-                                    onChange={(e) => setLoginname(e.target.value)}
+                                    value={loginName}
+                                    onChange={(e) => setLoginName(e.target.value)}
                                     required
                                 />
                             </Col>

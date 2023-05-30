@@ -384,6 +384,45 @@ public class InMemoryRosterServiceTests
         Assert.Null(newRosterItem.Warning);
     }
 
+    [Fact]
+    public async void RosterService_EmployeesNotOnHolidayToday()
+    {
+        // Arrange
+        var dbContext = await Context.GetDbContext();
+        RosterService rosterService = new RosterService(dbContext);
+        VacationRequestService vacationRequestService = new VacationRequestService(dbContext);
+
+        IEnumerable<VacationRequest> vacationRequests = dbContext.VacationRequests;
+        DateTime currentDay = DateTime.Now;
+        IEnumerable<Employee> employees = dbContext.Employees;
+
+        Employee employee = employees.First();
+
+        VacationRequest newRequest = new VacationRequest()
+        {
+            Employee = employee,
+            StartDate = DateTime.Now.AddDays(-1),
+            EndDate = DateTime.Now.AddDays(1),
+        };
+
+        vacationRequestService.Create(newRequest);
+        
+        // Act
+        List<Employee> notOnHoliday = 
+            rosterService.EmployeesNotOnHolidayToday(vacationRequests, currentDay, employees);
+
+        Employee? result = notOnHoliday
+            .FirstOrDefault(e => 
+                e.FirstName == employee.FirstName && 
+                e.LastName == employee.LastName && 
+                e.Id == employee.Id);
+        
+        // Assert
+        Assert.Null(result);
+        
+
+    }
+
     public Roster NewRosterItem(DataContext dbContext, Employee employee)
           {
               return new Roster()

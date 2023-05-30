@@ -228,7 +228,50 @@ public class InMemoryRosterServiceTests
         // Assert
         Assert.NotNull(newRosterItem);
     }
+    
+    [Fact]
+    public async void RosterService_ConvertFromDto_EmployeeIdNull()
+    {
+        // Arrange
+        var dbContext = await Context.GetDbContext();
+        RosterService rosterService = new RosterService(dbContext);
 
+        RosterDto rosterDto = new RosterDto()
+        {
+            Date = DateTime.Now,
+            ShiftId = 0,
+            EmployeeId = 0
+        };
+        
+        // Act
+        Roster? newRosterItem = rosterService.ConvertFromDto(rosterDto);
+        
+        // Assert
+        Assert.Null(newRosterItem);
+    }
+    
+    [Fact]
+    public async void RosterService_ConvertFromDto_ShiftIdNull()
+    {
+        // Arrange
+        var dbContext = await Context.GetDbContext();
+        RosterService rosterService = new RosterService(dbContext);
+
+        RosterDto rosterDto = new RosterDto()
+        {
+            Date = DateTime.Now,
+            ShiftId = 0,
+            EmployeeId = 1
+        };
+        
+        // Act
+        Roster? newRosterItem = rosterService.ConvertFromDto(rosterDto);
+        
+        // Assert
+        Assert.Null(newRosterItem);
+    }
+
+    
     public Roster NewRosterItem(DataContext dbContext, Employee employee)
           {
               return new Roster()

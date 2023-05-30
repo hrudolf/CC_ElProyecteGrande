@@ -119,15 +119,38 @@ public class InMemoryRosterServiceTests
 
     }
 
-    public Roster NewRosterItem(DataContext dbContext, Employee employee)
+    
+
+    [Fact]
+    public async void RosterService_Update()
     {
-        return new Roster()
-        {
-            Date = DateTime.Now,
-            Shift = dbContext.Shifts.FirstOrDefault(),
-            Attendance = false,
-            Employee = employee,
-            Warning = null
-        };
-    }
+        // Arrange
+        var dbContext = await Context.GetDbContext();
+        var employee = dbContext.Employees.First();
+        var newRosterItem = NewRosterItem(dbContext, employee);
+        RosterService rosterService = new RosterService(dbContext);
+        rosterService.Create(newRosterItem);
+
+        var originalRosterItem = dbContext.Rosters.Last();
+        var updatedRosterItem = dbContext.Rosters.Last();
+        updatedRosterItem.Date = DateTime.Now.AddDays(1);
+
+        // Act
+        rosterService.Update(updatedRosterItem);
+        
+        // Assert
+        Assert.Equal(updatedRosterItem, originalRosterItem);
+
+    } 
+    public Roster NewRosterItem(DataContext dbContext, Employee employee)
+          {
+              return new Roster()
+              {
+                  Date = DateTime.Now,
+                  Shift = dbContext.Shifts.FirstOrDefault(),
+                  Attendance = false,
+                  Employee = employee,
+                  Warning = null
+              };
+          }
 }

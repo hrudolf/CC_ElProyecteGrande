@@ -92,6 +92,21 @@ public class InMemoryRosterServiceTests
     }
 
     [Fact]
+    public async void RosterService_Delete_ReturnNull()
+    {
+        // Arrange
+        var dbContext = await Context.GetDbContext();
+        RosterService rosterService = new RosterService(dbContext);
+        
+        // Act
+        Roster? rosterItem = rosterService.Delete(1);
+        
+        // Assert
+        Assert.Null(rosterItem);
+        
+    }
+
+    [Fact]
     public async void RosterService_GetRostersByEmployeeId_ReturnRosters()
     {
         var dbContext = await Context.GetDbContext();

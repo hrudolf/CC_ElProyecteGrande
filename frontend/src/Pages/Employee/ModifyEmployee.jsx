@@ -33,7 +33,7 @@ const ModifyEmployee = () => {
     setMessage("");
     setError("");
 
-    fetch(`https://localhost:44353/api/Employee/${id}`, {
+    fetch(process.env.REACT_APP_APIURL + `/api/Employee/${id}`, {
       method: "GET",
       credentials: "include"
     })
@@ -50,7 +50,7 @@ const ModifyEmployee = () => {
     setMessage("");
     setError("");
 
-    fetch("https://localhost:44353/api/employeetype", {
+    fetch(process.env.REACT_APP_APIURL + "/api/employeetype", {
       method: "GET",
       credentials: "include"
     })
@@ -67,7 +67,7 @@ const ModifyEmployee = () => {
     setMessage("");
     setError("");
 
-    fetch("https://localhost:44353/api/Shift", {
+    fetch(process.env.REACT_APP_APIURL + "/api/Shift", {
       method: "GET",
       credentials: "include"
     })
@@ -85,7 +85,7 @@ const ModifyEmployee = () => {
     setMessage("");
     setError("");
 
-    const url = `https://localhost:44353/api/Employee/${employee.id}`;
+    const url = process.env.REACT_APP_APIURL + `/api/Employee/${employee.id}`;
     const fetchMethod = "PATCH";
     const headers = { "Content-Type": "application/json" };
     console.log(employee);

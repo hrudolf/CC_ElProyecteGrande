@@ -8,7 +8,7 @@ const LoginStatus = () => {
     const postLogout = async (e) => {
         e.preventDefault();
 
-        const response = await fetch("https://localhost:44353/logout", {
+        const response = await fetch(process.env.REACT_APP_APIURL + "/logout", {
             method: "GET",
             credentials: "include"
         })

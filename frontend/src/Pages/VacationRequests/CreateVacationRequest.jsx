@@ -25,7 +25,7 @@ const CreateVacationRequest = () => {
     setMessage("");
     setError("");
 
-    const url = "https://localhost:44353/api/VacationRequest";
+    const url = process.env.REACT_APP_APIURL + "/api/VacationRequest";
     const fetchMethod = "POST";
     const headers = { "Content-Type": "application/json" };
     console.log(request);

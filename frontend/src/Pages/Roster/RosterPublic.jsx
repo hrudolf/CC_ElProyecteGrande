@@ -5,7 +5,7 @@ const RosterPublic = () => {
   const [rosterList, setRosterList] = useState("");
 
   useEffect(() => {
-    fetch("https://localhost:44353/api/Roster", {
+    fetch(process.env.REACT_APP_APIURL + "/api/Roster", {
       method: "GET",
       credentials: "include"
     })

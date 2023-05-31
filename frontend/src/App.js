@@ -31,7 +31,7 @@ const App = () => {
         setLoading(true);
 
         async function fetchData() {
-            const response = await fetch("https://localhost:44353/login", {
+            const response = await fetch(process.env.REACT_APP_APIURL + "/login", {
                 method: "GET",
                 credentials: "include"
             });

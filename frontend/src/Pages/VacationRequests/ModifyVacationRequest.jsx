@@ -27,7 +27,7 @@ const ModifyVacationRequest = () => {
     setMessage("");
     setError("");
 
-    fetch(`https://localhost:44353/api/VacationRequest/${id}`, {
+    fetch(process.env.REACT_APP_APIURL + `/api/VacationRequest/${id}`, {
       method: "GET",
       credentials: "include"
     })
@@ -49,7 +49,7 @@ const ModifyVacationRequest = () => {
     setMessage("");
     setError("");
 
-    const url = "https://localhost:44353/api/VacationRequest";
+    const url = process.env.REACT_APP_APIURL + "/api/VacationRequest";
     const fetchMethod = "PUT";
     const headers = { "Content-Type": "application/json" };
     console.log(request);

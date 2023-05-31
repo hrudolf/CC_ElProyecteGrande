@@ -30,7 +30,7 @@ const CreateEmployee = () => {
     setMessage("");
     setError("");
 
-    fetch("https://localhost:44353/api/employeetype", {
+    fetch(process.env.REACT_APP_APIURL + "/api/employeetype", {
       method: "GET",
       credentials: "include"
     })
@@ -47,7 +47,7 @@ const CreateEmployee = () => {
     setMessage("");
     setError("");
 
-    fetch("https://localhost:44353/api/Shift", {
+    fetch(process.env.REACT_APP_APIURL + "/api/Shift", {
       method: "GET",
       credentials: "include"
     })
@@ -65,7 +65,7 @@ const CreateEmployee = () => {
     setMessage("");
     setError("");
 
-    const url = "https://localhost:44353/api/Employee";
+    const url = process.env.REACT_APP_APIURL + "/api/Employee";
     const fetchMethod = "POST";
     const headers = { "Content-Type": "application/json" };
     console.log(employee);

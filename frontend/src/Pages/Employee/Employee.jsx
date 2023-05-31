@@ -14,7 +14,7 @@ const Employee = () => {
   const navigate = useNavigate();
 
   const DeleteEmployee = (employeeId) => {
-    fetch(`https://localhost:44353/api/Employee/temporary-delete/${employeeId}`, {
+    fetch(process.env.REACT_APP_APIURL + `/api/Employee/temporary-delete/${employeeId}`, {
       method: "PATCH",
       credentials: "include"
     })
@@ -32,7 +32,7 @@ const Employee = () => {
     setLoading(true);
     setMessage("");
     setError("");
-    fetch("https://localhost:44353/api/employee/active", {
+    fetch(process.env.REACT_APP_APIURL + "/api/employee/active", {
       method: "GET",
       credentials: "include"
     })
@@ -43,7 +43,7 @@ const Employee = () => {
       })
       .catch((err) => setError(err));
 
-    fetch(`https://localhost:44353/api/VacationRequest/`, {
+    fetch(process.env.REACT_APP_APIURL + `/api/VacationRequest/`, {
       method: "GET",
       credentials: "include"
     })

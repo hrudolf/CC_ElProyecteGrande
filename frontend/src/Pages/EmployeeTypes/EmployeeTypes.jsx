@@ -15,7 +15,7 @@ const EmployeeTypes = () => {
     setLoading(true);
     setMessage("");
     setError("");
-    fetch("https://localhost:44353/api/employeetype", {
+    fetch(process.env.REACT_APP_APIURL + "/api/employeetype", {
       method: "GET",
       credentials: "include"
     })
@@ -28,7 +28,7 @@ const EmployeeTypes = () => {
   }, []);
 
   const DeleteEmployee = (employeeTypeId) => {
-    fetch(`https://localhost:44353/api/employeetype/${employeeTypeId}`, {
+    fetch(process.env.REACT_APP_APIURL + `/api/employeetype/${employeeTypeId}`, {
       method: "DELETE",
       credentials: "include"
     })
@@ -51,7 +51,7 @@ const EmployeeTypes = () => {
 
   const HandleUpdate = async (id, input) => {
     setLoading(true);
-    const response = await fetch(`https://localhost:44353/api/employeetype/`, {
+    const response = await fetch(process.env.REACT_APP_APIURL + `/api/employeetype/`, {
       method: "PUT",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
@@ -72,7 +72,7 @@ const EmployeeTypes = () => {
 
   const HandlePost = async (input) => {
     setLoading(true);
-    const response = await fetch(`https://localhost:44353/api/employeetype/`, {
+    const response = await fetch(process.env.REACT_APP_APIURL + `/api/employeetype/`, {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },

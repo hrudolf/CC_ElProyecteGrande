@@ -15,7 +15,7 @@ const Shifts = () => {
     setLoading(true);
     setMessage("");
     setError("");
-    fetch("https://localhost:44353/api/Shift", {
+    fetch(process.env.REACT_APP_APIURL + "/api/Shift", {
       method: "GET",
       credentials: "include"
     })
@@ -28,7 +28,7 @@ const Shifts = () => {
   }, []);
 
   const DeleteShift = (shiftId) => {
-    fetch(`https://localhost:44353/api/Shift/${shiftId}`, {
+    fetch(process.env.REACT_APP_APIURL + `/api/Shift/${shiftId}`, {
       method: "DELETE",
       credentials: "include"
     })
@@ -50,7 +50,7 @@ const Shifts = () => {
     setLoading(true);
     console.log("HandleUpdate:");
     console.log(shift);
-    const response = await fetch(`https://localhost:44353/api/Shift/`, {
+    const response = await fetch(process.env.REACT_APP_APIURL + `/api/Shift/`, {
       method: "PUT",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
@@ -76,7 +76,7 @@ const Shifts = () => {
 
   const HandlePost = async (shift) => {
     setLoading(true);
-    const response = await fetch(`https://localhost:44353/api/Shift/`, {
+    const response = await fetch(process.env.REACT_APP_APIURL + `/api/Shift/`, {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },

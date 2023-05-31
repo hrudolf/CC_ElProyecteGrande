@@ -14,7 +14,7 @@ const EmployeePublic = () => {
     setLoading(true);
     setMessage("");
     setError("");
-    fetch("https://localhost:44353/api/employee/public", {
+    fetch(process.env.REACT_APP_APIURL + "/api/employee/public", {
       method: "GET",
       credentials: "include"
     })
@@ -26,7 +26,7 @@ const EmployeePublic = () => {
       })
       .catch((err) => setError(err));
 
-    fetch(`https://localhost:44353/api/VacationRequest/public`, {
+    fetch(process.env.REACT_APP_APIURL + `/api/VacationRequest/public`, {
       method: "GET",
       credentials: "include"
     })

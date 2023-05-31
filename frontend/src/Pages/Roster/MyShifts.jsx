@@ -9,7 +9,7 @@ const MyShifts = () => {
   const { user } = useContext(UserContext);
 
   useEffect(() => {
-    fetch(`https://localhost:44353/api/Roster/employee/${user.id}`, {
+    fetch(process.env.REACT_APP_APIURL + `/api/Roster/employee/${user.id}`, {
       method: "GET",
       credentials: "include"
     })

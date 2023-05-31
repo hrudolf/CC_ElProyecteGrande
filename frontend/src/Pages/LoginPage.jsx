@@ -20,7 +20,7 @@ const LoginPage = () => {
 
         const headers = { "Content-Type": "application/json" };
         const body = { loginName, password };
-        const response = await fetch("https://localhost:44353/login", {
+        const response = await fetch(process.env.REACT_APP_APIURL + "/login", {
             method: "POST",
             credentials: "include",
             headers: headers,

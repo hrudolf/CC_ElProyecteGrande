@@ -14,7 +14,7 @@ const VacationRequestPerEmployee = () => {
   const navigate = useNavigate();
 
   const DeleteRequest = (requestId) => {
-    fetch(`https://localhost:44353/api/VacationRequest/${requestId}`, {
+    fetch(process.env.REACT_APP_APIURL + `/api/VacationRequest/${requestId}`, {
       method: "DELETE",
       credentials: "include",
     })
@@ -32,7 +32,7 @@ const VacationRequestPerEmployee = () => {
     setLoading(true);
     setMessage("");
     setError("");
-    fetch(`https://localhost:44353/api/VacationRequest/employee/${user.id}`, {
+    fetch(process.env.REACT_APP_APIURL + `/api/VacationRequest/employee/${user.id}`, {
       method: "GET",
       credentials: "include",
     })

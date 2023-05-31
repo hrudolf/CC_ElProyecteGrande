@@ -6,9 +6,9 @@ namespace backendTests.Service;
 public class AuthServiceTest
 {
     [Fact]
-    public async void CorrectLogin()
+    public void CorrectLogin()
     {
-        var dbContext = await Context.GetDbContext();
+        var dbContext = Context.GetDbContext();
         var authService = new AuthService(dbContext);
         var userName = "admin";
         var password = "admin";
@@ -19,9 +19,9 @@ public class AuthServiceTest
     }
     
     [Fact]
-    public async void InvalidUserName()
+    public void InvalidUserName()
     {
-        var dbContext = await Context.GetDbContext();
+        var dbContext = Context.GetDbContext();
         var authService = new AuthService(dbContext);
         var userName = "admin2";
         var password = "admin";
@@ -31,9 +31,9 @@ public class AuthServiceTest
     }
     
     [Fact]
-    public async void IncorrectPassword()
+    public void IncorrectPassword()
     {
-        var dbContext = await Context.GetDbContext();
+        var dbContext = Context.GetDbContext();
         var authService = new AuthService(dbContext);
         var userName = "admin";
         var password = "adm";
@@ -43,9 +43,22 @@ public class AuthServiceTest
     }
     
     [Fact]
-    public async void FindByUsername_InvalidUserName()
+    public void FindByUsername_ValidUserName()
     {
-        var dbContext = await Context.GetDbContext();
+        var dbContext = Context.GetDbContext();
+        var authService = new AuthService(dbContext);
+        var userName = "admin";
+
+        User returnedUser = authService.FindByUsername(userName);
+        
+        Assert.Equal(userName, returnedUser.Username);
+        Assert.Equal(UserRole.Admin, returnedUser.Role);
+    }
+    
+    [Fact]
+    public void FindByUsername_InvalidUserName()
+    {
+        var dbContext = Context.GetDbContext();
         var authService = new AuthService(dbContext);
         var userName = "admin2";
 

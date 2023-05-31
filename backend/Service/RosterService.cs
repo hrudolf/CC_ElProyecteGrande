@@ -140,7 +140,7 @@ public class RosterService : IRosterService
         List<EmployeeType> employeeTypes)
     {
         Employee? shiftLeader = availableForShift
-            .Where(employee => employee.EmployeeType == employeeTypes[2]).MinBy(x => Random.Shared.Next());
+            .Where(employee => employee.EmployeeType.Type == "Shift lead nurse").MinBy(x => Random.Shared.Next());
 
         if (shiftLeader == null)
         {

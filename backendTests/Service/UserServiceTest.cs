@@ -6,13 +6,12 @@ namespace backendTests.Service;
 public class UserServiceTest
 {
     [Fact]
-    public async void CreateUserReturnsCorrectIdAndBothUserEntitiesAreEqual()
+    public void CreateUserReturnsCorrectIdAndBothUserEntitiesAreEqual()
     {
-        var dbContext = await Context.GetDbContext();
+        var dbContext = Context.GetDbContext();
         var userService = new UserService(dbContext);
         var userName = "TestMaster";
         var password = "password";
-        var expectedId = 32; //30 users created by seed + 1 admin
 
         User newUser = new User()
         {
@@ -24,16 +23,15 @@ public class UserServiceTest
         User returnedUser = userService.Create(newUser);
         
         Assert.Equal(newUser, returnedUser);
-        Assert.Equal(expectedId, returnedUser.Id);
-        Assert.Equal(expectedId, newUser.Id);
+        Assert.Equal(newUser.Id, returnedUser.Id);
     }
     
     [Fact]
-    public async void GetAllReturnCorrectNumber()
+    public void GetAllReturnCorrectNumber()
     {
-        var dbContext = await Context.GetDbContext();
+        var dbContext = Context.GetDbContext();
         var userService = new UserService(dbContext);
-        var expectedCount = 31; //30 users created by seed + 1 admin
+        var expectedCount = 2; //1 user created by seed + 1 admin
 
         var userCount = userService.GetAll().Count();
         
@@ -41,11 +39,10 @@ public class UserServiceTest
     }
     
     [Fact]
-    public async void ReturnsUserWithId()
+    public void ReturnsUserWithId()
     {
-        var dbContext = await Context.GetDbContext();
+        var dbContext = Context.GetDbContext();
         var userService = new UserService(dbContext);
-        var newUserId = 32; //30 users created by seed + 1 admin
         var userName = "TestMaster";
         var password = "password";
 
@@ -58,18 +55,18 @@ public class UserServiceTest
 
         userService.Create(newUser);
         
-        var result = userService.GetById(newUserId);
+        var result = userService.GetById(newUser.Id);
         
         Assert.NotNull(result);
         Assert.Equal(userName, result.Username);
     }
     
     [Fact]
-    public async void ReturnsNullIdNotFound()
+    public void ReturnsNullIdNotFound()
     {
-        var dbContext = await Context.GetDbContext();
+        var dbContext = Context.GetDbContext();
         var userService = new UserService(dbContext);
-        var nonExistingId = 32; //30 users created by seed + 1 admin
+        var nonExistingId = 5000; //30 users created by seed + 1 admin
 
         var result = userService.GetById(nonExistingId);
         
@@ -77,11 +74,10 @@ public class UserServiceTest
     }
     
     [Fact]
-    public async void DeleteExistingReturnsCorrectData()
+    public void DeleteExistingReturnsCorrectData()
     {
-        var dbContext = await Context.GetDbContext();
+        var dbContext = Context.GetDbContext();
         var userService = new UserService(dbContext);
-        var newUserId = 32; //30 users created by seed + 1 admin
         var userName = "TestMaster";
         var password = "password";
 
@@ -94,7 +90,7 @@ public class UserServiceTest
 
         userService.Create(newUser);
         
-        var result = userService.Delete(newUserId);
+        var result = userService.Delete(newUser.Id);
         
         Assert.NotNull(result);
         Assert.Equal(newUser, result);
@@ -102,23 +98,23 @@ public class UserServiceTest
     }
     
     [Fact]
-    public async void DeleteNonExistingReturnsNull()
+    public void DeleteNonExistingReturnsNull()
     {
-        var dbContext = await Context.GetDbContext();
+        var dbContext = Context.GetDbContext();
         var userService = new UserService(dbContext);
-        var newUserId = 32; //30 users created by seed + 1 admin
+        var nonExistingId = 5000;
         
-        var result = userService.Delete(newUserId);
+        var result = userService.Delete(nonExistingId);
         
         Assert.Null(result);
     }
     
     [Fact]
-    public async void UpdateNonExistingUserReturnsNull()
+    public void UpdateNonExistingUserReturnsNull()
     {
-        var dbContext = await Context.GetDbContext();
+        var dbContext = Context.GetDbContext();
         var userService = new UserService(dbContext);
-        var nonExistingUserId = 32; //30 users created by seed + 1 admin
+        var nonExistingUserId = 5000;
         var updatedUser = new User() { Id = nonExistingUserId };
         
         var result = userService.Update(updatedUser);
@@ -127,11 +123,10 @@ public class UserServiceTest
     }
     
     [Fact]
-    public async void UpdateExistingUsersUsername()
+    public void UpdateExistingUsersUsername()
     {
-        var dbContext = await Context.GetDbContext();
+        var dbContext = Context.GetDbContext();
         var userService = new UserService(dbContext);
-        var newUserId = 32; //30 users created by seed + 1 admin
         var userName = "TestMaster";
         var modifiedUsername = "TestMaster2";
         var password = "password";
@@ -145,7 +140,7 @@ public class UserServiceTest
 
         userService.Create(newUser);
         
-        var updatedUser = new User() { Id = newUserId, Username = modifiedUsername};
+        var updatedUser = new User() { Id = newUser.Id, Username = modifiedUsername};
         
         var result = userService.Update(updatedUser);
         
@@ -155,11 +150,10 @@ public class UserServiceTest
     }
     
     [Fact]
-    public async void UpdateExistingUsersPassword()
+    public void UpdateExistingUsersPassword()
     {
-        var dbContext = await Context.GetDbContext();
+        var dbContext = Context.GetDbContext();
         var userService = new UserService(dbContext);
-        var newUserId = 32; //30 users created by seed + 1 admin
         var userName = "TestMaster";
         var password = "password";
         var modifiedPassword = "password2";
@@ -173,7 +167,7 @@ public class UserServiceTest
 
         userService.Create(newUser);
         
-        var updatedUser = new User() { Id = newUserId, Password = modifiedPassword};
+        var updatedUser = new User() { Id = newUser.Id, Password = modifiedPassword};
         
         var result = userService.Update(updatedUser);
         
@@ -183,11 +177,10 @@ public class UserServiceTest
     }
     
     [Fact]
-    public async void UpdateExistingUsersUserNameAndPassword()
+    public void UpdateExistingUsersUserNameAndPassword()
     {
-        var dbContext = await Context.GetDbContext();
+        var dbContext = Context.GetDbContext();
         var userService = new UserService(dbContext);
-        var newUserId = 32; //30 users created by seed + 1 admin
         var userName = "TestMaster";
         var modifiedUsername = "TestMaster2";
         var password = "password";
@@ -202,7 +195,7 @@ public class UserServiceTest
 
         userService.Create(newUser);
         
-        var updatedUser = new User() { Id = newUserId, Username = modifiedUsername, Password = modifiedPassword};
+        var updatedUser = new User() { Id = newUser.Id, Username = modifiedUsername, Password = modifiedPassword};
         
         var result = userService.Update(updatedUser);
         

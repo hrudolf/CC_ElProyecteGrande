@@ -1,32 +1,25 @@
 import { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import "./Roster.css";
-import Spinner from "../Layout/Spinner";
+
 import { UserContext } from "../../App";
 
 const MyShifts = () => {
   const [rosterList, setRosterList] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-  const [message, setMessage] = useState("");
+
   const { user } = useContext(UserContext);
 
   useEffect(() => {
-    setLoading(true);
-    setMessage("");
-    setError("");
     fetch(`https://localhost:44353/api/Roster/employee/${user.id}`, {
       method: "GET",
       credentials: "include"
     })
       .then((res) => res.json())
       .then((json) => {
-        setLoading(false);
         console.log(json);
         setRosterList(json);
       })
-      .catch((err) => setError(err));
-  }, []);
+      .catch((err) => console.log(err));
+  }, [user.id]);
 
   return (
     <div className="container align-items-center">

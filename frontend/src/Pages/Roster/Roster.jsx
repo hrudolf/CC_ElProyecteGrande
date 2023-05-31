@@ -1,16 +1,10 @@
-import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import "./Roster.css";
-import Spinner from "../Layout/Spinner";
-import { UserContext } from "../../App";
 
 const Roster = () => {
   const [rosterList, setRosterList] = useState("");
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-  const [message, setMessage] = useState("");
   const [date, setDate] = useState();
-  const { user } = useContext(UserContext);
 
   const ChangeAttendance = (rosterId) => {
     fetch(`https://localhost:44353/api/Roster/${rosterId}`, {
@@ -22,7 +16,7 @@ const Roster = () => {
         setLoading(false);
         setRosterList(json);
       })
-      .catch((err) => setError(err));
+      .catch((err) => console.log(err));
   };
 
   const GenerateWeeklyRoster = (rosterStartDate) => {
@@ -37,8 +31,6 @@ const Roster = () => {
     });
 
     setLoading(true);
-    setMessage("");
-    setError("");
     fetch("https://localhost:44353/api/Roster", {
       method: "GET",
       credentials: "include"
@@ -48,7 +40,7 @@ const Roster = () => {
         setLoading(false);
         setRosterList(json);
       })
-      .catch((err) => setError(err));
+      .catch((err) => console.log(err));
     window.location.reload(false);
   };
 
@@ -62,13 +54,11 @@ const Roster = () => {
         setLoading(false);
         setRosterList(rosterList.filter((roster) => roster.id !== rosterId));
       })
-      .catch((err) => setError(err));
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
     setLoading(true);
-    setMessage("");
-    setError("");
     fetch("https://localhost:44353/api/Roster", {
       method: "GET",
       credentials: "include"
@@ -78,7 +68,7 @@ const Roster = () => {
         setLoading(false);
         setRosterList(json);
       })
-      .catch((err) => setError(err));
+      .catch((err) => console.log(err));
   }, []);
 
   return (

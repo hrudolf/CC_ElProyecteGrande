@@ -1,11 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    </PropertyGroup>
+      <UserSecretsId>03aec34d-eb0b-44f3-95a7-79cdefef8e0a</UserSecretsId>
+  </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />

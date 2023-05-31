@@ -406,7 +406,7 @@ public class InMemoryRosterServiceTests
         {
             FirstName = "Nurse",
             LastName = "Joy",
-            EmployeeType = dbContext.EmployeeTypes.ToList()[3],
+            EmployeeType = nurse,
             PreferredShift = shift
         });
         dbContext.SaveChanges();

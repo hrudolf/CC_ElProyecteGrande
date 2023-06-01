@@ -1,10 +1,8 @@
-﻿using System.Runtime.InteropServices.JavaScript;
-using backend.Database;
+﻿using backend.Database;
 using backend.DTOs;
 using backend.Model;
 using backend.Model.Records;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Localization;
 
 namespace backend.Service;
 
@@ -119,7 +117,7 @@ public class RosterService : IRosterService
         List<Shift> shifts = _context.Shifts.ToList();
         // hard coded
         IEnumerable<Employee> employees = _context.Employees
-            .Where(employee => employee.EmployeeType.Type != "Accountant" && employee.IsActive == true);
+            .Where(employee => employee.EmployeeType != null && employee.EmployeeType.Type != "Accountant" && employee.IsActive == true);
         IEnumerable<VacationRequest> vacationRequests = _context.VacationRequests
             .Where(request => request.IsApproved == true);
         List<EmployeeType> employeeTypes = _context.EmployeeTypes.ToList();

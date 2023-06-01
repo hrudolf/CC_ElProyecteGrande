@@ -21,7 +21,7 @@ builder.Services.AddAuthentication("MyCookieAuth").AddCookie("MyCookieAuth", opt
         options.Events.OnRedirectToLogin = c =>
         {
             c.Response.StatusCode = StatusCodes.Status401Unauthorized;
-            return Task.FromResult<object>(null);
+            return Task.CompletedTask;
         };
 });
 

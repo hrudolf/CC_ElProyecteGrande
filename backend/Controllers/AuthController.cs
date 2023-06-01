@@ -77,9 +77,9 @@ public class AuthController : ControllerBase
             User user = _service.FindByUsername(HttpContext.User.Identity.Name);
             UserLoginResponseDto responseData = new UserLoginResponseDto()
             {
-                Id = user.Employee.Id,
-                FirstName = user.Employee.FirstName,
-                LastName = user.Employee.LastName,
+                Id = user.Employee?.Id ?? user.Id,
+                FirstName = user.Employee?.FirstName ?? user.Username,
+                LastName = user.Employee?.LastName ?? "",
                 Role = user.Role.ToString()
             };
             return Ok(responseData);

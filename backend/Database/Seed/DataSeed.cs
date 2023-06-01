@@ -181,10 +181,10 @@ public class DataSeed
         return shifts[Random.Shared.Next(shifts.Count)];
     }
 
-    private EmployeeType? GetRandomEmployeeType()
+    private EmployeeType GetRandomEmployeeType()
     {
         List<EmployeeType> employeeTypes = _context.EmployeeTypes.ToList();
-        if (employeeTypes.Count == 0) return null;
+        if (employeeTypes.Count == 0) throw new Exception();
         return employeeTypes[Random.Shared.Next(employeeTypes.Count)];
     }
     

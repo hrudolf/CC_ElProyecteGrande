@@ -100,6 +100,9 @@ public class RosterService : IRosterService
 
     public bool GenerateWeeklyRoster(DateTime firstDayOfWeek)
     {
+        IEnumerable<DateTime> listOfDates = _context.Rosters.ToList().Select(r => r.Date).Distinct();
+        if (listOfDates.Contains(firstDayOfWeek)) return false;
+
         DateTime currentDay = firstDayOfWeek;
         while (currentDay.DayOfWeek != DayOfWeek.Monday)
         {

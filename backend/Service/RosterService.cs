@@ -161,7 +161,11 @@ public class RosterService : IRosterService
         {
             int weeklyTotal = rosters
                 .Where(r => r.Date >= firstDay && r.Date < firstDay.AddDays(7))
-                .Select(r => r.Employee.SalaryPerShift)
+                .Select(r =>
+                {
+                    if (r.Employee != null) return r.Employee.SalaryPerShift;
+                    return 0;
+                })
                 .ToList()
                 .Sum();
 

@@ -34,7 +34,7 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          REACT_APP_MY_SECRET: ${{ secrets.REACT_APP_APIURL }}
+          REACT_APP_APIURL: ${{ secrets.REACT_APP_APIURL }}
         working-directory: frontend
 
       - name: Test
@@ -62,7 +62,7 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          REACT_APP_MY_SECRET: ${{ secrets.REACT_APP_APIURL }}
+          REACT_APP_APIURL: ${{ secrets.REACT_APP_APIURL }}
         working-directory: frontend
       
       - name: Login to DockerHub

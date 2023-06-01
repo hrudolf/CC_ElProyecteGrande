@@ -2,7 +2,7 @@ version: "3.4"
 
 services:
     backend:
-        image: greenroosterbackend:0.5
+        image: hrudolf/greenroosterbackend:latest
         ports:
           - 44353:44353
         depends_on:

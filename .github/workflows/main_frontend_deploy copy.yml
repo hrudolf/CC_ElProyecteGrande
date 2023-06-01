@@ -47,4 +47,4 @@ jobs:
           context: ./frontend
           file: ./frontend/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/simpledockertest:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/greenrosterfrontend:latest

@@ -28,13 +28,10 @@ jobs:
         run: npm ci
         working-directory: frontend
 
-      - name: Setting secret
-        run: echo Hello world!
-        env:
-          REACT_APP_MY_SECRET: ${{ secrets.REACT_APP_APIURL }}
-        
       - name: Build
         run: npm run build
+        env:
+          REACT_APP_MY_SECRET: ${{ secrets.REACT_APP_APIURL }}
         working-directory: frontend
 
       - name: Test
@@ -55,14 +52,11 @@ jobs:
       - name: Dependencies
         run: npm ci
         working-directory: frontend
-
-      - name: Setting secret
-        run: echo Hello world!
-        env:
-          REACT_APP_MY_SECRET: ${{ secrets.REACT_APP_APIURL }}
         
       - name: Build
         run: npm run build
+        env:
+          REACT_APP_MY_SECRET: ${{ secrets.REACT_APP_APIURL }}
         working-directory: frontend
       
       - name: Login to DockerHub

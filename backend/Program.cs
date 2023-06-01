@@ -43,7 +43,7 @@ using (var serviceScope = app.Services.CreateScope())
 {
     var context = serviceScope.ServiceProvider.GetRequiredService<DataContext>();
 
-    //context.Database.EnsureDeleted();
+    context.Database.EnsureDeleted();
 
     //true if has to be created, false if already exists
     //always true if EnsureDeleted is allowed

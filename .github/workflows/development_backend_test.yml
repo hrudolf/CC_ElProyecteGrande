@@ -54,4 +54,4 @@ jobs:
           context: ./backend
           file: ./backend/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/greenrosterbackend:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/greenroosterbackend:latest

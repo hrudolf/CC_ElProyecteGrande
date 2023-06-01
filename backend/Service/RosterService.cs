@@ -100,11 +100,15 @@ public class RosterService : IRosterService
 
     public bool GenerateWeeklyRoster(DateTime firstDayOfWeek)
     {
-        if (firstDayOfWeek.DayOfWeek != DayOfWeek.Monday) return false;
+        DateTime currentDay = firstDayOfWeek;
+        while (currentDay.DayOfWeek != DayOfWeek.Monday)
+        {
+            currentDay = currentDay.AddDays(-1);
+        }
 
         int numberOfDays = 7;
         int dayCounter = 1;
-        DateTime currentDay = firstDayOfWeek;
+        
         List<Shift> shifts = _context.Shifts.ToList();
         // hard coded
         IEnumerable<Employee> employees = _context.Employees

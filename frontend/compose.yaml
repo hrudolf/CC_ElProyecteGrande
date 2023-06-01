@@ -1,0 +1,7 @@
+version: "3.4"
+
+services:
+    frontend:
+        image: hrudolf/greenroosterfrontend:latest
+        ports:
+          - 3000:80

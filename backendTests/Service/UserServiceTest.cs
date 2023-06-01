@@ -31,7 +31,7 @@ public class UserServiceTest
     {
         var dbContext = Context.GetDbContext();
         var userService = new UserService(dbContext);
-        var expectedCount = 2; //1 user created by seed + 1 admin
+        var expectedCount = 3; //1 user created by seed + 1 admin + 1 accountant
 
         var userCount = userService.GetAll().Count();
         

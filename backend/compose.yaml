@@ -16,8 +16,12 @@ services:
         - ~\.aspnet\https:/https/
 
     db:
-        image: "mcr.microsoft.com/mssql/server:2022-latest"
-        
+        image: mcr.microsoft.com/mssql/server:2022-latest
         environment:
-            SA_PASSWORD: "abcABC123!"
-            ACCEPT_EULA: "Y"
+            SA_PASSWORD: abcABC123!
+            ACCEPT_EULA: Y
+        volumes:
+        - mssql-server-linux-data:/var/opt/mssql
+
+volumes:
+  mssql-server-linux-data:

@@ -21,7 +21,7 @@ public class Employee
     public List<VacationRequest> VacationRequests { get; set; } = new();
     public EmployeeType? EmployeeType { get; set; }
     public bool EmploymentStatus = true;
-    public int MonthlyGrossSalary { get; set; }
+    public int SalaryPerShift { get; set; }
     public bool IsActive { get; set; } = true;
 
   

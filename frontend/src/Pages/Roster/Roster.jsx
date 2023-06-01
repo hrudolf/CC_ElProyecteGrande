@@ -9,7 +9,7 @@ const Roster = () => {
   const ChangeAttendance = (rosterId) => {
     fetch(process.env.REACT_APP_APIURL + `/api/Roster/${rosterId}`, {
       method: "PATCH",
-      credentials: "include"
+      credentials: "include",
     })
       .then((res) => res.json())
       .then((json) => {
@@ -33,7 +33,7 @@ const Roster = () => {
     setLoading(true);
     fetch(process.env.REACT_APP_APIURL + "/api/Roster", {
       method: "GET",
-      credentials: "include"
+      credentials: "include",
     })
       .then((res) => res.json())
       .then((json) => {
@@ -41,13 +41,13 @@ const Roster = () => {
         setRosterList(json);
       })
       .catch((err) => console.log(err));
-    window.location.reload(false);
+    window.location.reload(true);
   };
 
   const DeleteRosterItem = (rosterId) => {
     fetch(process.env.REACT_APP_APIURL + `/api/Roster/${rosterId}`, {
       method: "DELETE",
-      credentials: "include"
+      credentials: "include",
     })
       .then((res) => res.json())
       .then((json) => {
@@ -61,7 +61,7 @@ const Roster = () => {
     setLoading(true);
     fetch(process.env.REACT_APP_APIURL + "/api/Roster", {
       method: "GET",
-      credentials: "include"
+      credentials: "include",
     })
       .then((res) => res.json())
       .then((json) => {
@@ -123,22 +123,25 @@ const Roster = () => {
                 <tr key={rosterItem.id}>
                   <td>{rosterItem.date.slice(0, 10)}</td>
                   <td>{rosterItem.shift.nameOfShift}</td>
-                  <td>{rosterItem.employee == null
-                    ? ""
-                    : rosterItem.employee.firstName +
-                    " " +
-                    rosterItem.employee.lastName}
+                  <td>
+                    {rosterItem.employee == null
+                      ? ""
+                      : rosterItem.employee.firstName +
+                        " " +
+                        rosterItem.employee.lastName}
                     {rosterItem.employee == null
                       ? ""
                       : rosterItem.employee.employeeType.type ===
                         "Shift lead nurse"
-                        ? " (Shift lead)"
-                        : ""}
+                      ? " (Shift lead)"
+                      : ""}
                   </td>
                   <td className="text-danger fw-bold">{rosterItem.warning}</td>
-                  <td>{rosterItem.attendance === false ? "none" : "confirmed"}{" "}
+                  <td>
+                    {rosterItem.attendance === false ? "none" : "confirmed"}{" "}
                   </td>
-                  <td>{" "}
+                  <td>
+                    {" "}
                     <button
                       className="btn btn-info"
                       onClick={() => ChangeAttendance(rosterItem.id)}

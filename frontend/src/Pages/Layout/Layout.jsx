@@ -13,21 +13,44 @@ const Layout = () => {
     const navBarList = [
       { path: "/", title: "Home" },
       { path: "/about", title: "About" },
-      { path: "/myshifts", title: "My Shifts", roles: ["Admin", "Basic", "ShiftLead", "Supervisor"] },
-      { path: "/roster", title: "Roster", roles: ["Admin", "Basic", "ShiftLead", "Supervisor"] },
-      { path: "/employees", title: "Employees", roles: ["Admin", "Supervisor", "Accountant", "Basic", "ShiftLead"] },
+      {
+        path: "/myshifts",
+        title: "My Shifts",
+        roles: ["Admin", "Basic", "ShiftLead", "Supervisor"],
+      },
+      {
+        path: "/roster",
+        title: "Roster",
+        roles: ["Admin", "Basic", "ShiftLead", "Supervisor"],
+      },
+      { path: "/forecast", title: "Forecast", roles: ["Admin", "Accountant"] },
+      {
+        path: "/employees",
+        title: "Employees",
+        roles: ["Admin", "Supervisor", "Accountant", "Basic", "ShiftLead"],
+      },
       { path: "/employeetypes", title: "Employee Roles", roles: ["Admin"] },
       { path: "/shifts", title: "Shift types", roles: ["Admin", "Supervisor"] },
-      { path: "/vacationrequests", title: "All Vacation Request", roles: ["Admin", "Supervisor"] },
-      { path: "/vacationrequests/employee", title: "My Vacation Requests", roles: ["Admin", "ShiftLead", "Basic", "Supervisor"] }
-    ]
+      {
+        path: "/vacationrequests",
+        title: "All Vacation Request",
+        roles: ["Admin", "Supervisor"],
+      },
+      {
+        path: "/vacationrequests/employee",
+        title: "My Vacation Requests",
+        roles: ["Admin", "ShiftLead", "Basic", "Supervisor"],
+      },
+    ];
     if (user === null) {
-      let filteredNavbar = navBarList.filter(item => !('roles' in item));
+      let filteredNavbar = navBarList.filter((item) => !("roles" in item));
       setNavbarFiltered(filteredNavbar);
     } else {
-      let filteredNavbar = navBarList.filter(item => {
-        if ('roles' in item) {
-          const intersection = item.roles.filter(element => user.role === element);
+      let filteredNavbar = navBarList.filter((item) => {
+        if ("roles" in item) {
+          const intersection = item.roles.filter(
+            (element) => user.role === element
+          );
           if (intersection.length > 0) return true;
           return false;
         } else {
@@ -36,22 +59,24 @@ const Layout = () => {
       });
       setNavbarFiltered(filteredNavbar);
     }
-  }, [user])
+  }, [user]);
 
   return (
     <div className="Layout">
       <nav className="navbar navbar-expand-sm navbar-light bg-light navbar-responsive sticky-top">
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            {navbarFiltered && navbarFiltered.map((item, idx) => <Navbaritem key={idx} item={item}></Navbaritem>)}
+            {navbarFiltered &&
+              navbarFiltered.map((item, idx) => (
+                <Navbaritem key={idx} item={item}></Navbaritem>
+              ))}
           </ul>
         </div>
         <LoginStatus />
       </nav>
       <Outlet />
     </div>
-  )
+  );
 };
-
 
 export default Layout;

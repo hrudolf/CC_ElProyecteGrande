@@ -51,7 +51,7 @@ public class EmployeeService : IEmployeeService
 
         employees = employees.Select(emp =>
         {
-            emp.MonthlyGrossSalary = 0;
+            emp.SalaryPerShift = 0;
             return emp;
         }).ToList();
 
@@ -105,7 +105,7 @@ public class EmployeeService : IEmployeeService
         employee!.EmployeeType = employeeType;
 
         employee.EmploymentStatus = updateEmployeeDto.EmploymentStatus;
-        employee.MonthlyGrossSalary = updateEmployeeDto.MonthlyGrossSalary;
+        employee.SalaryPerShift = updateEmployeeDto.MonthlyGrossSalary;
         employee.IsActive = updateEmployeeDto.IsActive;
 
         _context.SaveChanges();
@@ -146,7 +146,7 @@ public class EmployeeService : IEmployeeService
             WorkingDays = updateEmployeeDto.WorkingDays,
             TotalVacationDays = updateEmployeeDto.TotalVacationDays,
             EmployeeType = employeeType,
-            MonthlyGrossSalary = updateEmployeeDto.MonthlyGrossSalary,
+            SalaryPerShift = updateEmployeeDto.MonthlyGrossSalary,
         };
 
         _context.Employees.Add(newEmployee);

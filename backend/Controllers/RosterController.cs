@@ -1,5 +1,6 @@
 using backend.DTOs;
 using backend.Model;
+using backend.Model.Records;
 using backend.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -106,5 +107,11 @@ namespace backend.Controllers
             return NotFound();
         }
         
+        [Authorize(Roles = "Admin, Accountant")]
+        [HttpGet("forecast")]
+        public List<Forecast> GetForecast()
+        {
+            return _service.WeeklyForeCast();
+        }
     }
 }

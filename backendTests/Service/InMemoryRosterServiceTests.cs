@@ -298,6 +298,17 @@ public class InMemoryRosterServiceTests
         // Arrange
         var dbContext = Context.GetDbContext();
         RosterService rosterService = new RosterService(dbContext);
+        var rosterItem = new Roster()
+        {
+            Id = 1,
+            Date = new DateTime(2023, 05, 30),
+            Shift = dbContext.Shifts.FirstOrDefault(),
+            Attendance = false,
+            Employee = dbContext.Employees.First(),
+            Warning = null,
+            _isActive = false
+        };
+        rosterService.Create(rosterItem);
         DateTime date = new DateTime(2023, 05, 30);
 
         // Act

@@ -45,7 +45,9 @@ public class RosterService : IRosterService
             .Include(roster => roster.Shift)
             .Include(roster => roster.Employee.EmployeeType)
             .ToList()
-            .Where(roster => roster.GetIsActive() == true);
+            .Where(roster => roster.GetIsActive() == true)
+            .OrderBy(roster => roster.Date)
+        ;
 
     public Roster? GetById(int id) => GetAll().FirstOrDefault(roster => roster.Id == id);
 

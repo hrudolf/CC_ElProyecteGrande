@@ -29,20 +29,22 @@ const Roster = () => {
       body: JSON.stringify(date),
     }).then(() => {
       console.log("Roster created");
+      fetchNewData();
     });
 
-    setLoading(true);
-    fetch(process.env.REACT_APP_APIURL + "/api/Roster", {
-      method: "GET",
-      credentials: "include",
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        setLoading(false);
-        setRosterList(json);
+    const fetchNewData = () => {
+      setLoading(true);
+      fetch(process.env.REACT_APP_APIURL + "/api/Roster", {
+        method: "GET",
+        credentials: "include",
       })
-      .catch((err) => console.log(err));
-    //window.location.reload(true);
+        .then((res) => res.json())
+        .then((json) => {
+          setLoading(false);
+          setRosterList(json);
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
   const DeleteRosterItem = (rosterId) => {
@@ -128,14 +130,14 @@ const Roster = () => {
                     {rosterItem.employee == null
                       ? ""
                       : rosterItem.employee.firstName +
-                        " " +
-                        rosterItem.employee.lastName}
+                      " " +
+                      rosterItem.employee.lastName}
                     {rosterItem.employee == null
                       ? ""
                       : rosterItem.employee.employeeType.type ===
                         "Shift lead nurse"
-                      ? " (Shift lead)"
-                      : ""}
+                        ? " (Shift lead)"
+                        : ""}
                   </td>
                   <td className="text-danger fw-bold">{rosterItem.warning}</td>
                   <td>

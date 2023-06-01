@@ -28,6 +28,9 @@ jobs:
         run: npm ci
         working-directory: frontend
 
+      - name: Echo secret
+        run: echo ${{ secrets.REACT_APP_APIURL }}
+
       - name: Build
         run: npm run build
         env:
@@ -53,6 +56,9 @@ jobs:
         run: npm ci
         working-directory: frontend
         
+      - name: Echo secret
+        run: echo ${{ secrets.REACT_APP_APIURL }}
+
       - name: Build
         run: npm run build
         env:

@@ -20,6 +20,7 @@ const Roster = () => {
   };
 
   const GenerateWeeklyRoster = (rosterStartDate) => {
+    console.log(date);
     setLoading(true);
     fetch(process.env.REACT_APP_APIURL + `/api/Roster/GenerateWeeklyRoster`, {
       method: "POST",
@@ -41,7 +42,7 @@ const Roster = () => {
         setRosterList(json);
       })
       .catch((err) => console.log(err));
-    window.location.reload(true);
+    //window.location.reload(true);
   };
 
   const DeleteRosterItem = (rosterId) => {

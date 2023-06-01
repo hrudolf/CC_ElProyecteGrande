@@ -1,13 +1,5 @@
 ﻿FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
-ENV ASPNETCORE_URLS=http://+:5000/
-ENV ASPNETCORE_ENVIRONMENT=Development
-ENV ASPNETCORE_URLS="https://+:5000;http://+5000"
-ENV ASPNETCORE_HTTPS_PORT=44353
-ENV ASPNETCORE_ENVIRONMENT=Development
-ENV ASPNETCORE_Kestrel__Certificates__Default__Password=abcABC123!
-ENV ASPNETCORE_Kestrel__Certificates__Default__Path=/https/backend.pfx
-EXPOSE 5000
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src

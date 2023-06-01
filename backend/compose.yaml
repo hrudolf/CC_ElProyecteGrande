@@ -1,0 +1,23 @@
+version: "3.4"
+
+services:
+    backend:
+        image: greenroosterbackend:0.5
+        ports:
+          - 44353:44353
+        depends_on:
+          - db
+        environment:
+          - ASPNETCORE_ENVIRONMENT=Development
+          - ASPNETCORE_URLS=https://+:44353;http://+:80
+          - ASPNETCORE_Kestrel__Certificates__Default__Password=abcABC123!
+          - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/backend.pfx
+        volumes:
+        - ~\.aspnet\https:/https/
+
+    db:
+        image: "mcr.microsoft.com/mssql/server:2022-latest"
+        
+        environment:
+            SA_PASSWORD: "abcABC123!"
+            ACCEPT_EULA: "Y"

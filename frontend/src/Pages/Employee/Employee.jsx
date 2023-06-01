@@ -14,10 +14,14 @@ const Employee = () => {
   const navigate = useNavigate();
 
   const DeleteEmployee = (employeeId) => {
-    fetch(process.env.REACT_APP_APIURL + `/api/Employee/temporary-delete/${employeeId}`, {
-      method: "PATCH",
-      credentials: "include"
-    })
+    fetch(
+      process.env.REACT_APP_APIURL +
+        `/api/Employee/temporary-delete/${employeeId}`,
+      {
+        method: "PATCH",
+        credentials: "include",
+      }
+    )
       .then((res) => res.json())
       .then((json) => {
         setLoading(false);
@@ -34,7 +38,7 @@ const Employee = () => {
     setError("");
     fetch(process.env.REACT_APP_APIURL + "/api/employee/active", {
       method: "GET",
-      credentials: "include"
+      credentials: "include",
     })
       .then((res) => res.json())
       .then((json) => {
@@ -45,7 +49,7 @@ const Employee = () => {
 
     fetch(process.env.REACT_APP_APIURL + `/api/VacationRequest/`, {
       method: "GET",
-      credentials: "include"
+      credentials: "include",
     })
       .then((res) => res.json())
       .then((json) => {
@@ -113,7 +117,7 @@ const Employee = () => {
                         </td>
                         <td style={{ textAlign: "right" }}>
                           $
-                          {parseInt(employee.monthlyGrossSalary).toLocaleString(
+                          {parseInt(employee.salaryPerShift).toLocaleString(
                             "en-US",
                             {
                               valute: "USD",
@@ -149,7 +153,7 @@ const Employee = () => {
                       </tr>
                     );
                   })}
-                  <tr></tr>
+                <tr></tr>
               </tbody>
             </table>
           </div>

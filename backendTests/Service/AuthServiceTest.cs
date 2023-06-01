@@ -5,10 +5,12 @@ namespace backendTests.Service;
 
 public class AuthServiceTest
 {
+    private Context _context = new Context();
+    
     [Fact]
     public void CorrectLogin()
     {
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
         var authService = new AuthService(dbContext);
         var userName = "admin";
         var password = "admin";
@@ -21,7 +23,7 @@ public class AuthServiceTest
     [Fact]
     public void InvalidUserName()
     {
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
         var authService = new AuthService(dbContext);
         var userName = "admin2";
         var password = "admin";
@@ -33,7 +35,7 @@ public class AuthServiceTest
     [Fact]
     public void IncorrectPassword()
     {
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
         var authService = new AuthService(dbContext);
         var userName = "admin";
         var password = "adm";
@@ -45,7 +47,7 @@ public class AuthServiceTest
     [Fact]
     public void FindByUsername_ValidUserName()
     {
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
         var authService = new AuthService(dbContext);
         var userName = "admin";
 
@@ -58,7 +60,7 @@ public class AuthServiceTest
     [Fact]
     public void FindByUsername_InvalidUserName()
     {
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
         var authService = new AuthService(dbContext);
         var userName = "admin2";
 

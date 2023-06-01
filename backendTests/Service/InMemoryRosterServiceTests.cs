@@ -7,10 +7,12 @@ namespace backendTests.Service;
 
 public class InMemoryRosterServiceTests
 {
+    private Context _context = new Context();
+
     [Fact]
     public void RosterService_Create_ReturnRoster()
     {
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
 
         // Arrange
         var newRosterItem = new Roster()
@@ -36,7 +38,7 @@ public class InMemoryRosterServiceTests
     [Fact]
     public void RosterService_GetById_ReturnRoster()
     {
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
 
         // Arrange
         var newRosterItem = new Roster()
@@ -64,7 +66,7 @@ public class InMemoryRosterServiceTests
     [Fact]
     public void RosterService_Delete()
     {
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
 
         // Arrange
         var newRosterItem = new Roster()
@@ -93,7 +95,7 @@ public class InMemoryRosterServiceTests
     public void RosterService_Delete_ReturnNull()
     {
         // Arrange
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
         RosterService rosterService = new RosterService(dbContext);
 
         // Act
@@ -106,7 +108,7 @@ public class InMemoryRosterServiceTests
     [Fact]
     public void RosterService_GetRostersByEmployeeId_ReturnRosters()
     {
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
         // Arrange
         var employee = dbContext.Employees.First();
         var newRosterItem1 = NewRosterItem(dbContext, employee);
@@ -135,7 +137,7 @@ public class InMemoryRosterServiceTests
     public void RosterService_Update()
     {
         // Arrange
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
         var employee = dbContext.Employees.First();
         var newRosterItem = NewRosterItem(dbContext, employee);
         RosterService rosterService = new RosterService(dbContext);
@@ -156,7 +158,7 @@ public class InMemoryRosterServiceTests
     public void RosterService_Update_IsActive()
     {
         // Arrange
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
         var employee = dbContext.Employees.First();
         var newRosterItem = NewRosterItem(dbContext, employee);
         RosterService rosterService = new RosterService(dbContext);
@@ -185,7 +187,7 @@ public class InMemoryRosterServiceTests
     public void RosterService_Update_ReturnNull()
     {
         // Arrange
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
         RosterService rosterService = new RosterService(dbContext);
         var employee = dbContext.Employees.First();
         Roster newRosterItem = NewRosterItem(dbContext, employee);
@@ -201,7 +203,7 @@ public class InMemoryRosterServiceTests
     public void RosterService_ChangeAttendance()
     {
         // Arrange
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
         RosterService rosterService = new RosterService(dbContext);
         var employee = dbContext.Employees.First();
         Roster rosterItem = NewRosterItem(dbContext, employee);
@@ -219,7 +221,7 @@ public class InMemoryRosterServiceTests
     public void RosterService_ChangeAttendance_ReturnNull()
     {
         // Arrange
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
         RosterService rosterService = new RosterService(dbContext);
 
         // Act
@@ -233,7 +235,7 @@ public class InMemoryRosterServiceTests
     public void RosterService_ConvertFromDto_ReturnRoster()
     {
         // Arrange
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
         RosterService rosterService = new RosterService(dbContext);
 
         RosterDto rosterDto = new RosterDto()
@@ -254,7 +256,7 @@ public class InMemoryRosterServiceTests
     public void RosterService_ConvertFromDto_EmployeeIdNull()
     {
         // Arrange
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
         RosterService rosterService = new RosterService(dbContext);
 
         RosterDto rosterDto = new RosterDto()
@@ -275,7 +277,7 @@ public class InMemoryRosterServiceTests
     public void RosterService_ConvertFromDto_ShiftIdNull()
     {
         // Arrange
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
         RosterService rosterService = new RosterService(dbContext);
 
         RosterDto rosterDto = new RosterDto()
@@ -296,7 +298,7 @@ public class InMemoryRosterServiceTests
     public void RosterService_GenerateWeeklyRoster_ReturnFalse()
     {
         // Arrange
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
         RosterService rosterService = new RosterService(dbContext);
         var rosterItem = new Roster()
         {
@@ -322,7 +324,7 @@ public class InMemoryRosterServiceTests
     public void RosterService_GenerateWeeklyRoster_ReturnTrue()
     {
         // Arrange
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
         RosterService rosterService = new RosterService(dbContext);
         DateTime date = new DateTime(2023, 05, 29);
 
@@ -337,7 +339,7 @@ public class InMemoryRosterServiceTests
     public void RosterService_ChooseShiftLeader_ShiftLeaderNull()
     {
         // Arrange
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
         RosterService rosterService = new RosterService(dbContext);
 
         List<Employee> availableForShift = new List<Employee>();
@@ -357,7 +359,7 @@ public class InMemoryRosterServiceTests
     public void RosterService_ChooseShiftLeader_ShiftLeaderNotNull()
     {
         // Arrange
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
         RosterService rosterService = new RosterService(dbContext);
         var shiftLead = dbContext.EmployeeTypes.First(type => type.Type == "Shift lead nurse");
         dbContext.Employees.Add(new Employee()
@@ -387,7 +389,7 @@ public class InMemoryRosterServiceTests
     public void RosterService_AddNursesToRoster_EmployeeNull()
     {
         // Arrange
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
         RosterService rosterService = new RosterService(dbContext);
 
         List<Employee> availableForShift = new List<Employee>();
@@ -407,7 +409,7 @@ public class InMemoryRosterServiceTests
     public void RosterService_AddNursesToRoster_EmployeeNotNull()
     {
         // Arrange
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
         RosterService rosterService = new RosterService(dbContext);
 
         Shift shift = dbContext.Shifts.First();
@@ -437,7 +439,7 @@ public class InMemoryRosterServiceTests
     public void RosterService_EmployeesNotOnHolidayToday()
     {
         // Arrange
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
         RosterService rosterService = new RosterService(dbContext);
         VacationRequestService vacationRequestService = new VacationRequestService(dbContext);
 

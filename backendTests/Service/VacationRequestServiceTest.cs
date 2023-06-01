@@ -5,10 +5,12 @@ namespace backendTests.Service;
 
 public class VacationRequestServiceTest
 {
+    private Context _context = new Context();
+    
     [Fact]
     public void VacationRequestService_Create()
     {
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
 
         //Arrange
         var newRequest = new VacationRequest()
@@ -32,7 +34,7 @@ public class VacationRequestServiceTest
     [Fact]
     public void VacationRequestService_Delete()
     {
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
 
         //Arrange
         var newRequest = new VacationRequest()

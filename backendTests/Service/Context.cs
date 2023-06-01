@@ -6,7 +6,7 @@ namespace backendTests.Service;
 
 public class Context
 {
-    public static DataContext GetDbContext()
+    public DataContext GetDbContext()
     {
         var options = new DbContextOptionsBuilder<DataContext>()
             .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())

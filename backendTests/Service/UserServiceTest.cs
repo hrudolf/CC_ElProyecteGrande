@@ -5,10 +5,12 @@ namespace backendTests.Service;
 
 public class UserServiceTest
 {
+    private Context _context = new Context();
+    
     [Fact]
     public void CreateUserReturnsCorrectIdAndBothUserEntitiesAreEqual()
     {
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
         var userService = new UserService(dbContext);
         var userName = "TestMaster";
         var password = "password";
@@ -29,7 +31,7 @@ public class UserServiceTest
     [Fact]
     public void GetAllReturnCorrectNumber()
     {
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
         var userService = new UserService(dbContext);
         var expectedCount = 3; //1 user created by seed + 1 admin + 1 accountant
 
@@ -41,7 +43,7 @@ public class UserServiceTest
     [Fact]
     public void ReturnsUserWithId()
     {
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
         var userService = new UserService(dbContext);
         var userName = "TestMaster";
         var password = "password";
@@ -64,7 +66,7 @@ public class UserServiceTest
     [Fact]
     public void ReturnsNullIdNotFound()
     {
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
         var userService = new UserService(dbContext);
         var nonExistingId = 5000; //30 users created by seed + 1 admin
 
@@ -76,7 +78,7 @@ public class UserServiceTest
     [Fact]
     public void DeleteExistingReturnsCorrectData()
     {
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
         var userService = new UserService(dbContext);
         var userName = "TestMaster";
         var password = "password";
@@ -100,7 +102,7 @@ public class UserServiceTest
     [Fact]
     public void DeleteNonExistingReturnsNull()
     {
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
         var userService = new UserService(dbContext);
         var nonExistingId = 5000;
         
@@ -112,7 +114,7 @@ public class UserServiceTest
     [Fact]
     public void UpdateNonExistingUserReturnsNull()
     {
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
         var userService = new UserService(dbContext);
         var nonExistingUserId = 5000;
         var updatedUser = new User() { Id = nonExistingUserId };
@@ -125,7 +127,7 @@ public class UserServiceTest
     [Fact]
     public void UpdateExistingUsersUsername()
     {
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
         var userService = new UserService(dbContext);
         var userName = "TestMaster";
         var modifiedUsername = "TestMaster2";
@@ -152,7 +154,7 @@ public class UserServiceTest
     [Fact]
     public void UpdateExistingUsersPassword()
     {
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
         var userService = new UserService(dbContext);
         var userName = "TestMaster";
         var password = "password";
@@ -179,7 +181,7 @@ public class UserServiceTest
     [Fact]
     public void UpdateExistingUsersUserNameAndPassword()
     {
-        var dbContext = Context.GetDbContext();
+        var dbContext = _context.GetDbContext();
         var userService = new UserService(dbContext);
         var userName = "TestMaster";
         var modifiedUsername = "TestMaster2";

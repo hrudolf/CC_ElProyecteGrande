@@ -54,6 +54,7 @@ const Forecast = () => {
                   <td>{item.startOfWeek.slice(0, 10)}</td>
                   <td>{item.endOfWeek.slice(0, 10)}</td>
                   <td>
+                    $
                     {parseInt(item.amount).toLocaleString("en-US", {
                       valute: "USD",
                     })}

@@ -125,6 +125,24 @@ public class DataSeed
         };
         _context.Employees.Add(adminEmployee);
         _context.Users.Add(admin);
+        
+        Employee accountantEmployee = new Employee()
+        {
+            FirstName = "Mr.",
+            LastName = "Accountant",
+            DateOfBirth = GetRandomDate().Date,
+            EmployeeType = GetRandomEmployeeType()
+        };
+        
+        var accountant = new User
+        {
+            Username = "accountant",
+            Password = PasswordService.HashPass($"accountant"),
+            Role = UserRole.Accountant,
+            Employee = accountantEmployee
+        };
+        _context.Employees.Add(accountantEmployee);
+        _context.Users.Add(accountant);
         _context.SaveChanges();
     }
 

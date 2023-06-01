@@ -28,7 +28,7 @@ jobs:
         run: npm ci
         working-directory: frontend
 
-      - name: Hello world
+      - name: Setting secret
         run: echo Hello world!
         env:
           REACT_APP_MY_SECRET: ${{ secrets.REACT_APP_APIURL }}
@@ -55,6 +55,11 @@ jobs:
       - name: Dependencies
         run: npm ci
         working-directory: frontend
+
+      - name: Setting secret
+        run: echo Hello world!
+        env:
+          REACT_APP_MY_SECRET: ${{ secrets.REACT_APP_APIURL }}
         
       - name: Build
         run: npm run build

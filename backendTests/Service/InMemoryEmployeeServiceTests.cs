@@ -106,7 +106,7 @@ public class InMemoryEmployeeServiceTests
         //Assert
         foreach (var employee in employeesWithPublicData)
         {
-            Assert.Equal(0, employee.MonthlyGrossSalary);
+            Assert.Equal(0, employee.SalaryPerShift);
         }
     }
 

@@ -1,6 +1,8 @@
-﻿using backend.Database;
+﻿using System.Runtime.InteropServices.JavaScript;
+using backend.Database;
 using backend.DTOs;
 using backend.Model;
+using backend.Model.Records;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 
@@ -43,7 +45,9 @@ public class RosterService : IRosterService
             .Include(roster => roster.Shift)
             .Include(roster => roster.Employee.EmployeeType)
             .ToList()
-            .Where(roster => roster.GetIsActive() == true);
+            .Where(roster => roster.GetIsActive() == true)
+            .OrderBy(roster => roster.Date)
+        ;
 
     public Roster? GetById(int id) => GetAll().FirstOrDefault(roster => roster.Id == id);
 
@@ -100,11 +104,18 @@ public class RosterService : IRosterService
 
     public bool GenerateWeeklyRoster(DateTime firstDayOfWeek)
     {
-        if (firstDayOfWeek.DayOfWeek != DayOfWeek.Monday) return false;
+        IEnumerable<DateTime> listOfDates = _context.Rosters.ToList().Select(r => r.Date).Distinct();
+        if (listOfDates.Contains(firstDayOfWeek)) return false;
+
+        DateTime currentDay = firstDayOfWeek;
+        while (currentDay.DayOfWeek != DayOfWeek.Monday)
+        {
+            currentDay = currentDay.AddDays(-1);
+        }
 
         int numberOfDays = 7;
         int dayCounter = 1;
-        DateTime currentDay = firstDayOfWeek;
+        
         List<Shift> shifts = _context.Shifts.ToList();
         // hard coded
         IEnumerable<Employee> employees = _context.Employees
@@ -134,6 +145,33 @@ public class RosterService : IRosterService
 
 
         return true;
+    }
+
+    public List<Forecast> WeeklyForeCast()
+    {
+        List<Forecast> forecast = new List<Forecast>();
+        
+        List<Roster> rosters = _context.Rosters
+            .Include(roster => roster.Employee)
+            .ToList();
+        DateTime firstDay = rosters.Select(r => r.Date).Min();
+        DateTime lastDay = rosters.Select(r => r.Date).Max();
+
+        while (firstDay < lastDay)
+        {
+            int weeklyTotal = rosters
+                .Where(r => r.Date >= firstDay && r.Date < firstDay.AddDays(7))
+                .Select(r => r.Employee.SalaryPerShift)
+                .ToList()
+                .Sum();
+
+            Forecast forecastItem = new Forecast(firstDay, firstDay.AddDays(7), weeklyTotal);
+            forecast.Add(forecastItem);
+
+            firstDay = firstDay.AddDays(7);
+        }
+        
+        return forecast;
     }
 
     public void ChooseShiftLeader(List<Employee> availableForShift, DateTime currentDay, Shift shift,

@@ -31,7 +31,7 @@ public class VacationRequestController : ControllerBase
     {
         var vacationList = _service.GetAll().Select(vac =>
         {
-            vac.Employee.MonthlyGrossSalary = 0;
+            vac.Employee.SalaryPerShift = 0;
             return vac;
         });
         return Ok(vacationList);

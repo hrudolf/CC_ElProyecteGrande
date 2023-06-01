@@ -1,13 +1,14 @@
 # This is a basic workflow to help you get started with Actions
 
-name: frontend_deploy_main
+name: main_frontend_test_deploy
 
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "master" branch
-  workflow_run:
-    workflows: [frontend_test_main]
-    types: [completed]
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -15,7 +16,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  FrontendDeployMain:
+  FrontendTestMain:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -33,6 +34,33 @@ jobs:
         
       - name: Build
         run: npm run build
+        env:
+          REACT_APP_APIURL: ${{ secrets.REACT_APP_APIURL }}
+        working-directory: frontend
+
+      - name: Test
+        run: npm run test
+        working-directory: frontend
+
+  FrontendDeployMain:
+    needs: FrontendTestMain
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with: 
+          node-version: 14
+          
+      - name: Dependencies
+        run: npm ci
+        working-directory: frontend
+
+      - name: Build
+        run: npm run build
+        env:
+          REACT_APP_APIURL: ${{ secrets.REACT_APP_APIURL }}
         working-directory: frontend
       
       - name: Login to DockerHub

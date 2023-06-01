@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: frontend_deploy_dev
+name: dev_frontend_test
 
 on:
   push:
@@ -37,38 +37,3 @@ jobs:
       - name: Test
         run: npm run test
         working-directory: frontend
-
-  FrontendDeployDev:
-    needs: FrontendTestDev
-    runs-on: ubuntu-latest
-
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with: 
-          node-version: 14
-          
-      - name: Dependencies
-        run: npm ci
-        working-directory: frontend
-
-      - name: Build
-        run: npm run build
-        env:
-          REACT_APP_APIURL: ${{ secrets.REACT_APP_APIURL }}
-        working-directory: frontend
-      
-      - name: Login to DockerHub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-        
-      - name: Build and push
-        uses: docker/build-push-action@v4
-        with:
-          context: ./frontend
-          file: ./frontend/Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/greenroosterfrontend:latest

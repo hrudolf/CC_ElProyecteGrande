@@ -1,6 +1,8 @@
-﻿using backend.Database;
+﻿using System.Runtime.InteropServices.JavaScript;
+using backend.Database;
 using backend.DTOs;
 using backend.Model;
+using backend.Model.Records;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 
@@ -141,6 +143,33 @@ public class RosterService : IRosterService
 
 
         return true;
+    }
+
+    public List<Forecast> WeeklyForeCast()
+    {
+        List<Forecast> forecast = new List<Forecast>();
+        
+        List<Roster> rosters = _context.Rosters
+            .Include(roster => roster.Employee)
+            .ToList();
+        DateTime firstDay = rosters.Select(r => r.Date).Min();
+        DateTime lastDay = rosters.Select(r => r.Date).Max();
+
+        while (firstDay < lastDay)
+        {
+            int weeklyTotal = rosters
+                .Where(r => r.Date >= firstDay && r.Date < firstDay.AddDays(7))
+                .Select(r => r.Employee.SalaryPerShift)
+                .ToList()
+                .Sum();
+
+            Forecast forecastItem = new Forecast(firstDay, firstDay.AddDays(7), weeklyTotal);
+            forecast.Add(forecastItem);
+
+            firstDay = firstDay.AddDays(7);
+        }
+        
+        return forecast;
     }
 
     public void ChooseShiftLeader(List<Employee> availableForShift, DateTime currentDay, Shift shift,

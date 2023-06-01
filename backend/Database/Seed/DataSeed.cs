@@ -88,7 +88,7 @@ public class DataSeed
                 VacationRequests = new List<VacationRequest>(),
                 EmployeeType = GetRandomEmployeeType(),
                 EmploymentStatus = true,
-                MonthlyGrossSalary = Random.Shared.Next(45000, 60000)
+                SalaryPerShift = Random.Shared.Next(150, 300)
             };
             var user = new User
             {

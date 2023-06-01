@@ -42,11 +42,17 @@ var app = builder.Build();
 using (var serviceScope = app.Services.CreateScope())
 {
     var context = serviceScope.ServiceProvider.GetRequiredService<DataContext>();
+
     context.Database.EnsureDeleted();
-    context.Database.EnsureCreated();
-    //Seed data
-    DataSeed dataSeed = new DataSeed(context);
-    dataSeed.CreateAll(30);
+
+    //true if has to be created, false if already exists
+    //always true if EnsureDeleted is allowed
+    if (context.Database.EnsureCreated())
+    {
+        //if it is newly created, seed data:
+        DataSeed dataSeed = new DataSeed(context);
+        dataSeed.CreateAll(30);
+    }
 }
 
 // Configure the HTTP request pipeline.

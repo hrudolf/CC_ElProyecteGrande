@@ -81,7 +81,7 @@ const Employee = () => {
                   <th scope="col" style={{ width: "100px" }}>
                     Workdays per Month
                   </th>
-                  <th scope="col">Monthly Salary</th>
+                  <th scope="col">Salary per shift</th>
                   <th scope="col" style={{ textAlign: "center" }}>
                     <button
                       className="btn btn-primary w-auto"

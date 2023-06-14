@@ -38,7 +38,17 @@ builder.Services.AddTransient<IVacationRequestService, VacationRequestService>()
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+/*var ourValue = builder.Configuration.GetValue<string>("Value");
+var ourValue2 = builder.Configuration.GetValue<string>("Value2");*/
+
 var app = builder.Build();
+
+/*app.Logger.LogInformation("######################");
+app.Logger.LogInformation(ourValue);
+app.Logger.LogInformation(ourValue2);
+app.Logger.LogInformation("######################");*/
+
+
 using (var serviceScope = app.Services.CreateScope())
 {
     var context = serviceScope.ServiceProvider.GetRequiredService<DataContext>();
@@ -67,6 +77,7 @@ app.UseHttpsRedirection();
 app.UseCors(x =>
 {
     x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000").AllowCredentials();
+    //x.AllowAnyHeader().AllowAnyMethod().WithOrigins(builder.Configuration.GetValue<string>("endpoint")).AllowCredentials();
 });
 
 app.UseAuthentication();

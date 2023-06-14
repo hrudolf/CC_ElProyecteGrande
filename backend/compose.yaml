@@ -10,7 +10,7 @@ services:
         environment:
           - ASPNETCORE_ENVIRONMENT=Development
           - ASPNETCORE_URLS=https://+:44353;http://+:80
-          - ASPNETCORE_Kestrel__Certificates__Default__Password=abcABC123!
+          - ASPNETCORE_Kestrel__Certificates__Default__Password=${KESTREL_CERT_PASS}
           - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/backend.pfx
         volumes:
         - ~\.aspnet\https:/https/
@@ -18,7 +18,7 @@ services:
     db:
         image: mcr.microsoft.com/mssql/server:2022-latest
         environment:
-            MSSQL_SA_PASSWORD: abcABC123!
+            MSSQL_SA_PASSWORD: ${MSSQL_SA_PASS}
             ACCEPT_EULA: Y
         volumes:
         - mssql-server-linux-data:/var/opt/mssql

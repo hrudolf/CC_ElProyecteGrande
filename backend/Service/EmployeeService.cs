@@ -105,7 +105,11 @@ public class EmployeeService : IEmployeeService
         employee!.EmployeeType = employeeType;
 
         employee.EmploymentStatus = updateEmployeeDto.EmploymentStatus;
-        employee.SalaryPerShift = updateEmployeeDto.MonthlyGrossSalary;
+        if (updateEmployeeDto.MonthlyGrossSalary != 0)
+        {
+            employee.SalaryPerShift = updateEmployeeDto.MonthlyGrossSalary;
+        }
+
         employee.IsActive = updateEmployeeDto.IsActive;
 
         _context.SaveChanges();

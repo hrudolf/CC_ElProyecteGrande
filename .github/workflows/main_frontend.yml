@@ -56,7 +56,7 @@ jobs:
       - name: Dependencies
         run: npm ci
         working-directory: frontend
-
+        
       - name: Build
         run: npm run build
         env:

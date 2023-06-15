@@ -45,9 +45,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
       working-directory: backend
-    - name: Build
-      run: dotnet build --no-restore
-      working-directory: backend
 
     - name: Login to DockerHub
       uses: docker/login-action@v2

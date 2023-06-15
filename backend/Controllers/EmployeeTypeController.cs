@@ -18,7 +18,7 @@ public class EmployeeTypeController : ControllerBase
         _service = service;
     }
 
-    [Authorize(Roles = "Admin, Accountant")]
+    [Authorize(Roles = "Admin, Accountant, Supervisor")]
     [HttpGet]
     public ActionResult<List<EmployeeType>> GetAllEmployeeTypes()
     {

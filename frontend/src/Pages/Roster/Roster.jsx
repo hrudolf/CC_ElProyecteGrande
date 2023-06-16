@@ -134,7 +134,7 @@ const Roster = () => {
                       rosterItem.employee.lastName}
                     {rosterItem.employee == null
                       ? ""
-                      : (type in rosterItem.employee.employeeType) ? rosterItem.employee.employeeType.type ===
+                      : ("type" in rosterItem.employee.employeeType) ? rosterItem.employee.employeeType.type ===
                         "Shift lead nurse"
                         ? " (Shift lead)"
                         : "" : ""}

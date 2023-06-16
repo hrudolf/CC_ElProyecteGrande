@@ -4,6 +4,23 @@
 This project was made in 14 short days by a team of three aspiring software developers studying at CodeCool. We had 4 sprints to do the project and before each sprint we had a week to familiarize ourselves with the concepts that we were about to implement in the upcoming sprint. For the backend we have learned and used ASP.NET Core, Entity Framework, Authentication, CI-CD, GitHub Actions, Docker and Docker Compose. For the frontend we've used React.
 
 The application tackles the problem of hospital employee scheduling. We aimed to build a compact platform that creates a roster that takes into account the preferences of the employees and some other constraints. During this short time period we have achieved a lot, but there is still a ton of work to be done.
+
+## The story
+
+Creating a roster for the medical task on paper is a painstaking task. Plenty of constraints and personal requests affect its final version. Also you have to prepare for unexpected situations like people swapping shifts or becoming ill. Beyond these you also have to take attendance and supply accounting colleagues with relevant information for forecasting and calculating payroll.
+
+A rostering app is a workforce management tool that allows you to electronically organize, manage, and communicate your employees' roster using a single platform. You and your employees can use the app to schedule and swap shifts, track time, manage overtime, reconcile timesheets and payroll, and forecast labor costs. This app goes beyond the responsibilities of a simple rostering app, it also supports taking attendance, supplies the payroll department with information and provides statistics.
+
+Major building blocks of the app:
+
+- employee
+- employee role
+- shift
+- roster
+- vacation request
+- attendance
+- labor cost forecast
+
 ## Run Locally
 
 There are two ways to run the project locally. We will document the easier way, which will make use of Docker.

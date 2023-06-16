@@ -134,10 +134,10 @@ const Roster = () => {
                       rosterItem.employee.lastName}
                     {rosterItem.employee == null
                       ? ""
-                      : rosterItem.employee.employeeType.type ===
+                      : (type in rosterItem.employee.employeeType) ? rosterItem.employee.employeeType.type ===
                         "Shift lead nurse"
                         ? " (Shift lead)"
-                        : ""}
+                        : "" : ""}
                   </td>
                   <td className="text-danger fw-bold">{rosterItem.warning}</td>
                   <td>

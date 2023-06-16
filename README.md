@@ -1,7 +1,7 @@
 
 # Green Rooster - An employee rostering application
 
-This project was made in 14 short days by a team of three aspiring software developers studying at CodeCool. We had 4 sprints to do the project and before each sprint we had a week to familiarize ourselves with the concepts that we were about to implement in the upcoming sprint. For the backend we have learned and used ASP.NET Core, Entity Framework, Authentication, CI-CD, GitHub Actions, Docker and Docker Compose. For the backend we used React.
+This project was made in 14 short days by a team of three aspiring software developers studying at CodeCool. We had 4 sprints to do the project and before each sprint we had a week to familiarize ourselves with the concepts that we were about to implement in the upcoming sprint. For the backend we have learned and used ASP.NET Core, Entity Framework, Authentication, CI-CD, GitHub Actions, Docker and Docker Compose. For the frontend we've used React.
 
 The application tackles the problem of hospital employee scheduling. We aimed to build a compact platform that creates a roster that takes into account the preferences of the employees and some other constraints. During this short time period we have achieved a lot, but there is still a ton of work to be done.
 ## Run Locally

@@ -19,29 +19,30 @@ const Roster = () => {
       .catch((err) => console.log(err));
   };
 
-  const GenerateWeeklyRoster = (rosterStartDate) => {
+  const GenerateWeeklyRoster = (event) => {
+    event.preventDefault();
     setLoading(true);
     fetch(`https://localhost:7124/api/Roster/GenerateWeeklyRoster`, {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(date),
-    }).then(() => {
-      console.log("Roster created");
-    });
-
-    setLoading(true);
-    fetch("https://localhost:7124/api/Roster", {
-      method: "GET",
-      credentials: "include",
     })
-      .then((res) => res.json())
-      .then((json) => {
-        setLoading(false);
-        setRosterList(json);
+      .then(() => {
+        console.log("Roster created");
       })
-      .catch((err) => console.log(err));
-    window.location.reload(true);
+      .then(() => {
+        fetch("https://localhost:7124/api/Roster", {
+          method: "GET",
+          credentials: "include",
+        })
+          .then((res) => res.json())
+          .then((json) => {
+            setLoading(false);
+            setRosterList(json);
+          })
+          .catch((err) => console.log(err));
+      });
   };
 
   const DeleteRosterItem = (rosterId) => {
@@ -89,7 +90,7 @@ const Roster = () => {
       >
         <button
           className="btn btn-warning m-2"
-          onClick={(e) => GenerateWeeklyRoster(date)}
+          onClick={(e) => GenerateWeeklyRoster(e)}
         >
           Generate roster
         </button>{" "}

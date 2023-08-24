@@ -150,10 +150,13 @@ public class RosterService : IRosterService
     public List<Forecast> WeeklyForeCast()
     {
         List<Forecast> forecast = new List<Forecast>();
-        
+
         List<Roster> rosters = _context.Rosters
             .Include(roster => roster.Employee)
             .ToList();
+
+        if (rosters.Count < 1) return forecast;
+        
         DateTime firstDay = rosters.Select(r => r.Date).Min();
         DateTime lastDay = rosters.Select(r => r.Date).Max();
 

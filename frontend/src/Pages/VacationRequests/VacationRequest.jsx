@@ -12,7 +12,7 @@ const VacationRequest = () => {
   const navigate = useNavigate();
 
   const ChangeRequestApproval = (requestId) => {
-    fetch(process.env.REACT_APP_APIURL + `/api/VacationRequest/${requestId}`, {
+    fetch(`https://localhost:7124/api/VacationRequest/${requestId}`, {
       method: "PATCH",
       credentials: "include",
     })
@@ -26,7 +26,7 @@ const VacationRequest = () => {
   };
 
   const DeleteRequest = (requestId) => {
-    fetch(process.env.REACT_APP_APIURL + `/api/VacationRequest/${requestId}`, {
+    fetch(`https://localhost:7124/api/VacationRequest/${requestId}`, {
       method: "DELETE",
       credentials: "include",
     })
@@ -45,7 +45,7 @@ const VacationRequest = () => {
     setLoading(true);
     setMessage("");
     setError("");
-    fetch(process.env.REACT_APP_APIURL + "/api/VacationRequest", {
+    fetch("https://localhost:7124/api/VacationRequest", {
       method: "GET",
       credentials: "include",
     })
@@ -92,7 +92,11 @@ const VacationRequest = () => {
                       <td>{request.employee.firstName}</td>
                       <td>{request.employee.lastName}</td>
                       <td>{request.employee.totalVacationDays}</td>
-                      <td>{request.employee.employeeType === null ? "N/A" : request.employee.employeeType.type}</td>
+                      <td>
+                        {request.employee.employeeType === null
+                          ? "N/A"
+                          : request.employee.employeeType.type}
+                      </td>
                       <td>{request.startDate.slice(0, 10)}</td>
                       <td>{request.endDate.slice(0, 10)}</td>
                       <td>{request.isApproved ? "Yes" : "No"}</td>
@@ -136,13 +140,13 @@ const VacationRequest = () => {
           </div>
         )}
 
-          <button
+        <button
           className="btn btn-primary w-auto mt-2"
           onClick={() => navigate("/vacationrequests/create")}
           disabled={loading}
-          >
-            Add a new request
-          </button>
+        >
+          Add a new request
+        </button>
       </div>
       {loading && (
         <div>

@@ -7,7 +7,7 @@ const Roster = () => {
   const [date, setDate] = useState();
 
   const ChangeAttendance = (rosterId) => {
-    fetch(process.env.REACT_APP_APIURL + `/api/Roster/${rosterId}`, {
+    fetch(`https://localhost:7124/api/Roster/${rosterId}`, {
       method: "PATCH",
       credentials: "include",
     })
@@ -21,7 +21,7 @@ const Roster = () => {
 
   const GenerateWeeklyRoster = (rosterStartDate) => {
     setLoading(true);
-    fetch(process.env.REACT_APP_APIURL + `/api/Roster/GenerateWeeklyRoster`, {
+    fetch(`https://localhost:7124/api/Roster/GenerateWeeklyRoster`, {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
@@ -31,7 +31,7 @@ const Roster = () => {
     });
 
     setLoading(true);
-    fetch(process.env.REACT_APP_APIURL + "/api/Roster", {
+    fetch("https://localhost:7124/api/Roster", {
       method: "GET",
       credentials: "include",
     })
@@ -45,7 +45,7 @@ const Roster = () => {
   };
 
   const DeleteRosterItem = (rosterId) => {
-    fetch(process.env.REACT_APP_APIURL + `/api/Roster/${rosterId}`, {
+    fetch(`https://localhost:7124/api/Roster/${rosterId}`, {
       method: "DELETE",
       credentials: "include",
     })
@@ -59,7 +59,7 @@ const Roster = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(process.env.REACT_APP_APIURL + "/api/Roster", {
+    fetch("https://localhost:7124/api/Roster", {
       method: "GET",
       credentials: "include",
     })

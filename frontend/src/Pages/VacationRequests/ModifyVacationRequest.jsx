@@ -11,29 +11,31 @@ const ModifyVacationRequest = () => {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const { user } = useContext(UserContext);
-  
+
   const navigate = useNavigate();
   const { id } = useParams();
 
   const [request, setRequest] = useState({
     employeeId: "",
     startDate: "",
-    endDate: ""
+    endDate: "",
   });
-
 
   useEffect(() => {
     setLoading(true);
     setMessage("");
     setError("");
 
-    fetch(process.env.REACT_APP_APIURL + `/api/VacationRequest/${id}`, {
+    fetch(`https://localhost:7124/api/VacationRequest/${id}`, {
       method: "GET",
-      credentials: "include"
+      credentials: "include",
     })
       .then((res) => res.json())
       .then((json) => {
-        if (user.id === json.employee.id || ["Admin", "Accountant", "Supervisor"].includes(user.role)) {
+        if (
+          user.id === json.employee.id ||
+          ["Admin", "Accountant", "Supervisor"].includes(user.role)
+        ) {
           setRequest(json);
         } else {
           navigate("/vacationrequests");
@@ -49,7 +51,7 @@ const ModifyVacationRequest = () => {
     setMessage("");
     setError("");
 
-    const url = process.env.REACT_APP_APIURL + "/api/VacationRequest";
+    const url = "https://localhost:7124/api/VacationRequest";
     const fetchMethod = "PUT";
     const headers = { "Content-Type": "application/json" };
     console.log(request);
@@ -76,7 +78,6 @@ const ModifyVacationRequest = () => {
     setRequest(requestCopy);
   };
 
-
   return (
     <div className="container bg-light w-50 p-2">
       <h1 className="text-center">Change Request Details</h1>
@@ -95,7 +96,9 @@ const ModifyVacationRequest = () => {
                     name="startDate"
                     id="startDate"
                     value={request.startDate.slice(0, 10)}
-                    onChange={(e) => updateProperty(e.target.value, "startDate")}
+                    onChange={(e) =>
+                      updateProperty(e.target.value, "startDate")
+                    }
                     required
                   />
                 </Col>
@@ -121,7 +124,6 @@ const ModifyVacationRequest = () => {
                 </Col>
               </Row>
             </div>
-
 
             <div className="buttons">
               <button

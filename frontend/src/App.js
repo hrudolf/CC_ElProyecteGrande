@@ -28,7 +28,7 @@ const App = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
+    setLoading(false);
 
     async function fetchData() {
       const response = await fetch(process.env.REACT_APP_APIURL + "/login", {

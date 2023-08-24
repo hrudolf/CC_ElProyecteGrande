@@ -8,7 +8,7 @@ const Forecast = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(process.env.REACT_APP_APIURL + "/api/Roster/forecast", {
+    fetch("https://localhost:7124/api/Roster/forecast", {
       method: "GET",
       credentials: "include",
     })

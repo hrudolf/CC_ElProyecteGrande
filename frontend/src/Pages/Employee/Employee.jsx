@@ -15,8 +15,7 @@ const Employee = () => {
 
   const DeleteEmployee = (employeeId) => {
     fetch(
-      process.env.REACT_APP_APIURL +
-        `/api/Employee/temporary-delete/${employeeId}`,
+      `"https://localhost:7124/api/Employee/temporary-delete/${employeeId}`,
       {
         method: "PATCH",
         credentials: "include",
@@ -36,7 +35,7 @@ const Employee = () => {
     setLoading(true);
     setMessage("");
     setError("");
-    fetch(process.env.REACT_APP_APIURL + "/api/employee/active", {
+    fetch("https://localhost:7124/api/Employee", {
       method: "GET",
       credentials: "include",
     })
@@ -47,7 +46,7 @@ const Employee = () => {
       })
       .catch((err) => setError(err));
 
-    fetch(process.env.REACT_APP_APIURL + `/api/VacationRequest/`, {
+    fetch(`https://localhost:7124/api/VacationRequest/`, {
       method: "GET",
       credentials: "include",
     })

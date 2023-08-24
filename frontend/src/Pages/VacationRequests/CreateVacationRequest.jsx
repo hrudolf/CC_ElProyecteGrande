@@ -14,7 +14,7 @@ const CreateVacationRequest = () => {
   const [request, setRequest] = useState({
     employeeId: user === null ? "" : user.id,
     startDate: "",
-    endDate: ""
+    endDate: "",
   });
 
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ const CreateVacationRequest = () => {
     setMessage("");
     setError("");
 
-    const url = process.env.REACT_APP_APIURL + "/api/VacationRequest";
+    const url = "https://localhost:7124/api/VacationRequest";
     const fetchMethod = "POST";
     const headers = { "Content-Type": "application/json" };
     console.log(request);
@@ -47,9 +47,9 @@ const CreateVacationRequest = () => {
   };
 
   const updateProperty = (input, id) => {
-      const requestCopy = JSON.parse(JSON.stringify(request));
-      requestCopy[id] = input;
-      setRequest(requestCopy);
+    const requestCopy = JSON.parse(JSON.stringify(request));
+    requestCopy[id] = input;
+    setRequest(requestCopy);
   };
 
   return (
@@ -58,24 +58,28 @@ const CreateVacationRequest = () => {
       <div className="container align-items-left w-75">
         {!message && (
           <form className="UserForm" onSubmit={postRequest}>
-            {user !== null && ["Admin", "Supervisor"].includes(user.role) && <div className="row no-gutters w-100">
-              <Row>
-                <Col>
-                  <label htmlFor="employeeId">Employee Id:</label>
-                </Col>
-                <Col>
-                  <input
-                    className="w-100"
-                    type="int"
-                    name="employeeId"
-                    id="employeeId"
-                    value={request.employeeId}
-                    onChange={(e) => updateProperty(e.target.value, "employeeId")}
-                    required
-                  />
-                </Col>
-              </Row>
-            </div>}
+            {user !== null && ["Admin", "Supervisor"].includes(user.role) && (
+              <div className="row no-gutters w-100">
+                <Row>
+                  <Col>
+                    <label htmlFor="employeeId">Employee Id:</label>
+                  </Col>
+                  <Col>
+                    <input
+                      className="w-100"
+                      type="int"
+                      name="employeeId"
+                      id="employeeId"
+                      value={request.employeeId}
+                      onChange={(e) =>
+                        updateProperty(e.target.value, "employeeId")
+                      }
+                      required
+                    />
+                  </Col>
+                </Row>
+              </div>
+            )}
 
             <div className="row no-gutters w-100">
               <Row>
@@ -89,7 +93,9 @@ const CreateVacationRequest = () => {
                     name="startDate"
                     id="startDate"
                     value={request.startDate}
-                    onChange={(e) => updateProperty(e.target.value, "startDate")}
+                    onChange={(e) =>
+                      updateProperty(e.target.value, "startDate")
+                    }
                     required
                   />
                 </Col>

@@ -9,9 +9,9 @@ const MyShifts = () => {
   const { user } = useContext(UserContext);
 
   useEffect(() => {
-    fetch(process.env.REACT_APP_APIURL + `/api/Roster/employee/${user.id}`, {
+    fetch(`https://localhost:7124/api/Roster/employee/${user.id}`, {
       method: "GET",
-      credentials: "include"
+      credentials: "include",
     })
       .then((res) => res.json())
       .then((json) => {

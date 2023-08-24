@@ -30,9 +30,9 @@ const CreateEmployee = () => {
     setMessage("");
     setError("");
 
-    fetch(process.env.REACT_APP_APIURL + "/api/employeetype", {
+    fetch("https://localhost:7124/api/EmployeeType", {
       method: "GET",
-      credentials: "include"
+      credentials: "include",
     })
       .then((res) => res.json())
       .then((json) => {
@@ -47,9 +47,9 @@ const CreateEmployee = () => {
     setMessage("");
     setError("");
 
-    fetch(process.env.REACT_APP_APIURL + "/api/Shift", {
+    fetch("https://localhost:7124/api/Shift", {
       method: "GET",
-      credentials: "include"
+      credentials: "include",
     })
       .then((res) => res.json())
       .then((json) => {
@@ -65,7 +65,7 @@ const CreateEmployee = () => {
     setMessage("");
     setError("");
 
-    const url = process.env.REACT_APP_APIURL + "/api/Employee";
+    const url = "https://localhost:7124/api/Employee";
     const fetchMethod = "POST";
     const headers = { "Content-Type": "application/json" };
     console.log(employee);
@@ -90,11 +90,11 @@ const CreateEmployee = () => {
     const employeeCopy = JSON.parse(JSON.stringify(employee));
 
     if (key === "employeeType") {
-      input = employeeTypeList.find(e => e.id === +input);
+      input = employeeTypeList.find((e) => e.id === +input);
     }
 
     if (key === "preferredShift") {
-      input = shiftList.find(e => e.id === +input);
+      input = shiftList.find((e) => e.id === +input);
     }
 
     employeeCopy[key] = input;
@@ -121,7 +121,9 @@ const CreateEmployee = () => {
                     name="firstname"
                     id="firstname"
                     value={employee.firstName}
-                    onChange={(e) => updateProperty(e.target.value, "firstName")}
+                    onChange={(e) =>
+                      updateProperty(e.target.value, "firstName")
+                    }
                     required
                   />
                 </Col>
@@ -161,7 +163,9 @@ const CreateEmployee = () => {
                     min="1920-01-01"
                     max="2023-05-05"
                     value={employee.dateOfBirth.slice(0, 10)}
-                    onChange={(e) => updateProperty(e.target.value, "dateOfBirth")}
+                    onChange={(e) =>
+                      updateProperty(e.target.value, "dateOfBirth")
+                    }
                   />
                 </Col>
               </Row>
@@ -178,15 +182,20 @@ const CreateEmployee = () => {
                     className="w-100"
                     id="shift"
                     value={employee.preferredShift.id}
-                    onChange={(e) => updateProperty(e.target.value, "preferredShift")}
+                    onChange={(e) =>
+                      updateProperty(e.target.value, "preferredShift")
+                    }
                     required
                   >
-                    <option value="" disabled selected>Select preferred shift</option>
-                    {shiftList && shiftList.map((opt) => (
-                      <option key={opt.id} value={opt.id}>
-                        {opt.nameOfShift}
-                      </option>
-                    ))}
+                    <option value="" disabled selected>
+                      Select preferred shift
+                    </option>
+                    {shiftList &&
+                      shiftList.map((opt) => (
+                        <option key={opt.id} value={opt.id}>
+                          {opt.nameOfShift}
+                        </option>
+                      ))}
                   </select>
                 </Col>
               </Row>
@@ -204,7 +213,9 @@ const CreateEmployee = () => {
                     name="workdays"
                     id="workdays"
                     value={employee.workingDays}
-                    onChange={(e) => updateProperty(e.target.value, "workingDays")}
+                    onChange={(e) =>
+                      updateProperty(e.target.value, "workingDays")
+                    }
                     required
                   />
                 </Col>
@@ -223,7 +234,9 @@ const CreateEmployee = () => {
                     name="vacation"
                     id="vacation"
                     value={employee.totalVacationDays}
-                    onChange={(e) => updateProperty(e.target.value, "totalVacationDays")}
+                    onChange={(e) =>
+                      updateProperty(e.target.value, "totalVacationDays")
+                    }
                     required
                   />
                 </Col>
@@ -241,15 +254,20 @@ const CreateEmployee = () => {
                     className="w-100"
                     id="employeeType"
                     value={employee.employeeType.id}
-                    onChange={(e) => updateProperty(e.target.value, "employeeType")}
+                    onChange={(e) =>
+                      updateProperty(e.target.value, "employeeType")
+                    }
                     required
                   >
-                    <option value="" disabled selected>Select employee role</option>
-                    {employeeTypeList && employeeTypeList.map((opt) => (
-                      <option key={opt.id} value={opt.id}>
-                        {opt.type}
-                      </option>
-                    ))}
+                    <option value="" disabled selected>
+                      Select employee role
+                    </option>
+                    {employeeTypeList &&
+                      employeeTypeList.map((opt) => (
+                        <option key={opt.id} value={opt.id}>
+                          {opt.type}
+                        </option>
+                      ))}
                   </select>
                 </Col>
               </Row>
@@ -267,7 +285,9 @@ const CreateEmployee = () => {
                     name="salary"
                     id="salary"
                     value={employee.monthlyGrossSalary}
-                    onChange={(e) => updateProperty(e.target.value, "monthlyGrossSalary")}
+                    onChange={(e) =>
+                      updateProperty(e.target.value, "monthlyGrossSalary")
+                    }
                     required
                   />
                 </Col>
